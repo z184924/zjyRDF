@@ -1,0 +1,54 @@
+Configuration:
+  status: warn
+
+  Properties: # 定义全局变量
+    Property: # 缺省配置（用于开发环境）。其他环境需要在VM参数中指定，如下：
+      - name: log.level.console
+        value: debug
+      - name: log.path
+        value: /logs
+      - name: project.name
+        value: zjyFDD
+
+  Appenders:
+    Console:  #输出到控制台
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS}:%4p %t (%F:%L) - %m%n"
+      ThresholdFilter:
+        level: ${sys:log.level.console} # “sys:”表示：如果VM参数中没指定这个变量值，则使用本文件中定义的缺省全局变量值
+        onMatch: ACCEPT
+        onMismatch: DENY
+    RollingFile: # 输出到文件
+      - name: ROLLING_FILE
+        ignoreExceptions: false
+        fileName: ${log.path}/${project.name}/${project.name}.log
+        filePattern: "${log.path}/${project.name}/${project.name}-%d{yyyy-MM-dd}-%i.log"
+        PatternLayout:
+          pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS}:%4p %t (%F:%L) - %m%n"
+        Policies:
+          SizeBasedTriggeringPolicy: #基于文件大小归档策略
+            size: "128 MB"
+          TimeBasedTriggeringPolicy: #基于时间的归档策略,interval步长值以filePattern中%d{yyyy-MM-dd}精度为单位
+            interval: 1
+            modulate: true
+        DefaultRolloverStrategy: #设置符合同个filePath的日志文件的最大数量，超过这个数量时，新产生的日志文件会覆盖旧的日志文件，没有设置时，默认值为7
+          max: 1000
+
+  Loggers:
+    Root:
+      level: debug
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: ROLLING_FILE
+    Logger: # 为部分包配置特殊的Log级别，方便调试
+          - name: org.springframework.jdbc
+          - name: org.apache.ibatis.logging.log4j2
+          - name: org.apache.ibatis.logging.jdbc
+          - name: org.mybatis
+            additivity: false
+            level: debug
+            AppenderRef:
+              - ref: CONSOLE
+              - ref: ROLLING_FILE

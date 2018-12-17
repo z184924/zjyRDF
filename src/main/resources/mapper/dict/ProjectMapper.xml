@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProjectMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="PageData">
+		insert into project(
+			project,
+			projectName,
+			dangerDataUrl,
+			city,
+			cityName,
+			id
+        ) values (
+			#{project},
+			#{projectName},
+			#{dangerDataUrl},
+			#{city},
+			#{cityName},
+			#{id}
+        )
+    </insert>
+
+
+    <!-- 删除-->
+    <delete id="delete" parameterType="PageData">
+        delete from project
+        where
+		id= #{id}
+    </delete>
+
+
+    <!-- 修改 -->
+    <update id="edit" parameterType="PageData">
+        update  project
+        set
+				project = #{project},
+				projectName = #{projectName},
+				dangerDataUrl = #{dangerDataUrl},
+				city = #{city},
+				cityName = #{cityName},
+				id= id
+        where
+		id= #{id}
+    </update>
+
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="PageData" resultType="PageData">
+        select
+			a.project,
+			a.projectName,
+			a.dangerDataUrl,
+			a.city,
+			a.cityName,
+			a.id
+        from
+        	project a
+        where
+			a.id= #{id}
+    </select>
+
+
+    <!-- 列表 -->
+    <select id="datalistPage" parameterType="page" resultType="PageData">
+        select
+			a.project,
+			a.projectName,
+			a.dangerDataUrl,
+			a.city,
+			a.cityName,
+			a.id
+        from
+        	project a
+    </select>
+
+    <!-- 列表(全部) -->
+    <select id="listAll" parameterType="PageData" resultType="PageData">
+        select
+			a.project,
+			a.projectName,
+			a.dangerDataUrl,
+			a.city,
+			a.cityName,
+			a.id
+        from
+        	project a
+    </select>
+
+	<select id="listAllCity" parameterType="PageData" resultType="PageData">
+		SELECT
+			p.cityName
+		FROM
+			project p
+		GROUP BY
+			p.cityName
+	</select>
+    <!-- 批量删除 -->
+    <delete id="deleteAll" parameterType="String">
+        delete from project
+        where
+			a.id
+		in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+		#{item}
+        </foreach>
+    </delete>
+
+</mapper>
