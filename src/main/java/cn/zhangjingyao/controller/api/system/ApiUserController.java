@@ -5,6 +5,9 @@ import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.service.dict.DangerService;
 import cn.zhangjingyao.service.system.user.UserService;
 import com.github.pagehelper.PageInfo;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.identity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +26,8 @@ public class ApiUserController extends BaseController {
 
 	@Resource
 	private UserService userService;
+	@Autowired
+	private IdentityService identityService;
 
 	
 	/**
@@ -33,12 +38,14 @@ public class ApiUserController extends BaseController {
 	public String save() throws Exception{
 		logBefore(logger, "新增User");
 		PageData pd = this.getPageData();
-		this.userService.save(pd);
+//		this.userService.save(pd);
 //		for(int i=0;i<3;i++){
 //			List<PageData> list =new ArrayList<>();
 //			list.add(pd);
 //			this.userService.save(list);
 //		}
+		User user = identityService.newUser(pd.getString("account"));
+		identityService.saveUser(user);
 		return this.jsonContent("success", "保存成功");
 	}
 	
