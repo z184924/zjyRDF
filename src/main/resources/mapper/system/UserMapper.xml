@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="UserMapper">
-	<sql id="userColumns">USER_ID,USERNAME,PASSWORD,NAME,COMPANY_ID,ISADMIN,SORTNUM,LAST_LOGIN,STATE</sql>
+	<sql id="userColumns">userId,account,password,userName</sql>
 	<!-- 将vo实体类转换为映射文件 ，因为在mybatis-config的配置文件中已经用了别名，因此这里可以这样写：type="User"-->
 	
 	<resultMap type="cn.zhangjingyao.entity.system.User" id="userResultMap">
