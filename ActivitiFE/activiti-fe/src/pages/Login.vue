@@ -56,6 +56,7 @@ export default {
     }
   },
   mounted() {
+    console.log(process.env.NODE_ENV)
     const that = this
     window.onresize = () => {
       return (() => {
