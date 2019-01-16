@@ -14,13 +14,8 @@ export default {
     mixLogin(inputAccount, inputPassword) {
       var account;
       var password;
-      if (!inputAccount) {
-        account = localStorage.getItem("account");
-        password = localStorage.getItem("password");
-      } else {
-        account = inputAccount;
-        password = inputPassword;
-      }
+      account = inputAccount;
+      password = inputPassword;
       // console.log(username);
       return new Promise((resolve, reject) => {
         this.mixPost("api/login", {
@@ -41,14 +36,15 @@ export default {
           localStorage.setItem("currentUser", JSON.stringify(currentUser));
           resolve(res);
         }).catch(res => {
-          this.$router.replace("/login");
+          this.$router.replace("/");
           reject(res);
         });
       })
     },
     mixLogout() {
       this.$store.commit("logout");
-      this.xpost("api/logout");
+      this.mixPost("api/logout");
+      this.$router.replace("/");
     },
     mixPost(api, data = {}, param = {}) {
       if (param.isShowLoading === undefined) {
@@ -85,19 +81,13 @@ export default {
                   vue.mixLogin();
                 } else {
                   vue.$store.commit("logout");
-                  vue.$router.replace("/login")
+                  vue.$router.replace("/")
                 }
               }
               if (res.state != "success") {
                 reject(res.state);
                 vue.$alert(res.message, res.state, {
-                  confirmButtonText: '确定',
-                  callback: action => {
-                    vue.$message({
-                      type: 'error',
-                      message: `action: ${ action }`
-                    });
-                  }
+                  confirmButtonText: '确定'
                 });
               }else{
                 resolve(res);

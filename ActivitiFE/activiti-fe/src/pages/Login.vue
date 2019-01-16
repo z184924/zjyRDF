@@ -52,11 +52,14 @@ export default {
   },
   methods: {
     login(){
-      this.mixLogin(this.account,this.password)
+      this.mixLogin(this.account,this.password).then(()=>{
+        this.$router.replace("/index");
+      }).catch(()=>{})
     }
   },
   mounted() {
-    console.log(process.env.NODE_ENV)
+    this.account=localStorage.account;
+    this.password=localStorage.password;
     const that = this
     window.onresize = () => {
       return (() => {
