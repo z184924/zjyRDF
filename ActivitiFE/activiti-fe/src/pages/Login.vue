@@ -2,14 +2,16 @@
   <div>
     <el-container>
       <el-header style="background-color:#67C23A;height:60px;">
-
+        <div style="margin-top:15px;font-size:20px;color:#FFF">
+          Activiti
+        </div>
       </el-header>
       <el-main style="background-color:#EBEEF5" v-bind:style="{height:mainHeight+'px'}">
         <div style="margin-top:1%;background-color:#FFF; width:30%;margin-left:33%;border:2px solid #DCDFE6;border-radius:25px; padding:3%">
           <div style="text-align:center;margin-bottom:5%">
-            <img src="../../build/logo.png" style="width:100px">
+            <img src="../assets/logo.png" style="width:100px">
           </div>
-          <div style="text-align:center;margin-bottom:5%;font-size:20px">
+          <div style="text-align:center;margin-bottom:5%;font-size:20px" @click="login">
             登&nbsp;&nbsp;&nbsp;&nbsp;录
           </div>
           <div style="width:80%;margin-left:13%;">
@@ -25,12 +27,14 @@
           </div>
           <br>
           <div style="width:70%;margin-left:14%;">
-            <el-button type="success" style="width:100%">登录</el-button>
+            <el-button type="success" style="width:100%" @click="login">登录</el-button>
           </div>
         </div>
       </el-main>
       <el-footer style="background-color:#909399;height:60px;">
-
+        <div style="margin-top:15px;text-align:center;font-size:20px;color:#606266">
+          Powered by zjy
+        </div>
       </el-footer>
     </el-container>
   </div>
@@ -47,7 +51,9 @@ export default {
     }
   },
   methods: {
-
+    login(){
+      this.mixLogin(this.account,this.password)
+    }
   },
   mounted() {
     const that = this
