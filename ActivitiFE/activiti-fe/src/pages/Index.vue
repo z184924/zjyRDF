@@ -11,43 +11,34 @@
       <el-main style="padding:0px" v-bind:style="{height:mainHeight+'px'}">
         <el-container style="padding:0px;height:100%;">
           <el-aside width="auto">
-            <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">
+            <el-button :icon="menuStateButtonIcon" @click="changeMenuState"></el-button>
+            <el-menu default-active="1-2" class="el-menu-vertical-demo" :collapse="isCollapse">
               <el-submenu index="1">
                 <template slot="title">
-                  <i class="el-icon-location"></i>
-                  <span slot="title">导航一</span>
+                  <i class="el-icon-tickets"></i>
+                  <span slot="title">流程管理</span>
                 </template>
                 <el-menu-item-group>
-                  <span slot="title">分组一</span>
-                  <el-menu-item index="1-1">选项1</el-menu-item>
-                  <el-menu-item index="1-2">选项2</el-menu-item>
+                  <el-menu-item index="1-1" @click="addTab('新建流程','1-1','新建流程')">新建流程</el-menu-item>
+                  <el-menu-item index="1-2" @click="addTab('我的任务','1-2','我的任务')">我的任务</el-menu-item>
                 </el-menu-item-group>
-                <el-menu-item-group title="分组2">
-                  <el-menu-item index="1-3">选项3</el-menu-item>
-                </el-menu-item-group>
-                <el-submenu index="1-4">
-                  <span slot="title">选项4</span>
-                  <el-menu-item index="1-4-1">选项1</el-menu-item>
-                </el-submenu>
               </el-submenu>
-              <el-menu-item index="2">
-                <i class="el-icon-menu"></i>
-                <span slot="title">导航二</span>
-              </el-menu-item>
-              <el-menu-item index="3" disabled>
-                <i class="el-icon-document"></i>
-                <span slot="title">导航三</span>
-              </el-menu-item>
-              <el-menu-item index="4">
-                <i class="el-icon-setting"></i>
-                <span slot="title">导航四</span>
-              </el-menu-item>
+              <el-submenu index="2">
+                <template slot="title">
+                  <i class="el-icon-setting"></i>
+                  <span slot="title">系统管理</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="2-1" @click="addTab('人员管理','2-1','人员管理')">人员管理</el-menu-item>
+                  <el-menu-item index="2-2" @click="addTab('分组管理','2-2','分组管理')">分组管理</el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
             </el-menu>
           </el-aside>
           <el-main>
             <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
               <el-tab-pane v-for="(item) in editableTabs" :key="item.name" :label="item.title" :name="item.name">
-                {{item.content}}
+                <component :is="item.content"></component>
               </el-tab-pane>
             </el-tabs>
           </el-main>
@@ -67,39 +58,45 @@ export default {
   data() {
     return {
       isCollapse: false,
-      editableTabsValue: '2',
+      menuStateButtonIcon:'el-icon-d-arrow-left',
+      editableTabsValue: '1-2',
       editableTabs: [
         {
-          title: 'Tab 1',
-          name: '1',
-          content: 'Tab 1 content'
+          title: '我的任务',
+          name: '1-2',
+          content: '我的任务'
         },
-        {
-          title: 'Tab 2',
-          name: '2',
-          content: 'Tab 2 content'
-        }
       ],
-      tabIndex: 2,
       screenWidth: document.body.clientWidth,
       mainHeight: $(window).height() - 60 - 60 - 16
     }
   },
   methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+    changeMenuState(){
+      this.isCollapse=(!this.isCollapse)
+      if(this.menuStateButtonIcon=='el-icon-d-arrow-left'){
+        this.menuStateButtonIcon='el-icon-d-arrow-right'
+      }else{
+        this.menuStateButtonIcon='el-icon-d-arrow-left'
+      }
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    addTab(targetName) {
-      let newTabName = ++this.tabIndex + '';
-      this.editableTabs.push({
-        title: 'New Tab',
-        name: newTabName,
-        content: 'New Tab content'
+    addTab(title,targetName,content) {
+      let sameFlag=false
+      this.editableTabs.forEach(element => {
+        if(element.name==targetName){
+          sameFlag=true         
+        }
       });
-      this.editableTabsValue = newTabName;
+      if(sameFlag){
+        this.editableTabsValue = targetName;
+        return
+      }
+      this.editableTabs.push({
+        title: title,
+        name: targetName,
+        content: content
+      });
+      this.editableTabsValue = targetName;
     },
     removeTab(targetName) {
       let tabs = this.editableTabs;
@@ -114,7 +111,6 @@ export default {
           }
         });
       }
-      
       this.editableTabsValue = activeName;
       this.editableTabs = tabs.filter(tab => tab.name !== targetName);
     },
