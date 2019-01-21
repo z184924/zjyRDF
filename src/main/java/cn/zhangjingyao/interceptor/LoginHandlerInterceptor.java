@@ -82,6 +82,7 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
 	private void writeJson(HttpServletResponse response, String JsonStr) {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=utf-8");
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		PrintWriter out = null;
 		try {
 			out = response.getWriter();

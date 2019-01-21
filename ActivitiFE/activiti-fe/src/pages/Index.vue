@@ -19,7 +19,7 @@
                   <span slot="title">流程管理</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="1-1" @click="addTab('新建流程','1-1','新建流程')">新建流程</el-menu-item>
+                  <el-menu-item index="1-1" @click="addTab('新建流程','1-1','start-process')">新建流程</el-menu-item>
                   <el-menu-item index="1-2" @click="addTab('我的任务','1-2','我的任务')">我的任务</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
@@ -54,7 +54,11 @@
 </template>
 <script>
 import $ from "jquery"
+import StartProcess from "@/components/StartProcess"
 export default {
+  components:{
+    StartProcess
+  },
   data() {
     return {
       isCollapse: false,
