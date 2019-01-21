@@ -20,7 +20,7 @@
                 </template>
                 <el-menu-item-group>
                   <el-menu-item index="1-1" @click="addTab('新建流程','1-1','start-process')">新建流程</el-menu-item>
-                  <el-menu-item index="1-2" @click="addTab('我的任务','1-2','我的任务')">我的任务</el-menu-item>
+                  <el-menu-item index="1-2" @click="addTab('我的任务','1-2','my-task')">我的任务</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="2">
@@ -55,22 +55,18 @@
 <script>
 import $ from "jquery"
 import StartProcess from "@/components/StartProcess"
+import MyTask from "@/components/MyTask"
 export default {
   components:{
-    StartProcess
+    StartProcess,
+    MyTask
   },
   data() {
     return {
       isCollapse: false,
       menuStateButtonIcon:'el-icon-d-arrow-left',
-      editableTabsValue: '1-2',
-      editableTabs: [
-        {
-          title: '我的任务',
-          name: '1-2',
-          content: '我的任务'
-        },
-      ],
+      editableTabsValue: '',
+      editableTabs: [],
       screenWidth: document.body.clientWidth,
       mainHeight: $(window).height() - 60 - 60 - 16
     }
@@ -123,6 +119,7 @@ export default {
     }
   },
   mounted() {
+    this.addTab('我的任务','1-2','my-task')
     const that = this
     window.onresize = () => {
       return (() => {

@@ -109,5 +109,8 @@ export default {
       url += api;
       return url;
     },
+    mixTimeStamp2String(timeStamp,format){
+      return moment(timeStamp).format(format)
+    }
   }
 }
