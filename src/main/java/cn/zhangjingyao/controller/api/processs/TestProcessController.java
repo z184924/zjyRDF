@@ -85,6 +85,26 @@ public class TestProcessController extends BaseController {
         resultMap.put("taskList",resultList);
         return this.jsonContent("success",resultMap);
     }
+    @ResponseBody
+    @RequestMapping(value = "/getTaskInfo", produces = "application/json;charset=UTF-8")
+    public String getTaskInfo() throws Exception {
+        logBefore(logger, "查询任务");
+        User currentUser = this.getCurrentUser();
+        PageData pageData = this.getPageData();
+        List<Task> taskList = taskService.createTaskQuery().taskId(pageData.getString("taskId")).list();
+        List<PageData> resultList = new ArrayList<>();
+        PageData task=new PageData();
+        if(taskList!=null&&!taskList.isEmpty()){
+            Task t=taskList.get(0);
+            task.put("id",t.getId());
+            task.put("name",t.getName());
+            task.put("createTime",t.getCreateTime());
+            task.put("formProperties",formService.getTaskFormData(t.getId()).getFormProperties());
+        }
+        PageData resultMap=new PageData();
+        resultMap.put("taskInfo",task);
+        return this.jsonContent("success",resultMap);
+    }
 
     @ResponseBody
     @RequestMapping(value = "/startProcess", produces = "application/json;charset=UTF-8")

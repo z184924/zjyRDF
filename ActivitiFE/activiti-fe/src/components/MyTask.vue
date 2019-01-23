@@ -16,6 +16,11 @@
           {{mixTimeStamp2String(scope.row.createTime,'YYYY-MM-DD HH:mm:ss')}}
         </template>
       </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button size="mini" type="primary" @click="detail(scope.row.id,scope.row.name)">查看</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -31,5 +36,19 @@ export default {
       this.taskList=res.data.taskList;
     })
   },
+  methods:{
+    detail(id,name){
+      let tab={
+        title:name,
+        name:id,
+        content:'detial-task',
+        parameter:{
+          tabName:id,
+          taskId:id,
+        }
+      }
+      this.$emit("openSubTab",tab);
+    }
+  }
 }
 </script>

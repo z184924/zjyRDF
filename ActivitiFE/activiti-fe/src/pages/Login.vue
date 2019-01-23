@@ -64,16 +64,11 @@ export default {
     window.onresize = () => {
       return (() => {
         window.screenWidth = document.body.clientWidth
+        this.mainHeight = $(window).height() - 60 - 60 - 16
         that.screenWidth = window.screenWidth
       })()
     }
   },
-  watch: {
-    screenWidth: function () {
-      this.mainHeight = $(window).height() - 60 - 60 - 16
-      return document.body.clientWidth
-    }
-  }
 }
 </script>
 <style>

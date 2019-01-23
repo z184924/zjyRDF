@@ -38,7 +38,7 @@
           <el-main>
             <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
               <el-tab-pane v-for="(item) in editableTabs" :key="item.name" :label="item.title" :name="item.name">
-                <component :is="item.content"></component>
+                <component :is="item.content" v-bind:parameter="item.parameter" @openSubTab="openSubTab" @closeSelfTab="closeSelfTab"></component>
               </el-tab-pane>
             </el-tabs>
           </el-main>
@@ -56,10 +56,12 @@
 import $ from "jquery"
 import StartProcess from "@/components/StartProcess"
 import MyTask from "@/components/MyTask"
+import DetialTask from "@/components/DetialTask"
 export default {
   components:{
     StartProcess,
-    MyTask
+    MyTask,
+    DetialTask
   },
   data() {
     return {
@@ -67,6 +69,7 @@ export default {
       menuStateButtonIcon:'el-icon-d-arrow-left',
       editableTabsValue: '',
       editableTabs: [],
+      tabInitData:{},
       screenWidth: document.body.clientWidth,
       mainHeight: $(window).height() - 60 - 60 - 16
     }
@@ -80,11 +83,11 @@ export default {
         this.menuStateButtonIcon='el-icon-d-arrow-left'
       }
     },
-    addTab(title,targetName,content) {
+    addTab(title,targetName,content,parameter) {
       let sameFlag=false
       this.editableTabs.forEach(element => {
         if(element.name==targetName){
-          sameFlag=true         
+          sameFlag=true      
         }
       });
       if(sameFlag){
@@ -94,7 +97,8 @@ export default {
       this.editableTabs.push({
         title: title,
         name: targetName,
-        content: content
+        content: content,
+        parameter:parameter
       });
       this.editableTabsValue = targetName;
     },
@@ -116,6 +120,12 @@ export default {
     },
     logout(){
       this.mixLogout();
+    },
+    openSubTab(tab){
+      this.addTab(tab.title,tab.name,tab.content,tab.parameter);
+    },
+    closeSelfTab(tab){
+      this.removeTab(tab.name);
     }
   },
   mounted() {
@@ -124,15 +134,16 @@ export default {
     window.onresize = () => {
       return (() => {
         window.screenWidth = document.body.clientWidth
+        this.mainHeight = $(window).height() - 60 - 60 - 16
         that.screenWidth = window.screenWidth
       })()
     }
   },
-  watch: {
-    screenWidth: function () {
-      this.mainHeight = $(window).height() - 60 - 60 - 16
-      return document.body.clientWidth
-    }
-  }
 }
 </script>
+<style>
+  .el-menu-vertical-demo:not(.el-menu--collapse) {
+    width: 200px;
+    min-height: 400px;
+  }
+</style>
