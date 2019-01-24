@@ -38,7 +38,7 @@
           <el-main>
             <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
               <el-tab-pane v-for="(item) in editableTabs" :key="item.name" :label="item.title" :name="item.name">
-                <component :is="item.content" v-bind:parameter="item.parameter" @openSubTab="openSubTab" @closeSelfTab="closeSelfTab"></component>
+                <component :is="item.content" :ref="item.name" v-bind:parameter="item.parameter" @openSubTab="openSubTab" @closeSelfTab="closeSelfTab" @refreshTab="refreshTab"></component>
               </el-tab-pane>
             </el-tabs>
           </el-main>
@@ -126,6 +126,11 @@ export default {
     },
     closeSelfTab(tab){
       this.removeTab(tab.name);
+    },
+    refreshTab(tab){
+      console.log(this.$refs);
+      console.log(tab);
+      this.$refs[tab.name][0].refresh();
     }
   },
   mounted() {

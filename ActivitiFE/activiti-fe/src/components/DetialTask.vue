@@ -55,6 +55,8 @@ export default {
             type: res.state,
             message: res.message
           });
+          this.$emit("refreshTab",{name:'1-2'})
+          this.closeSelfTab()
         })
       }).catch(() => {
         this.$message({
@@ -69,9 +71,8 @@ export default {
       this.taskInfo.formProperties.forEach(element => {
         this.$set(fromData,element.id,element.value);
       });
-      console.log(JSON.stringify(fromData))
       return fromData;
-    }
+    },
   },
   mounted() {
     this.mixPost('api/testProcess/getTaskInfo', { taskId: this.parameter.taskId }).then(res => {

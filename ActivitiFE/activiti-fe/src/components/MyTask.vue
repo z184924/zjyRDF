@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div style="text-align:right">
+      <el-button type="primary" icon="el-icon-refresh" circle @click="refresh()"></el-button>
+    </div>
     <el-table :data="taskList">
       <el-table-column label="任务ID">
         <template slot-scope="scope">
@@ -37,6 +40,11 @@ export default {
     })
   },
   methods:{
+    refresh(){
+      this.mixPost('api/testProcess/getMyTask',{}).then(res=>{
+        this.taskList=res.data.taskList;
+      })
+    },
     detail(id,name){
       let tab={
         title:name,

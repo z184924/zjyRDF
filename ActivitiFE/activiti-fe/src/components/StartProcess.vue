@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div style="text-align:right">
+      <el-button type="primary" icon="el-icon-refresh" circle @click="refresh()"></el-button>
+    </div>
     <el-table :data="processList">
       <el-table-column label="流程ID">
         <template slot-scope="scope">
