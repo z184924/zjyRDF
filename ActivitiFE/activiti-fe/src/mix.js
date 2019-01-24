@@ -6,7 +6,7 @@ export default {
       return this.$store.state.basePath;
     },
     mixCurrentUser() {
-      return this.$store.state.currentUser;
+      return JSON.parse(sessionStorage.getItem('sessionUser'))
     },
   },
   methods: {
@@ -30,10 +30,9 @@ export default {
             token: data.token,
             moreInfo: data.user,
           }
-          this.$store.commit("login", currentUser);
+          sessionStorage.setItem("sessionUser", JSON.stringify(currentUser));
           localStorage.setItem("account", account);
           localStorage.setItem("password", password);
-          localStorage.setItem("currentUser", JSON.stringify(currentUser));
           resolve(res);
         }).catch(res => {
           this.$router.replace("/");
@@ -47,6 +46,7 @@ export default {
       this.$router.replace("/");
     },
     mixPost(api, data = {}, param = {}) {
+      console.log();
       if (param.isShowLoading === undefined) {
         param.isShowLoading = false;
       }

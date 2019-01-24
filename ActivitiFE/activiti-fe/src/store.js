@@ -5,23 +5,18 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     basePath:"http://192.168.0.201:8886/",
-    currentUser:{
-      
-    },
     loading: false,
   },
   mutations: {
-    login(state, info) {
-      state.currentUser = info;
+    login(info) {
       sessionStorage.setItem("sessionUser", JSON.stringify(info));
     },
-    logout(state) {
+    logout() {
       let info = {
         account: "",
         userName: "",
         token: "",
       };
-      state.currentUser = info;
       sessionStorage.setItem("sessionUser", JSON.stringify(info));
     },
     setLoading(state, loadingState) {
