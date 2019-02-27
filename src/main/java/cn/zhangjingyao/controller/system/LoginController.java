@@ -4,7 +4,7 @@ package cn.zhangjingyao.controller.system;
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.entity.system.User;
-import cn.zhangjingyao.service.system.user.UserService;
+import cn.zhangjingyao.service.system.UserService;
 import cn.zhangjingyao.util.Const;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Controller;

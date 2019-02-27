@@ -3,7 +3,7 @@ package cn.zhangjingyao.controller.api.system;
 
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.system.User;
-import cn.zhangjingyao.service.system.user.UserService;
+import cn.zhangjingyao.service.system.UserService;
 import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.util.Token;
 import cn.zhangjingyao.util.TokenPool;

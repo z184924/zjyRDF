@@ -2,21 +2,13 @@ package cn.zhangjingyao.controller.api.system;
 
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
-import cn.zhangjingyao.service.dict.DangerService;
-import cn.zhangjingyao.service.system.user.UserService;
-import com.github.pagehelper.PageInfo;
+import cn.zhangjingyao.service.system.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
-/** 
- * 类名称：ProjectController
- * 创建时间：2018-08-08
- */
 @Controller
 @RequestMapping(value="/api/user")
 public class ApiUserController extends BaseController {
