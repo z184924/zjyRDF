@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RoleMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="PageData">
+		insert into SYS_ROLE(
+			roleName,
+			sorting,
+			roleId
+        ) values (
+			#{roleName},
+			#{sorting},
+			#{roleId}
+        )
+    </insert>
+
+
+    <!-- 删除-->
+    <delete id="delete" parameterType="PageData">
+        delete from SYS_ROLE
+        where
+		roleId= #{roleId}
+    </delete>
+
+
+    <!-- 修改 -->
+    <update id="edit" parameterType="PageData">
+        update  SYS_ROLE
+        set
+				roleName = #{roleName},
+				sorting = #{sorting},
+				roleId= roleId
+        where
+		roleId= #{roleId}
+    </update>
+
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="PageData" resultType="PageData">
+        select
+			a.roleName,
+			a.sorting,
+			a.roleId
+        from
+        	SYS_ROLE a
+        where
+			a.roleId= #{roleId}
+    </select>
+
+
+    <!-- 列表 -->
+    <select id="datalistPage" parameterType="page" resultType="PageData">
+        select
+			a.roleName,
+			a.sorting,
+			a.roleId
+        from
+        	SYS_ROLE a
+    </select>
+
+    <!-- 列表(全部) -->
+    <select id="listAll" parameterType="PageData" resultType="PageData">
+        select
+			a.roleName,
+			a.sorting,
+			a.roleId
+        from
+        	SYS_ROLE a
+    </select>
+
+    <!-- 批量删除 -->
+    <delete id="deleteAll" parameterType="String">
+        delete from SYS_ROLE
+        where
+			a.roleId
+		in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+		#{item}
+        </foreach>
+    </delete>
+
+</mapper>

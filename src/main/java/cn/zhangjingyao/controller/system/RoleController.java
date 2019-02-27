@@ -1,4 +1,4 @@
-package cn.zhangjingyao.controller.${packageName};
+package cn.zhangjingyao.controller.system;
 
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
-import cn.zhangjingyao.service.${packageName}.${objectName}Service;
+import cn.zhangjingyao.service.system.RoleService;
 
 /** 
- * 类名称：${objectName}Controller
- * 创建时间：${nowDate?string("yyyy-MM-dd")}
+ * 类名称：RoleController
+ * 创建时间：2019-02-27
  */
 @Controller
-@RequestMapping(value="/${objectNameFirstLower}")
-public class ${objectName}Controller extends BaseController {
+@RequestMapping(value="/role")
+public class RoleController extends BaseController {
 	
-	String menuUrl = "${objectNameFirstLower}/list.do"; //菜单地址(权限用)
-	@Resource(name="${objectNameFirstLower}Service")
-	private ${objectName}Service ${objectNameFirstLower}Service;
+	String menuUrl = "role/list.do"; //菜单地址(权限用)
+	@Resource(name="roleService")
+	private RoleService roleService;
 	
 	/**
 	 * 新增或编辑
@@ -29,13 +29,13 @@ public class ${objectName}Controller extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/saveOrUpdate", produces = "application/json;charset=UTF-8")
 	public String saveOrUpdate() throws Exception{
-		logBefore(logger, "新增或编辑${objectName}");
+		logBefore(logger, "新增或编辑Role");
 		PageData pd = this.getPageData();
-		if(pd.get("${primaryKey}")==null||"".equals(pd.get("${primaryKey}"))){
-			pd.put("${primaryKey}", this.get32UUID()); // 主键
-			this.${objectNameFirstLower}Service.save(pd);
+		if(pd.get("roleId")==null||"".equals(pd.get("roleId"))){
+			pd.put("roleId", this.get32UUID()); // 主键
+			this.roleService.save(pd);
 		}else {
-			this.${objectNameFirstLower}Service.edit(pd);
+			this.roleService.edit(pd);
 		}
 		return this.jsonContent("success", "保存成功");
 	}
@@ -46,10 +46,10 @@ public class ${objectName}Controller extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/save", produces = "application/json;charset=UTF-8")
 	public String save() throws Exception{
-		logBefore(logger, "新增${objectName}");
+		logBefore(logger, "新增Role");
 		PageData pd = this.getPageData();
-		pd.put("${primaryKey}", this.get32UUID()); // 主键
-		this.${objectNameFirstLower}Service.save(pd);
+		pd.put("roleId", this.get32UUID()); // 主键
+		this.roleService.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
 	
@@ -59,9 +59,9 @@ public class ${objectName}Controller extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/delete", produces = "application/json;charset=UTF-8")
 	public String delete() throws Exception{
-		logBefore(logger, "删除${objectName}");
+		logBefore(logger, "删除Role");
 		PageData pd = this.getPageData();
-		${objectNameFirstLower}Service.delete(pd);
+		roleService.delete(pd);
 		return this.jsonContent("success", "删除成功");
 	}
 	
@@ -71,9 +71,9 @@ public class ${objectName}Controller extends BaseController {
 	@ResponseBody
 	@RequestMapping(value="/edit", produces = "application/json;charset=UTF-8")
 	public String edit() throws Exception{
-		logBefore(logger, "修改${objectName}");
+		logBefore(logger, "修改Role");
 		PageData pd = this.getPageData();
-		this.${objectNameFirstLower}Service.edit(pd);
+		this.roleService.edit(pd);
 		return this.jsonContent("success", "保存成功");
 	}
 	
@@ -85,9 +85,9 @@ public class ${objectName}Controller extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/getGridListJson", produces = "application/json;charset=UTF-8")
 	public Object getGridListJson() throws Exception {
-		logBefore(logger, "获取${objectName}列表Json");
+		logBefore(logger, "获取Role列表Json");
 		PageData pd = this.getPageData();
-		PageInfo<PageData> pageInfo = this.${objectNameFirstLower}Service.listPage(pd);// 分页查询列表
+		PageInfo<PageData> pageInfo = this.roleService.listPage(pd);// 分页查询列表
     	return this.jsonContent("success",pageInfo);
 	}
 	
@@ -99,7 +99,7 @@ public class ${objectName}Controller extends BaseController {
 	public Object getFormJson() throws Exception {
 		logBefore(logger, "获取新建页面数据");
 		PageData pd = this.getPageData();
-		PageData resultPD = this.${objectNameFirstLower}Service.findById(pd);
+		PageData resultPD = this.roleService.findById(pd);
 		return this.jsonContent("success",resultPD);
 	}
 }
