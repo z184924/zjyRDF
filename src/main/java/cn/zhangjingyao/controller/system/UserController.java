@@ -18,8 +18,7 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping(value="/user")
 public class UserController extends BaseController {
-	
-	String menuUrl = "user/list.do"; //菜单地址(权限用)
+
 	@Resource(name="userService")
 	private UserService userService;
 	

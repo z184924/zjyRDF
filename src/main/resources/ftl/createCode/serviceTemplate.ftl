@@ -2,7 +2,6 @@ package cn.zhangjingyao.service.${packageName};
 
 import cn.zhangjingyao.dao.DaoImpl;
 import cn.zhangjingyao.entity.PageData;
-import cn.zhangjingyao.entity.system.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,8 @@ import java.util.List;
 @org.springframework.stereotype.Service
 public class ${objectName}Service {
 
-	@Resource(name = "daoSupport")
-	private DaoSupport dao;
+	@Autowired
+	private DaoImpl dao;
 	
 	/**
 	 * 新增

@@ -18,8 +18,7 @@ import cn.zhangjingyao.service.system.RoleService;
 @Controller
 @RequestMapping(value="/role")
 public class RoleController extends BaseController {
-	
-	String menuUrl = "role/list.do"; //菜单地址(权限用)
+
 	@Resource(name="roleService")
 	private RoleService roleService;
 	

@@ -18,8 +18,7 @@ import cn.zhangjingyao.service.${packageName}.${objectName}Service;
 @Controller
 @RequestMapping(value="/${objectNameFirstLower}")
 public class ${objectName}Controller extends BaseController {
-	
-	String menuUrl = "${objectNameFirstLower}/list.do"; //菜单地址(权限用)
+
 	@Resource(name="${objectNameFirstLower}Service")
 	private ${objectName}Service ${objectNameFirstLower}Service;
 	
