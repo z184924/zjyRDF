@@ -111,14 +111,10 @@
   </div>
 </template>
 <script>
-import AddUser from "@/components/system/user/AddUser"
-import EditUser from "@/components/system/user/EditUser"
-import DetailUser from "@/components/system/user/DetailUser"
+import UserForm from "@/components/system/user/UserForm"
 export default {
   components: {
-    AddUser,
-    EditUser,
-    DetailUser
+    UserForm
   },
   props: {
     parameter: {},
@@ -137,6 +133,7 @@ export default {
       currentPage: 1,
       dialogVisible: false,
       dialogContent: {
+        formTag: "",
         title: "",
         parameter: {},
         componentName: ""
@@ -154,11 +151,11 @@ export default {
       })
     },
     addRow() {
-      this.openDialog("add-user", this.currentRow, "添加")
+      this.openDialog("user-form", { formTag: "add", currentRow: this.currentRow }, "添加")
     },
     editRow() {
       if (this.currentRow != null) {
-        this.openDialog("edit-user", this.currentRow, "编辑")
+        this.openDialog("user-form", { formTag: "edit", currentRow: this.currentRow }, "编辑")
       } else {
         this.$message({
           message: '请选择数据',
@@ -197,7 +194,7 @@ export default {
     },
     detailRow() {
       if (this.currentRow != null) {
-        this.openDialog("detail-user", this.currentRow, "查看")
+        this.openDialog("user-form", { formTag: "detail", currentRow: this.currentRow }, "查看")
       } else {
         this.$message({
           message: '请选择数据',
