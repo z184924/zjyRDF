@@ -21,6 +21,7 @@
                 <el-menu-item-group>
                   <el-menu-item index="1-1" @click="addTab('新建流程','1-1','start-process')">新建流程</el-menu-item>
                   <el-menu-item index="1-2" @click="addTab('我的任务','1-2','my-task')">我的任务</el-menu-item>
+                  <el-menu-item index="1-3" @click="addTab('模板样例','1-3','demo-list')">模板样例</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="2">
@@ -59,12 +60,14 @@ import StartProcess from "@/components/StartProcess"
 import MyTask from "@/components/MyTask"
 import DetialTask from "@/components/DetialTask"
 import UserList from "@/components/system/user/UserList"
+import DemoList from "@/components/demo/demo/DemoList"
 export default {
   components:{
     StartProcess,
     MyTask,
     DetialTask,
-    UserList
+    UserList,
+    DemoList
   },
   data() {
     return {
@@ -137,7 +140,7 @@ export default {
     }
   },
   mounted() {
-    this.addTab('用户管理','2-1','user-list')
+    this.addTab('模板样例','1-3','demo-list')
     const that = this
     window.onresize = () => {
       return (() => {

@@ -27,19 +27,12 @@ public class ApiUserController extends BaseController {
 		PageData pd = this.getPageData();
 		if(pd.get("userId")==null|| "".equals(pd.get("userId"))) {
 			//添加主键
-			pd.put("userId", this.get32UUID());
-			this.userService.save(pd);
+            pd.put("userId", this.get32UUID());
+            //替换字段
+            pd=this.replaceAttribute(pd);
+            this.userService.save(pd);
 		}else {
-			if("true".equals(pd.getString("locked"))){
-				pd.put("locked",true);
-			}else{
-				pd.put("locked",false);
-			}
-			if("true".equals(pd.getString("disable"))){
-				pd.put("disable",true);
-			}else{
-				pd.put("disable",false);
-			}
+            pd=this.replaceAttribute(pd);
 			this.userService.edit(pd);
 		}
 		return this.jsonContent("success", "保存成功");
@@ -55,16 +48,8 @@ public class ApiUserController extends BaseController {
 		PageData pd = this.getPageData();
 		//添加主键
 		pd.put("userId", this.get32UUID());
-		if("true".equals(pd.getString("locked"))){
-			pd.put("locked",true);
-		}else{
-			pd.put("locked",false);
-		}
-		if("true".equals(pd.getString("disable"))){
-			pd.put("disable",true);
-		}else{
-			pd.put("disable",false);
-		}
+        //替换字段
+        pd=this.replaceAttribute(pd);
 		this.userService.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
@@ -89,16 +74,8 @@ public class ApiUserController extends BaseController {
 	public String edit() throws Exception{
 		logBefore(logger, "修改User");
 		PageData pd = this.getPageData();
-		if("true".equals(pd.getString("locked"))){
-			pd.put("locked",true);
-		}else{
-			pd.put("locked",false);
-		}
-		if("true".equals(pd.getString("disable"))){
-			pd.put("disable",true);
-		}else{
-			pd.put("disable",false);
-		}
+        //替换字段
+        pd=this.replaceAttribute(pd);
 		this.userService.edit(pd);
 		return this.jsonContent("success", "保存成功");
 	}
@@ -129,5 +106,25 @@ public class ApiUserController extends BaseController {
 		PageData resultPD = this.userService.findById(pd);
 		return this.jsonContent("success",resultPD);
 	}
+
+    /**
+     * 替换字段
+     * @param pd
+     * @return 替换后PageData
+     * @throws Exception
+     */
+	private PageData replaceAttribute(PageData pd) throws Exception{
+        if("true".equals(pd.getString("locked"))){
+            pd.put("locked",true);
+        }else{
+            pd.put("locked",false);
+        }
+        if("true".equals(pd.getString("disable"))){
+            pd.put("disable",true);
+        }else{
+            pd.put("disable",false);
+        }
+        return pd;
+    }
 
 }

@@ -129,8 +129,8 @@ public class CreateCodeController extends BaseController {
 		Freemarker.printFile("jsp_detail_Template.ftl", root, "jsp/"+packageName+"/"+objectName.toLowerCase()+"/detail.jsp", filePath, ftlPath);
 
 		/*生成vue页面*/
-		Freemarker.printFile("vue_list_Template.ftl", root, "vue/"+packageName+"/"+objectName+"List.vue", filePath, ftlPath);
-		Freemarker.printFile("vue_form_Template.ftl", root, "vue/"+packageName+"/"+objectName+"Form.vue", filePath, ftlPath);
+		Freemarker.printFile("vue_list_Template.ftl", root, "vue/"+packageName+"/"+objectName.toLowerCase()+"/"+objectName+"List.vue", filePath, ftlPath);
+		Freemarker.printFile("vue_form_Template.ftl", root, "vue/"+packageName+"/"+objectName.toLowerCase()+"/"+objectName+"Form.vue", filePath, ftlPath);
 	
 		/*生成说明文档*/
 		Freemarker.printFile("docTemplate.ftl", root, "说明.doc", filePath, ftlPath);
