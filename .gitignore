@@ -1,4 +1,5 @@
 /target/
+/static/file/createCode
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
