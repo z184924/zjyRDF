@@ -21,7 +21,7 @@ public class UserController extends BaseController {
 
 	@Resource(name="userService")
 	private UserService userService;
-	
+
 	/**
 	 * 新增或编辑
 	 */
@@ -31,14 +31,15 @@ public class UserController extends BaseController {
 		logBefore(logger, "新增或编辑User");
 		PageData pd = this.getPageData();
 		if(pd.get("userId")==null|| "".equals(pd.get("userId"))) {
-			pd.put("userId", this.get32UUID()); // 主键
+			//添加主键
+			pd.put("userId", this.get32UUID());
 			this.userService.save(pd);
 		}else {
 			this.userService.edit(pd);
 		}
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 新增
 	 */
@@ -47,11 +48,12 @@ public class UserController extends BaseController {
 	public String save() throws Exception{
 		logBefore(logger, "新增User");
 		PageData pd = this.getPageData();
-		pd.put("userId", this.get32UUID()); // 主键
+		//添加主键
+		pd.put("userId", this.get32UUID());
 		this.userService.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 删除
 	 */
@@ -63,7 +65,7 @@ public class UserController extends BaseController {
 		userService.delete(pd);
 		return this.jsonContent("success", "删除成功");
 	}
-	
+
 	/**
 	 * 修改
 	 */
@@ -75,28 +77,29 @@ public class UserController extends BaseController {
 		this.userService.edit(pd);
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
-	 * 返回列表JSON
-	 * 
+	 * 分页查询列表
+	 *
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getGridListJson", produces = "application/json;charset=UTF-8")
-	public Object getGridListJson() throws Exception {
+	@RequestMapping(value = "/listPage", produces = "application/json;charset=UTF-8")
+	public Object listPage() throws Exception {
 		logBefore(logger, "获取User列表Json");
 		PageData pd = this.getPageData();
-		PageInfo<PageData> pageInfo = this.userService.listPage(pd);// 分页查询列表
+		// 分页查询列表
+		PageInfo<PageData> pageInfo = this.userService.listPage(pd);
 		return this.jsonContent("success",pageInfo);
 	}
-	
+
 	/**
-	 * 获取表单页面JSON
+	 * 根据ID查询单条数据
 	 */
-	@RequestMapping(value = "/getFormJson", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public Object getFormJson() throws Exception {
-		logBefore(logger, "获取新建页面数据");
+	public Object findById() throws Exception {
+		logBefore(logger, "根据ID获取User数据");
 		PageData pd = this.getPageData();
 		PageData resultPD = this.userService.findById(pd);
 		return this.jsonContent("success",resultPD);

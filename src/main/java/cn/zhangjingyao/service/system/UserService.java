@@ -99,7 +99,7 @@ public class UserService {
 	 * @throws Exception
 	 */
 	public PageInfo<PageData> listPage(PageData pd)throws Exception{
-		PageHelper.startPage(pd.getInt("page"),pd.getInt("rows"));
+		PageHelper.startPage(pd.getInt("pageNum"),pd.getInt("pageSize"));
 		List<PageData> list = (List<PageData>) dao.findForList("UserMapper.listAll", pd);
 		return new PageInfo(list);
 	}

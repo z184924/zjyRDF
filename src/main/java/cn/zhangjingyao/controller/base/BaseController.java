@@ -129,7 +129,7 @@ public class BaseController {
 	public String jsonContent(String state, PageInfo pageInfo) {
 		Map<String,Object> res= new HashMap<String, Object>();
 		res.put("state", state);
-		res.put("PageInfo",pageInfo);
+		res.put("pageInfo",pageInfo);
 		return JSON.toJSONString(res);
 	}
 

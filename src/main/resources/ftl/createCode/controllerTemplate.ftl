@@ -31,7 +31,8 @@ public class ${objectName}Controller extends BaseController {
 		logBefore(logger, "新增或编辑${objectName}");
 		PageData pd = this.getPageData();
 		if(pd.get("${primaryKey}")==null||"".equals(pd.get("${primaryKey}"))){
-			pd.put("${primaryKey}", this.get32UUID()); // 主键
+			//添加主键
+			pd.put("${primaryKey}", this.get32UUID());
 			this.${objectNameFirstLower}Service.save(pd);
 		}else {
 			this.${objectNameFirstLower}Service.edit(pd);
@@ -47,7 +48,8 @@ public class ${objectName}Controller extends BaseController {
 	public String save() throws Exception{
 		logBefore(logger, "新增${objectName}");
 		PageData pd = this.getPageData();
-		pd.put("${primaryKey}", this.get32UUID()); // 主键
+		//添加主键
+		pd.put("${primaryKey}", this.get32UUID());
 		this.${objectNameFirstLower}Service.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
@@ -82,21 +84,22 @@ public class ${objectName}Controller extends BaseController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getGridListJson", produces = "application/json;charset=UTF-8")
-	public Object getGridListJson() throws Exception {
+	@RequestMapping(value = "/listPage", produces = "application/json;charset=UTF-8")
+	public Object listPage() throws Exception {
 		logBefore(logger, "获取${objectName}列表Json");
 		PageData pd = this.getPageData();
-		PageInfo<PageData> pageInfo = this.${objectNameFirstLower}Service.listPage(pd);// 分页查询列表
+		// 分页查询列表
+		PageInfo<PageData> pageInfo = this.${objectNameFirstLower}Service.listPage(pd);
     	return this.jsonContent("success",pageInfo);
 	}
 	
 	/**
-	 * 获取表单页面JSON
+	 * 根据ID查询单条数据
 	 */
-	@RequestMapping(value = "/getFormJson", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public Object getFormJson() throws Exception {
-		logBefore(logger, "获取新建页面数据");
+	public Object findById() throws Exception {
+		logBefore(logger, "根据ID获取${objectName}数据");
 		PageData pd = this.getPageData();
 		PageData resultPD = this.${objectNameFirstLower}Service.findById(pd);
 		return this.jsonContent("success",resultPD);

@@ -12,7 +12,7 @@
         <el-container style="padding:0px;height:100%;">
           <el-aside width="auto">
             <el-button :icon="menuStateButtonIcon" @click="changeMenuState"></el-button>
-            <el-menu default-active="1-2" class="el-menu-vertical-demo" :collapse="isCollapse">
+            <el-menu default-active="2-1" class="el-menu-vertical-demo" :collapse="isCollapse">
               <el-submenu index="1">
                 <template slot="title">
                   <i class="el-icon-tickets"></i>
@@ -29,8 +29,9 @@
                   <span slot="title">系统管理</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="2-1" @click="addTab('人员管理','2-1','人员管理')">人员管理</el-menu-item>
-                  <el-menu-item index="2-2" @click="addTab('分组管理','2-2','分组管理')">分组管理</el-menu-item>
+                  <el-menu-item index="2-1" @click="addTab('用户管理','2-1','user-list')">用户管理</el-menu-item>
+                  <el-menu-item index="2-2" @click="addTab('角色管理','2-2','角色管理')">角色管理</el-menu-item>
+                  <el-menu-item index="2-3" @click="addTab('菜单管理','2-2','菜单管理')">菜单管理</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
             </el-menu>
@@ -57,11 +58,13 @@ import $ from "jquery"
 import StartProcess from "@/components/StartProcess"
 import MyTask from "@/components/MyTask"
 import DetialTask from "@/components/DetialTask"
+import UserList from "@/components/system/user/UserList"
 export default {
   components:{
     StartProcess,
     MyTask,
-    DetialTask
+    DetialTask,
+    UserList
   },
   data() {
     return {
@@ -134,7 +137,7 @@ export default {
     }
   },
   mounted() {
-    this.addTab('我的任务','1-2','my-task')
+    this.addTab('用户管理','2-1','user-list')
     const that = this
     window.onresize = () => {
       return (() => {
