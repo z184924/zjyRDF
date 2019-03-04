@@ -168,7 +168,7 @@ export default {
           this.mixPost('api/${objectNameLower}/delete', {
               <#list fieldList as var>
                 <#if var[4] == "是">
-              ${var[0]}: this.currentRow.${var[0]}
+            ${var[0]}: this.currentRow.${var[0]}
                 </#if>
               </#list>
           }).then(res => {
@@ -229,26 +229,25 @@ export default {
       this.pageInfo.pageNum = val
       this.refreshTable()
     },
-    replaceAttribute(){
+    replaceAttribute() {
       this.tableData.map(element => {
           <#list fieldList as var>
             <#if var[1] == "DateTime">
-        element.${var[0]}=this.mixTimeStamp2String(element.${var[0]},"YYYY-MM-DD HH:mm:ss")
+        element.${var[0]} = this.mixTimeStamp2String(element.${var[0]}, "YYYY-MM-DD HH:mm:ss")
             </#if>
             <#if var[1] == "Boolean">
-        if(element.${var[0]}==true){
-            element.${var[0]}='是'
-        }else{
-            element.${var[0]}='否'
+        if (element.${var[0]} == true) {
+          element.${var[0]} = '是'
+        } else {
+          element.${var[0]} = '否'
         }
             </#if>
           </#list>
-
       });
     }
   },
   mounted() {
-      this.refreshTable()
+    this.refreshTable()
   },
 }
 </script>

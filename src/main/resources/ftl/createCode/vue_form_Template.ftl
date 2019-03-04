@@ -3,28 +3,28 @@
     <el-form
       ref="form"
       :model="form"
+      :rules="rules"
       label-width="100px"
     >
 <#list fieldList as var>
   <#if var[4] == "否">
+      <el-form-item
+        label="${var[2]}"
+        prop="${var[0]}"
+      >
       <#if var[1]=="String">
-      <el-form-item label="${var[2]}">
         <el-input
           v-model="form.${var[0]}"
           :readonly="readOnlyFlag"
         ></el-input>
-      </el-form-item>
       </#if>
       <#if var[1]=="Number">
-      <el-form-item label="${var[2]}">
-          <el-input-number
-           v-model="form.${var[0]}"
-           :disabled="readOnlyFlag"
-          ></el-input-number>
-      </el-form-item>
+        <el-input-number
+          v-model="form.${var[0]}"
+          :disabled="readOnlyFlag"
+        ></el-input-number>
       </#if>
       <#if var[1]=="Boolean">
-      <el-form-item label="${var[2]}">
         <el-switch
           v-model="form.${var[0]}"
           active-color="#13ce66"
@@ -34,19 +34,18 @@
           :disabled="readOnlyFlag"
         >
         </el-switch>
-      </el-form-item>
       </#if>
       <#if var[1]=="DateTime">
-        <el-form-item label="${var[2]}">
-            <el-date-picker
-                    v-model="form.${var[0]}"
-                    :readonly="readOnlyFlag"
-                    type="datetime"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    placeholder="选择日期时间"
-            >
-        </el-form-item>
+        <el-date-picker
+          v-model="form.${var[0]}"
+          :readonly="readOnlyFlag"
+          type="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          placeholder="选择日期时间"
+        >
+        </el-date-picker>
       </#if>
+      </el-form-item>
   </#if>
 </#list>
     </el-form>
@@ -73,22 +72,40 @@ export default {
     return {
       fromTag: "",
       readOnlyFlag: false,
-      submitUrl:'api/${objectNameLower}/',
+      submitUrl: 'api/${objectNameLower}/',
       form: {
-        account: "",
-        password: "",
-        userName: "",
-        locked: false,
-        disable: false,
-        specialRole: ""
+        <#list fieldList as var>
+          <#if var[1]=="String">
+        ${var[0]}: '',
+          <#elseif var[1]=="Number">
+        ${var[0]}: 0,
+          <#elseif var[1]=="Boolean">
+        ${var[0]}: false,
+          <#elseif var[1]=="DateTime">
+        ${var[0]}: '',
+          </#if>
+        </#list>
+      },
+      rules: {
+        <#list fieldList as var>
+        ${var[0]}: [
+          { required: true, message: '该数据为必填项', trigger: 'blur' },
+        ],
+        </#list>
       }
     }
   },
   methods: {
     submit() {
-      this.mixPost(this.submitUrl, this.form).then(res => {
-        this.$emit("refreshTable")
-        this.$emit("closeDialog")
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.mixPost(this.submitUrl, this.form).then(res => {
+            this.$emit("refreshTable")
+            this.$emit("closeDialog")
+          })
+        } else {
+          return false;
+        }
       })
     },
     closeDialog() {
@@ -98,36 +115,36 @@ export default {
       this.mixPost('api/${objectNameLower}/findById', {
           <#list fieldList as var>
             <#if var[4] == "是">
-          ${var[0]}: this.parameter.currentRow.${var[0]}
+        ${var[0]}: this.parameter.currentRow.${var[0]}
             </#if>
           </#list>
       }).then(res => {
         this.form = res.data
         this.replaceAttribute();
       })
-    }
-    replaceAttribute(){
+    },
+    replaceAttribute() {
         <#list fieldList as var>
             <#if var[1] == "DateTime">
-        this.form.${var[0]}=this.mixTimeStamp2String(this.form.${var[0]},"YYYY-MM-DD HH:mm:ss")
+      this.form.${var[0]} = this.mixTimeStamp2String(this.form.${var[0]}, "YYYY-MM-DD HH:mm:ss")
             </#if>
         </#list>
     }
   },
   mounted() {
     this.formTag = this.parameter.formTag;
-    switch(this.formTag){
+    switch (this.formTag) {
       case 'add':
-        this.readOnlyFlag=false;
-        this.submitUrl=this.submitUrl+'save';
+        this.readOnlyFlag = false;
+        this.submitUrl = this.submitUrl + 'save';
         break;
       case 'edit':
-        this.readOnlyFlag=false;
-        this.submitUrl=this.submitUrl+'edit';
+        this.readOnlyFlag = false;
+        this.submitUrl = this.submitUrl + 'edit';
         this.getFormData();
         break;
       case 'detail':
-        this.readOnlyFlag=true;
+        this.readOnlyFlag = true;
         this.getFormData();
         break;
       default:

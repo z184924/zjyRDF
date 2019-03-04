@@ -197,7 +197,7 @@ export default {
           type: 'warning'
         }).then(() => {
           this.mixPost('api/demo/delete', {
-              demoId: this.currentRow.demoId
+            demoId: this.currentRow.demoId
           }).then(res => {
             this.$message({
               type: res.state,
@@ -256,20 +256,20 @@ export default {
       this.pageInfo.pageNum = val
       this.refreshTable()
     },
-    replaceAttribute(){
+    replaceAttribute() {
       this.tableData.map(element => {
-        element.demoTime1=this.mixTimeStamp2String(element.demoTime1,"YYYY-MM-DD HH:mm:ss")
-        element.demoTime2=this.mixTimeStamp2String(element.demoTime2,"YYYY-MM-DD HH:mm:ss")
-        if(element.demoBoolean1==true){
-          element.demoBoolean1='是'
-        }else{
-          element.demoBoolean1='否'
+        if (element.demoBoolean1 == true) {
+          element.demoBoolean1 = '是'
+        } else {
+          element.demoBoolean1 = '否'
         }
-        if(element.demoBoolean2==true){
-          element.demoBoolean2='是'
-        }else{
-          element.demoBoolean2='否'
+        if (element.demoBoolean2 == true) {
+          element.demoBoolean2 = '是'
+        } else {
+          element.demoBoolean2 = '否'
         }
+        element.demoTime1 = this.mixTimeStamp2String(element.demoTime1, "YYYY-MM-DD HH:mm:ss")
+        element.demoTime2 = this.mixTimeStamp2String(element.demoTime2, "YYYY-MM-DD HH:mm:ss")
       });
     }
   },
