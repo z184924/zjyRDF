@@ -142,6 +142,7 @@ export default {
       }).then(res => {
         this.pageInfo = res.pageInfo
         this.tableData = res.pageInfo.list;
+        this.replaceAttribute();
       })
     },
     addRow() {
@@ -227,16 +228,27 @@ export default {
     handlePageCurrentChange(val) {
       this.pageInfo.pageNum = val
       this.refreshTable()
+    },
+    replaceAttribute(){
+      this.tableData.map(element => {
+          <#list fieldList as var>
+            <#if var[1] == "DateTime">
+        element.${var[0]}=this.mixTimeStamp2String(element.${var[0]},"YYYY-MM-DD HH:mm:ss")
+            </#if>
+            <#if var[1] == "Boolean">
+        if(element.${var[0]}==true){
+            element.${var[0]}='是'
+        }else{
+            element.${var[0]}='否'
+        }
+            </#if>
+          </#list>
+
+      });
     }
   },
   mounted() {
-    this.mixPost('api/${objectNameLower}/listPage', {
-      pageNum: this.pageInfo.pageNum,
-      pageSize: this.pageInfo.pageSize,
-    }).then(res => {
-      this.pageInfo = res.pageInfo
-      this.tableData = res.pageInfo.list;
-    })
+      this.refreshTable()
   },
 }
 </script>

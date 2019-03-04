@@ -12,7 +12,7 @@
         <el-container style="padding:0px;height:100%;">
           <el-aside width="auto">
             <el-button :icon="menuStateButtonIcon" @click="changeMenuState"></el-button>
-            <el-menu default-active="2-1" class="el-menu-vertical-demo" :collapse="isCollapse">
+            <el-menu default-active="1-3" class="el-menu-vertical-demo" :collapse="isCollapse">
               <el-submenu index="1">
                 <template slot="title">
                   <i class="el-icon-tickets"></i>
@@ -67,7 +67,7 @@ export default {
     MyTask,
     DetialTask,
     UserList,
-    DemoList
+    DemoList,
   },
   data() {
     return {

@@ -4,7 +4,7 @@
 -- DROP TABLE "C##NEWO"."${tabletop}${objectNameUpper}";
 CREATE TABLE "C##NEWO"."${tabletop}${objectNameUpper}" (
 <#list fieldList as var>
-	<#if var[1] == 'Integer'>
+	<#if var[1] == 'Number'>
 	"${var[0]}" NUMBER(10) NULL ,
 	<#else>
 	"${var[0]}" VARCHAR2(255 BYTE) NULL ,

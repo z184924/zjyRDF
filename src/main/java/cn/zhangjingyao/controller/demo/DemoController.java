@@ -11,6 +11,9 @@ import javax.annotation.Resource;
 
 import cn.zhangjingyao.service.demo.DemoService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /** 
  * 类名称：DemoController
  * 创建时间：2019-02-28
@@ -43,7 +46,7 @@ public class DemoController extends BaseController {
 		}
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 新增
 	 */
@@ -59,7 +62,7 @@ public class DemoController extends BaseController {
 		this.demoService.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 删除
 	 */
@@ -71,7 +74,7 @@ public class DemoController extends BaseController {
 		demoService.delete(pd);
 		return this.jsonContent("success", "删除成功");
 	}
-	
+
 	/**
 	 * 修改
 	 */
@@ -85,10 +88,10 @@ public class DemoController extends BaseController {
 		this.demoService.edit(pd);
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 分页查询列表
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	@ResponseBody
@@ -100,7 +103,7 @@ public class DemoController extends BaseController {
 		PageInfo<PageData> pageInfo = this.demoService.listPage(pd);
     	return this.jsonContent("success",pageInfo);
 	}
-	
+
 	/**
 	 * 根据ID查询单条数据
 	 */
@@ -129,6 +132,6 @@ public class DemoController extends BaseController {
 		}else{
 			pd.put("demoBoolean2",false);
 		}
-    return pd;
+    	return pd;
     }
 }

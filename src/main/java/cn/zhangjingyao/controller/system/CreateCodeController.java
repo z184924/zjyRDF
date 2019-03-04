@@ -118,8 +118,8 @@ public class CreateCodeController extends BaseController {
 		Freemarker.printFile("mapperOracleTemplate.ftl", root, "mybatis_oracle/"+packageName+"/"+objectName+"Mapper.xml", filePath, ftlPath);
 		
 		/*生成SQL脚本*/
-		Freemarker.printFile("mysql_SQL_Template.ftl", root, "mysql数据库脚本/"+tabletop+objectName.toUpperCase()+".sql", filePath, ftlPath);
-		Freemarker.printFile("oracle_SQL_Template.ftl", root, "oracle数据库脚本/"+tabletop+objectName.toUpperCase()+".sql", filePath, ftlPath);
+		Freemarker.printFile("mysql_SQL_Template.ftl", root, "mysql_script/"+tabletop+objectName.toUpperCase()+".sql", filePath, ftlPath);
+		Freemarker.printFile("oracle_SQL_Template.ftl", root, "oracle_script/"+tabletop+objectName.toUpperCase()+".sql", filePath, ftlPath);
 		
 		/*生成jsp页面*/
 //		Freemarker.printFile("jsp_list_Template.ftl", root, "jsp/"+packageName+"/"+objectName.toLowerCase()+"/"+objectName.toLowerCase()+"_list.jsp", filePath, ftlPath);
