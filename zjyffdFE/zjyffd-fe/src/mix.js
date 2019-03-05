@@ -110,7 +110,7 @@ export default {
       return url;
     },
     mixTimeStamp2String(timeStamp,format){
-      return moment(timeStamp).format(format)
+      return moment(timeStamp).utc().format(format)
     }
   }
 }
