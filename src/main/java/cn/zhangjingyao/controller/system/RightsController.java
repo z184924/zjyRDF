@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
-import cn.zhangjingyao.service.system.RoleService;
+import cn.zhangjingyao.service.system.RightsService;
 
 /** 
- * 类名称：RoleController
+ * 类名称：RightsController
  * 创建时间：2019-03-05
  */
 @Controller
-@RequestMapping(value="/role")
-public class RoleController extends BaseController {
+@RequestMapping(value="/rights")
+public class RightsController extends BaseController {
 
-	@Resource(name="roleService")
-	private RoleService roleService;
+	@Resource(name="rightsService")
+	private RightsService rightsService;
 	
 	/**
 	 * 新增或编辑
@@ -28,18 +28,18 @@ public class RoleController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/saveOrUpdate", produces = "application/json;charset=UTF-8")
 	public String saveOrUpdate() throws Exception{
-		logBefore(logger, "新增或编辑Role");
+		logBefore(logger, "新增或编辑Rights");
 		PageData pd = this.getPageData();
-		if(pd.get("roleId")==null||"".equals(pd.get("roleId"))){
+		if(pd.get("rightsId")==null||"".equals(pd.get("rightsId"))){
 			//添加主键
-			pd.put("roleId", this.get32UUID());
+			pd.put("rightsId", this.get32UUID());
 			//替换字段
         	pd=this.replaceAttribute(pd);
-			this.roleService.save(pd);
+			this.rightsService.save(pd);
 		}else {
 			//替换字段
 			pd=this.replaceAttribute(pd);
-			this.roleService.edit(pd);
+			this.rightsService.edit(pd);
 		}
 		return this.jsonContent("success", "保存成功");
 	}
@@ -50,13 +50,13 @@ public class RoleController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/save", produces = "application/json;charset=UTF-8")
 	public String save() throws Exception{
-		logBefore(logger, "新增Role");
+		logBefore(logger, "新增Rights");
 		PageData pd = this.getPageData();
 		//添加主键
-		pd.put("roleId", this.get32UUID());
+		pd.put("rightsId", this.get32UUID());
 		//替换字段
         pd=this.replaceAttribute(pd);
-		this.roleService.save(pd);
+		this.rightsService.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
 	
@@ -66,9 +66,9 @@ public class RoleController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/delete", produces = "application/json;charset=UTF-8")
 	public String delete() throws Exception{
-		logBefore(logger, "删除Role");
+		logBefore(logger, "删除Rights");
 		PageData pd = this.getPageData();
-		roleService.delete(pd);
+		rightsService.delete(pd);
 		return this.jsonContent("success", "删除成功");
 	}
 	
@@ -78,11 +78,11 @@ public class RoleController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value="/edit", produces = "application/json;charset=UTF-8")
 	public String edit() throws Exception{
-		logBefore(logger, "修改Role");
+		logBefore(logger, "修改Rights");
 		PageData pd = this.getPageData();
 		//替换字段
         pd=this.replaceAttribute(pd);
-		this.roleService.edit(pd);
+		this.rightsService.edit(pd);
 		return this.jsonContent("success", "保存成功");
 	}
 	
@@ -94,10 +94,10 @@ public class RoleController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/listPage", produces = "application/json;charset=UTF-8")
 	public Object listPage() throws Exception {
-		logBefore(logger, "获取Role列表Json");
+		logBefore(logger, "获取Rights列表Json");
 		PageData pd = this.getPageData();
 		// 分页查询列表
-		PageInfo<PageData> pageInfo = this.roleService.listPage(pd);
+		PageInfo<PageData> pageInfo = this.rightsService.listPage(pd);
     	return this.jsonContent("success",pageInfo);
 	}
 	
@@ -107,9 +107,9 @@ public class RoleController extends BaseController {
 	@RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public Object findById() throws Exception {
-		logBefore(logger, "根据ID获取Role数据");
+		logBefore(logger, "根据ID获取Rights数据");
 		PageData pd = this.getPageData();
-		PageData resultPD = this.roleService.findById(pd);
+		PageData resultPD = this.rightsService.findById(pd);
 		return this.jsonContent("success",resultPD);
 	}
     /**

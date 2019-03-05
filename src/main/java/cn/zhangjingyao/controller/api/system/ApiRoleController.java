@@ -1,4 +1,4 @@
-package cn.zhangjingyao.controller.system;
+package cn.zhangjingyao.controller.api.system;
 
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
@@ -16,8 +16,8 @@ import cn.zhangjingyao.service.system.RoleService;
  * 创建时间：2019-03-05
  */
 @Controller
-@RequestMapping(value="/role")
-public class RoleController extends BaseController {
+@RequestMapping(value="/api/role")
+public class ApiRoleController extends BaseController {
 
 	@Resource(name="roleService")
 	private RoleService roleService;

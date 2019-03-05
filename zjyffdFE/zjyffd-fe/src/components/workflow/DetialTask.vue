@@ -22,7 +22,7 @@
   </div>
 </template>
 <script>
-import FormElement from "@/components/FormElement"
+import FormElement from "@/components/workflow/FormElement"
 export default {
   components:{
     FormElement

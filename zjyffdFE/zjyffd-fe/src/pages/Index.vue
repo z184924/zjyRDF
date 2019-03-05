@@ -31,8 +31,8 @@
                 </template>
                 <el-menu-item-group>
                   <el-menu-item index="2-1" @click="addTab('用户管理','2-1','user-list')">用户管理</el-menu-item>
-                  <el-menu-item index="2-2" @click="addTab('角色管理','2-2','角色管理')">角色管理</el-menu-item>
-                  <el-menu-item index="2-3" @click="addTab('菜单管理','2-2','菜单管理')">菜单管理</el-menu-item>
+                  <el-menu-item index="2-2" @click="addTab('角色管理','2-2','role-list')">角色管理</el-menu-item>
+                  <el-menu-item index="2-3" @click="addTab('菜单管理','2-3','rights-list')">菜单管理</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
             </el-menu>
@@ -56,10 +56,12 @@
 </template>
 <script>
 import $ from "jquery"
-import StartProcess from "@/components/StartProcess"
-import MyTask from "@/components/MyTask"
-import DetialTask from "@/components/DetialTask"
+import StartProcess from "@/components/workflow/StartProcess"
+import MyTask from "@/components/workflow/MyTask"
+import DetialTask from "@/components/workflow/DetialTask"
 import UserList from "@/components/system/user/UserList"
+import RoleList from "@/components/system/role/RoleList"
+import RightsList from "@/components/system/rights/RightsList"
 import DemoList from "@/components/demo/demo/DemoList"
 export default {
   components:{
@@ -67,6 +69,8 @@ export default {
     MyTask,
     DetialTask,
     UserList,
+    RoleList,
+    RightsList,
     DemoList,
   },
   data() {
