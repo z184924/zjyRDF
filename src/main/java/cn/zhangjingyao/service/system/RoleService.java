@@ -124,6 +124,53 @@ public class RoleService {
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("RoleMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
+
+	/**
+	 * 列表用户角色关系
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> listUserRole(PageData pd)throws Exception{
+		return (List<PageData>)dao.findForList("RoleMapper.listUserRole", pd);
+	}
+
+	/**
+	 * 编辑用户角色关系
+	 * @param pd
+	 * @throws Exception
+	 */
+	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+	public void editUserRole(String roleId,List<PageData> list)throws Exception{
+		dao.delete("RoleMapper.deleteUserRole", roleId);
+		for (PageData pd:list) {
+			dao.save("RoleMapper.saveUserRole", pd);
+		}
+	}
+
+	/**
+	 * 列表角色权限关系
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> listRoleRights(PageData pd)throws Exception{
+		return (List<PageData>)dao.findForList("RoleMapper.listRoleRights", pd);
+	}
+
+	/**
+	 * 编辑角色权限关系
+	 * @param pd
+	 * @throws Exception
+	 */
+	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+	public void editRoleRights(String roleId,List<PageData> list)throws Exception{
+		dao.delete("RoleMapper.deleteRoleRights", roleId);
+		for (PageData pd:list) {
+			dao.save("RoleMapper.saveRoleRights", pd);
+		}
+	}
+
+
 }
 

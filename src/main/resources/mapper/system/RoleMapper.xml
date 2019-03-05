@@ -95,7 +95,7 @@
     </insert>
 
     <!-- 删除用户角色关系 -->
-    <delete id="deleteUserRole" parameterType="PageData">
+    <delete id="deleteUserRole" parameterType="String">
         delete from sys_user_role
         where
         roleId= #{roleId}
@@ -129,7 +129,7 @@
     </insert>
 
     <!-- 删除角色权限关系 -->
-    <delete id="deleteRoleRights" parameterType="PageData">
+    <delete id="deleteRoleRights" parameterType="String">
         delete from sys_role_rights
         where
         roleId= #{roleId}
