@@ -4,6 +4,7 @@ import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.service.system.UserService;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,11 +31,15 @@ public class UserController extends BaseController {
 	public String saveOrUpdate() throws Exception{
 		logBefore(logger, "新增或编辑User");
 		PageData pd = this.getPageData();
-		if(pd.get("userId")==null|| "".equals(pd.get("userId"))) {
+		if(pd.get("userId")==null||"".equals(pd.get("userId"))){
 			//添加主键
 			pd.put("userId", this.get32UUID());
+			//替换字段
+			pd=this.replaceAttribute(pd);
 			this.userService.save(pd);
 		}else {
+			//替换字段
+			pd=this.replaceAttribute(pd);
 			this.userService.edit(pd);
 		}
 		return this.jsonContent("success", "保存成功");
@@ -50,6 +55,8 @@ public class UserController extends BaseController {
 		PageData pd = this.getPageData();
 		//添加主键
 		pd.put("userId", this.get32UUID());
+		//替换字段
+		pd=this.replaceAttribute(pd);
 		this.userService.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
@@ -74,6 +81,8 @@ public class UserController extends BaseController {
 	public String edit() throws Exception{
 		logBefore(logger, "修改User");
 		PageData pd = this.getPageData();
+		//替换字段
+		pd=this.replaceAttribute(pd);
 		this.userService.edit(pd);
 		return this.jsonContent("success", "保存成功");
 	}
@@ -103,6 +112,28 @@ public class UserController extends BaseController {
 		PageData pd = this.getPageData();
 		PageData resultPD = this.userService.findById(pd);
 		return this.jsonContent("success",resultPD);
+	}
+	/**
+	 * 替换字段
+	 * @param pd
+	 * @return 替换后PageData
+	 * @throws Exception
+	 */
+	private PageData replaceAttribute(PageData pd) throws Exception{
+		if("true".equals(pd.getString("locked"))){
+			pd.put("locked",true);
+		}else{
+			pd.put("locked",false);
+		}
+		if("true".equals(pd.getString("disable"))){
+			pd.put("disable",true);
+		}else{
+			pd.put("disable",false);
+		}
+		//密码加密
+		String password = new SimpleHash("SHA-1", pd.getString("account"), pd.getString("password")).toString();
+		pd.put("password",password);
+		return pd;
 	}
 
 }

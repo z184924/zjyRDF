@@ -8,6 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 
@@ -18,10 +19,9 @@ public class UserService {
 	@Autowired
 	private DaoImpl dao;
 
-	/*
+	/**
 	 * 通过用户名密码获取数据
 	 */
-
 	public User loginUser(PageData pd)throws Exception{
 		return (User)dao.findForObject("UserMapper.loginUser", pd);
 	}
@@ -32,8 +32,14 @@ public class UserService {
 	 * @throws Exception
 	 */
 	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
-	public void save(PageData pd)throws Exception{
-		dao.save("UserMapper.save", pd);
+	public boolean save(PageData pd)throws Exception{
+		PageData account = (PageData) dao.findForObject("UserMapper.findByAccount", pd);
+		if(account==null){
+			dao.save("UserMapper.save", pd);
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	/**
@@ -42,10 +48,22 @@ public class UserService {
 	 * @throws Exception
 	 */
 	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
-	public void save(List<PageData> list)throws Exception{
+	public boolean save(List<PageData> list)throws Exception{
+		Boolean saveFlag=true;
 		for (PageData pd:list) {
-			dao.save("UserMapper.save", pd);
+			PageData account = (PageData) dao.findForObject("UserMapper.findByAccount", pd);
+			if(account==null){
+				dao.save("UserMapper.save", pd);
+			}else{
+				saveFlag=false;
+				break;
+			}
 		}
+		if(!saveFlag){
+			//手动回滚事务
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return saveFlag;
 	}
 
 	/**
@@ -125,6 +143,16 @@ public class UserService {
 	}
 
 	/**
+	 * 通过account获取数据
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findByAccount(PageData pd)throws Exception{
+		return (PageData)dao.findForObject("UserMapper.findByAccount", pd);
+	}
+
+	/**
 	 * 批量删除
 	 * @param ArrayDATA_IDS
 	 * @throws Exception
@@ -133,7 +161,6 @@ public class UserService {
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("UserMapper.deleteAll", ArrayDATA_IDS);
 	}
-
 
 }
 

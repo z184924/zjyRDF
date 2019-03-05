@@ -23,23 +23,23 @@
 	<!-- 新增-->
 	<insert id="save" parameterType="PageData">
 		insert into SYS_USER(
-		account,
-		password,
-		userName,
-		locked,
-		disable,
-		specialRole,
-		userId
-		) values (
-		#{account},
-		#{password},
-		#{userName},
-		#{locked},
-		#{disable},
-		#{specialRole},
-		#{userId}
-		)
-	</insert>
+			account,
+			password,
+			userName,
+			locked,
+			disable,
+			specialRole,
+			userId
+        ) values (
+			#{account},
+			#{password},
+			#{userName},
+			#{locked},
+			#{disable},
+			#{specialRole},
+			#{userId}
+        )
+    </insert>
 
 
 	<!-- 删除-->
@@ -54,7 +54,7 @@
 	<update id="edit" parameterType="PageData">
 		update  SYS_USER
 		set
-		account = #{account},
+		account = account,
 		password = #{password},
 		userName = #{userName},
 		locked = #{locked},
@@ -81,6 +81,23 @@
 		where
 		a.userId= #{userId}
 	</select>
+
+	<!-- 通过account获取数据 -->
+	<select id="findByAccount" parameterType="PageData" resultType="PageData">
+		select
+		a.account,
+		a.password,
+		a.userName,
+		a.locked,
+		a.disable,
+		a.specialRole,
+		a.userId
+		from
+		SYS_USER a
+		where
+		a.account= #{account}
+	</select>
+
 
 
 	<!-- 列表 -->

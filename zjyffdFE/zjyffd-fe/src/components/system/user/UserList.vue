@@ -66,12 +66,17 @@
       highlight-current-row
       @current-change="handleCurrentChange"
     >
-      <el-table-column label="帐号">
+      <el-table-column label="账号">
         <template slot-scope="scope">
           <span>{{scope.row.account}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="用户名">
+      <el-table-column label="密码">
+        <template slot-scope="scope">
+          <span>{{scope.row.password}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="账号名称">
         <template slot-scope="scope">
           <span>{{scope.row.userName}}</span>
         </template>
@@ -79,6 +84,16 @@
       <el-table-column label="是否锁定">
         <template slot-scope="scope">
           <span>{{scope.row.locked}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="是否禁用">
+        <template slot-scope="scope">
+          <span>{{scope.row.disable}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="特殊角色">
+        <template slot-scope="scope">
+          <span>{{scope.row.specialRole}}</span>
         </template>
       </el-table-column>
     </el-table>
@@ -148,6 +163,7 @@ export default {
       }).then(res => {
         this.pageInfo = res.pageInfo
         this.tableData = res.pageInfo.list;
+        this.replaceAttribute();
       })
     },
     addRow() {
@@ -229,16 +245,24 @@ export default {
     handlePageCurrentChange(val) {
       this.pageInfo.pageNum = val
       this.refreshTable()
+    },
+    replaceAttribute() {
+      this.tableData.map(element => {
+        if (element.locked == true) {
+          element.locked = '是'
+        } else {
+          element.locked = '否'
+        }
+        if (element.disable == true) {
+          element.disable = '是'
+        } else {
+          element.disable = '否'
+        }
+      });
     }
   },
   mounted() {
-    this.mixPost('api/user/listPage', {
-      pageNum: this.pageInfo.pageNum,
-      pageSize: this.pageInfo.pageSize,
-    }).then(res => {
-      this.pageInfo = res.pageInfo
-      this.tableData = res.pageInfo.list;
-    })
+    this.refreshTable()
   },
 }
 </script>
