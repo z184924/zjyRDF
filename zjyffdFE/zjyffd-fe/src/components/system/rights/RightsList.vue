@@ -91,7 +91,12 @@
           <span>{{scope.row.parentId}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="排序编码">
+      <el-table-column label="图标">
+        <template slot-scope="scope">
+          <span>{{scope.row.icon}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="排序编号">
         <template slot-scope="scope">
           <span>{{scope.row.sorting}}</span>
         </template>

@@ -11,6 +11,7 @@
 			rightsName,
 			rightsType,
 			parentId,
+			icon,
 			sorting,
 			rightsId
         ) values (
@@ -19,6 +20,7 @@
 			#{rightsName},
 			#{rightsType},
 			#{parentId},
+			#{icon},
 			#{sorting},
 			#{rightsId}
         )
@@ -42,6 +44,7 @@
 				rightsName = #{rightsName},
 				rightsType = #{rightsType},
 				parentId = #{parentId},
+				icon = #{icon},
 				sorting = #{sorting},
 				rightsId= rightsId
         where
@@ -57,6 +60,7 @@
 			a.rightsName,
 			a.rightsType,
 			a.parentId,
+			a.icon,
 			a.sorting,
 			a.rightsId
         from
@@ -74,6 +78,7 @@
 			a.rightsName,
 			a.rightsType,
 			a.parentId,
+			a.icon,
 			a.sorting,
 			a.rightsId
         from
@@ -88,6 +93,7 @@
 			a.rightsName,
 			a.rightsType,
 			a.parentId,
+			a.icon,
 			a.sorting,
 			a.rightsId
         from

@@ -52,7 +52,16 @@
         ></el-input>
       </el-form-item>
       <el-form-item
-        label="排序编码"
+        label="图标"
+        prop="icon"
+      >
+        <el-input
+          v-model="form.icon"
+          :readonly="readOnlyFlag"
+        ></el-input>
+      </el-form-item>
+      <el-form-item
+        label="排序编号"
         prop="sorting"
       >
         <el-input-number
@@ -92,6 +101,7 @@ export default {
         rightsName: '',
         rightsType: 0,
         parentId: '',
+        icon: '',
         sorting: 0,
       },
       rules: {

@@ -23,7 +23,7 @@
         </div>
       </el-col>
       <el-col
-        :span="6"
+        :span="12"
         style="text-align:right"
       >
         <div>
@@ -57,6 +57,16 @@
             circle
             @click="refreshTable"
           ></el-button>
+          <el-button
+            size="small"
+            round
+            @click="editRights"
+          >编辑角色权限</el-button>
+          <el-button
+            size="small"
+            round
+            @click="editUser"
+          >编辑角色用户</el-button>
         </div>
       </el-col>
     </el-row>
@@ -107,9 +117,11 @@
 </template>
 <script>
 import RoleForm from "@/components/system/role/RoleForm"
+import RoleRelation from "@/components/system/role/RoleRelation"
 export default {
   components: {
-    RoleForm
+    RoleForm,
+    RoleRelation
   },
   props: {
     parameter: {},
@@ -191,6 +203,26 @@ export default {
     detailRow() {
       if (this.currentRow != null) {
         this.openDialog("role-form", { formTag: "detail", currentRow: this.currentRow }, "查看")
+      } else {
+        this.$message({
+          message: '请选择数据',
+          type: 'warning'
+        });
+      }
+    },
+    editRights() {
+      if (this.currentRow != null) {
+        this.openDialog("role-Relation", { formTag: "Rights", currentRow: this.currentRow }, "编辑角色权限")
+      } else {
+        this.$message({
+          message: '请选择数据',
+          type: 'warning'
+        });
+      }
+    },
+    editUser() {
+      if (this.currentRow != null) {
+        this.openDialog("role-Relation", { formTag: "Rights", currentRow: this.currentRow }, "编辑角色权限")
       } else {
         this.$message({
           message: '请选择数据',
