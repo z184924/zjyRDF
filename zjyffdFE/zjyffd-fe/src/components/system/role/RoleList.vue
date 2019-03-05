@@ -58,12 +58,12 @@
             @click="refreshTable"
           ></el-button>
           <el-button
-            size="small"
+            size="medium"
             round
             @click="editRights"
           >编辑角色权限</el-button>
           <el-button
-            size="small"
+            size="medium"
             round
             @click="editUser"
           >编辑角色用户</el-button>

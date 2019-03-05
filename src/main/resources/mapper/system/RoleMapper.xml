@@ -81,4 +81,72 @@
         </foreach>
     </delete>
 
+    <!-- 新增用户角色关系 -->
+    <insert id="saveUserRole" parameterType="PageData">
+        insert into sys_user_role(
+        userId,
+        roleId,
+        id
+        ) values (
+        #{userId},
+        #{roleId},
+        #{id}
+        )
+    </insert>
+
+    <!-- 删除用户角色关系 -->
+    <delete id="deleteUserRole" parameterType="PageData">
+        delete from sys_user_role
+        where
+        roleId= #{roleId}
+    </delete>
+
+    <!-- 列表用户角色关系 -->
+    <select id="listUserRole" parameterType="PageData" resultType="PageData">
+        select
+        a.userId,
+        a.roleId,
+        a.id
+        from
+        sys_user_role a
+        WHERE 1=1
+        <if test=" roleId != null and roleId != '' ">
+            and roleId= #{roleId}
+        </if>
+    </select>
+
+    <!-- 新增角色权限关系 -->
+    <insert id="saveRoleRights" parameterType="PageData">
+        insert into sys_role_rights(
+        roleId,
+        rightsId,
+        id
+        ) values (
+        #{roleId},
+        #{rightsId},
+        #{id}
+        )
+    </insert>
+
+    <!-- 删除角色权限关系 -->
+    <delete id="deleteRoleRights" parameterType="PageData">
+        delete from sys_role_rights
+        where
+        roleId= #{roleId}
+    </delete>
+
+    <!-- 列表角色权限关系 -->
+    <select id="listRoleRights" parameterType="PageData" resultType="PageData">
+        select
+        a.roleId,
+        a.rightsId,
+        a.id
+        from
+        sys_role_rights a
+        WHERE 1=1
+        <if test=" roleId != null and roleId != '' ">
+            and roleId= #{roleId}
+        </if>
+    </select>
+
 </mapper>
