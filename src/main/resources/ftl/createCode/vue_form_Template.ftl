@@ -1,54 +1,56 @@
 <template>
   <div>
-    <el-form
-      ref="form"
-      :model="form"
-      :rules="rules"
-      label-width="100px"
-    >
-<#list fieldList as var>
-  <#if var[4] == "否">
-      <el-form-item
-        label="${var[2]}"
-        prop="${var[0]}"
+    <div style="overflow-y:scroll;height:500px;margin-bottom:20px">
+      <el-form
+        ref="form"
+        :model="form"
+        :rules="rules"
+        label-width="100px"
       >
-      <#if var[1]=="String">
-        <el-input
-          v-model="form.${var[0]}"
-          :readonly="readOnlyFlag"
-        ></el-input>
-      </#if>
-      <#if var[1]=="Number">
-        <el-input-number
-          v-model="form.${var[0]}"
-          :disabled="readOnlyFlag"
-        ></el-input-number>
-      </#if>
-      <#if var[1]=="Boolean">
-        <el-switch
-          v-model="form.${var[0]}"
-          active-color="#13ce66"
-          inactive-color="#ff4949"
-          active-text="是"
-          inactive-text="否"
-          :disabled="readOnlyFlag"
+  <#list fieldList as var>
+    <#if var[4] == "否">
+        <el-form-item
+          label="${var[2]}"
+          prop="${var[0]}"
         >
-        </el-switch>
-      </#if>
-      <#if var[1]=="DateTime">
-        <el-date-picker
-          v-model="form.${var[0]}"
-          :readonly="readOnlyFlag"
-          type="datetime"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          placeholder="选择日期时间"
-        >
-        </el-date-picker>
-      </#if>
-      </el-form-item>
-  </#if>
-</#list>
-    </el-form>
+        <#if var[1]=="String">
+          <el-input
+            v-model="form.${var[0]}"
+            :readonly="readOnlyFlag"
+          ></el-input>
+        </#if>
+        <#if var[1]=="Number">
+          <el-input-number
+            v-model="form.${var[0]}"
+            :disabled="readOnlyFlag"
+          ></el-input-number>
+        </#if>
+        <#if var[1]=="Boolean">
+          <el-switch
+            v-model="form.${var[0]}"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            active-text="是"
+            inactive-text="否"
+            :disabled="readOnlyFlag"
+          >
+          </el-switch>
+        </#if>
+        <#if var[1]=="DateTime">
+          <el-date-picker
+            v-model="form.${var[0]}"
+            :readonly="readOnlyFlag"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="选择日期时间"
+          >
+          </el-date-picker>
+        </#if>
+        </el-form-item>
+    </#if>
+  </#list>
+      </el-form>
+    </div>
     <div style="text-align:right">
       <el-button
         size="medium"
