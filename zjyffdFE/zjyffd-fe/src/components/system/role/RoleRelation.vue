@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="overflow-y:scroll;height:500px;margin-bottom:20px">
+    <div style="overflow-y:auto;max-height:500px;margin-bottom:20px">
       <el-tree
         ref="tree"
         :data="treeData"
@@ -67,7 +67,6 @@ export default {
       data.forEach(element => {
         if (element.parentId == parentId) {
           let e = element
-          console.log(this.findChild(data, e[idName]))
           if (this.findChild(data, e[idName])) {
             e.children = this.createTreeData(idName, data, e[idName]);
           } else {
@@ -122,6 +121,10 @@ export default {
           break;
         case 'Rights':
           this.treeData = this.createTreeData('rightsId', res.data.rightsList, 0)
+          res.data.roleRightsList.forEach(element => {
+            this.checkedKeys.push(element[this.noedKey])
+          });
+          this.$refs.tree.setCheckedKeys(this.checkedKeys);
           break;
         default:
           this.$message({

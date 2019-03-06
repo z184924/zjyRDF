@@ -187,6 +187,32 @@ public class ApiRoleController extends BaseController {
     }
 
     /**
+     * 编辑角色权限关系
+     */
+    @ResponseBody
+    @RequestMapping(value = "/editRoleRights", produces = "application/json;charset=UTF-8")
+    public String editRoleRights() throws Exception {
+        logBefore(logger, "修改Role");
+        PageData pd = this.getPageData();
+        String roleId = pd.getString("roleId");
+        String checkedKeysString = pd.getString("checkedKeys");
+        String[] checkedKeys = checkedKeysString.split(",");
+        List<PageData> list = new ArrayList<>();
+        for (String rightsId:checkedKeys) {
+            if(rightsId.isEmpty()){
+                continue;
+            }
+            PageData relation= new PageData();
+            relation.put("id",this.get32UUID());
+            relation.put("rightsId",rightsId);
+            relation.put("roleId",roleId);
+            list.add(relation);
+        }
+        this.roleService.editRoleRights(roleId, list);
+        return this.jsonContent("success", "保存成功");
+    }
+
+    /**
      * 替换字段
      *
      * @param pd
