@@ -137,7 +137,6 @@ public class RoleService {
 
 	/**
 	 * 编辑用户角色关系
-	 * @param pd
 	 * @throws Exception
 	 */
 	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
@@ -160,7 +159,6 @@ public class RoleService {
 
 	/**
 	 * 编辑角色权限关系
-	 * @param pd
 	 * @throws Exception
 	 */
 	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)

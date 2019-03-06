@@ -222,7 +222,7 @@ export default {
     },
     editUser() {
       if (this.currentRow != null) {
-        this.openDialog("role-Relation", { formTag: "Rights", currentRow: this.currentRow }, "编辑角色权限")
+        this.openDialog("role-Relation", { formTag: "User", currentRow: this.currentRow }, "编辑角色用户")
       } else {
         this.$message({
           message: '请选择数据',
