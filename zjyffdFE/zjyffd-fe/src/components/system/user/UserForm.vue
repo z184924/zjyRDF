@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="overflow-y:auto;height:530px;margin-bottom:20px">
+    <div style="overflow-y:auto;max-height:500px;margin-bottom:20px">
     <el-form
       ref="form"
       :model="form"
