@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div style="overflow-y:auto;height:530px;margin-bottom:20px">
     <el-form
       ref="form"
       :model="form"
@@ -71,6 +72,7 @@
         ></el-input>
       </el-form-item>
     </el-form>
+    </div>
     <div style="text-align:right">
       <el-button
         size="medium"
