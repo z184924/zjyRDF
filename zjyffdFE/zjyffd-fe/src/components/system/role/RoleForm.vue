@@ -1,30 +1,32 @@
 <template>
   <div>
-    <el-form
-      ref="form"
-      :model="form"
-      :rules="rules"
-      label-width="100px"
-    >
-      <el-form-item
-        label="角色名称"
-        prop="roleName"
+    <div style="overflow-y:auto;max-height:500px;margin-bottom:20px">
+      <el-form
+        ref="form"
+        :model="form"
+        :rules="rules"
+        label-width="100px"
       >
-        <el-input
-          v-model="form.roleName"
-          :readonly="readOnlyFlag"
-        ></el-input>
-      </el-form-item>
-      <el-form-item
-        label="排序编码"
-        prop="sorting"
-      >
-        <el-input-number
-          v-model="form.sorting"
-          :disabled="readOnlyFlag"
-        ></el-input-number>
-      </el-form-item>
-    </el-form>
+        <el-form-item
+          label="角色名称"
+          prop="roleName"
+        >
+          <el-input
+            v-model="form.roleName"
+            :readonly="readOnlyFlag"
+          ></el-input>
+        </el-form-item>
+        <el-form-item
+          label="排序编码"
+          prop="sorting"
+        >
+          <el-input-number
+            v-model="form.sorting"
+            :disabled="readOnlyFlag"
+          ></el-input-number>
+        </el-form-item>
+      </el-form>
+    </div>
     <div style="text-align:right">
       <el-button
         size="medium"
