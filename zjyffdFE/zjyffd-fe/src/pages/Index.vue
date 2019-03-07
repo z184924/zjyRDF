@@ -193,14 +193,25 @@ export default {
       console.log(this.$refs);
       console.log(tab);
       this.$refs[tab.name][0].refresh();
-    }
+    },
+    openDefaultTab(menuList,defaultTabId){
+      this.defaultActiveMenu = defaultTabId
+      menuList.forEach(element=>{
+        if(element.rightsId==defaultTabId){
+          this.addTab(element.rightsName, element.rightsId, element.rightsCode,{buttonList:element.children})
+          return
+        }
+        if(element.children.length>0){
+          this.openDefaultTab(element.children,defaultTabId)
+        }
+      })
+    },
   },
   mounted() {
     this.mixPost('api/role/listUserRights', {}).then(res => {
       this.menuData = this.mixCreateTreeData('rightsId', res.data, 0)
+      this.openDefaultTab(this.menuData,'cf072403c545434f8aaf9e31beb777b3')
     })
-    this.addTab('模板样例', 'cf072403c545434f8aaf9e31beb777b3', 'demo-list')
-    this.defaultActiveMenu = 'cf072403c545434f8aaf9e31beb777b3'
     const that = this
     window.onresize = () => {
       return (() => {

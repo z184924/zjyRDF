@@ -9,6 +9,7 @@
         :node-key="noedKey"
         :props="treeProps"
         @check-change="handleCheckChange"
+        check-strictly
       ></el-tree>
     </div>
     <div style="text-align:right">

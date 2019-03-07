@@ -46,7 +46,6 @@ export default {
       this.$router.replace("/");
     },
     mixPost(api, data = {}, param = {}) {
-      console.log();
       if (param.isShowLoading === undefined) {
         param.isShowLoading = false;
       }
@@ -89,7 +88,7 @@ export default {
                 vue.$alert(res.message, res.state, {
                   confirmButtonText: '确定'
                 });
-              }else{
+              } else {
                 resolve(res);
               }
             }
@@ -109,8 +108,18 @@ export default {
       url += api;
       return url;
     },
-    mixTimeStamp2String(timeStamp,format){
+    mixTimeStamp2String(timeStamp, format) {
       return moment(timeStamp).utc().format(format)
+    },
+    mixButtonAuthenticate(buttonList, buttonCode) {
+      for(let i=0;i<buttonList.length;i++){
+        if (buttonList[i].rightsCode == buttonCode) {
+          console.log(true)
+          return true
+        }
+      }
+      console.log(false)
+      return false
     },
     mixCreateTreeData(idName, data, parentId) {
       let result = []

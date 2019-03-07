@@ -6,28 +6,55 @@
           Vue
         </div>
       </el-header>
-      <el-main style="background-color:#EBEEF5" v-bind:style="{height:mainHeight+'px'}">
+      <el-main
+        style="background-color:#EBEEF5"
+        v-bind:style="{height:mainHeight+'px'}"
+      >
         <div style="margin-top:1%;background-color:#FFF; width:30%;margin-left:33%;border:2px solid #DCDFE6;border-radius:25px; padding:3%">
           <div style="text-align:center;margin-bottom:5%">
-            <img src="../assets/logo.png" style="width:100px">
+            <img
+              src="../assets/logo.png"
+              style="width:100px"
+            >
           </div>
-          <div style="text-align:center;margin-bottom:5%;font-size:20px" @click="login">
+          <div style="text-align:center;margin-bottom:5%;font-size:20px">
             登&nbsp;&nbsp;&nbsp;&nbsp;录
           </div>
           <div style="width:80%;margin-left:13%;">
-            <el-input v-model="account" placeholder="账号" style="width:90%">
+            <el-input
+              v-model="account"
+              placeholder="账号"
+              style="width:90%"
+              @keypress.enter.native="login"
+            >
               <template slot="prepend"><span class="iconfont">&#xe6b8;</span></template>
             </el-input>
           </div>
           <br>
           <div style="width:80%;margin-left:13%;">
-            <el-input type="password" v-model="password" placeholder="密码" style="width:90%">
+            <el-input
+              type="password"
+              v-model="password"
+              placeholder="密码"
+              style="width:90%"
+              @keypress.enter.native="login"
+            >
               <template slot="prepend"><span class="iconfont">&#xe82b;</span></template>
             </el-input>
           </div>
           <br>
           <div style="width:70%;margin-left:14%;">
-            <el-button type="success" style="width:100%" @click="login">登录</el-button>
+            <el-button
+              type="success"
+              style="width:100%"
+              @click="login"
+            >登录</el-button>
+            <input
+              style="padding:0px;border:0; width:0px;height:0px"
+              ref="loginInput"
+              @keypress.enter="login"
+              autofocus
+            >
           </div>
         </div>
       </el-main>
@@ -47,19 +74,19 @@ export default {
       account: "",
       password: "",
       screenWidth: document.body.clientWidth,
-      mainHeight: $(window).height() - 60 - 60 - 16
+      mainHeight: $(window).height() - 60 - 60 - 16,
     }
   },
   methods: {
-    login(){
-      this.mixLogin(this.account,this.password).then(()=>{
+    login() {
+      this.mixLogin(this.account, this.password).then(() => {
         this.$router.replace("/index");
-      }).catch(()=>{})
-    }
+      }).catch(() => { })
+    },
   },
   mounted() {
-    this.account=localStorage.account;
-    this.password=localStorage.password;
+    this.account = localStorage.account;
+    this.password = localStorage.password;
     const that = this
     window.onresize = () => {
       return (() => {
@@ -73,13 +100,13 @@ export default {
 </script>
 <style>
 @font-face {
-  font-family: 'iconfont';
-  src: url('../../static/font/iconfont.eot');
-  src: url('../../static/font/iconfont.eot?#iefix') format('embedded-opentype'),
-      url('../../static/font/iconfont.woff2') format('woff2'),
-      url('../../static/font/iconfont.woff') format('woff'),
-      url('../../static/font/iconfont.ttf') format('truetype'),
-      url('../../static/font/iconfont.svg#iconfont') format('svg');
+  font-family: "iconfont";
+  src: url("../../static/font/iconfont.eot");
+  src: url("../../static/font/iconfont.eot?#iefix") format("embedded-opentype"),
+    url("../../static/font/iconfont.woff2") format("woff2"),
+    url("../../static/font/iconfont.woff") format("woff"),
+    url("../../static/font/iconfont.ttf") format("truetype"),
+    url("../../static/font/iconfont.svg#iconfont") format("svg");
 }
 .iconfont {
   font-family: "iconfont" !important;

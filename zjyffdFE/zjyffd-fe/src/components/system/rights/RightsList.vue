@@ -28,24 +28,28 @@
       >
         <div>
           <el-button
+            :v-if="mixButtonAuthenticate(parameter.buttonList,'rights-add')"
             type="success"
             icon="el-icon-plus"
             circle
             @click="addRow()"
           ></el-button>
           <el-button
+            :v-if="mixButtonAuthenticate(parameter.buttonList,'rights-edit')"
             type="warning"
             icon="el-icon-edit"
             circle
             @click="editRow()"
           ></el-button>
           <el-button
+            :v-if="mixButtonAuthenticate(parameter.buttonList,'rights-delete')"
             type="danger"
             icon="el-icon-delete"
             circle
             @click="deleteRow()"
           ></el-button>
           <el-button
+            :v-if="mixButtonAuthenticate(parameter.buttonList,'rights-detail')"
             type="info"
             icon="el-icon-document"
             circle

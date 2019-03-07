@@ -7,7 +7,7 @@
         :rules="rules"
         label-width="100px"
       >
-        <el-form-item
+          <el-form-item
           label="文本1"
           prop="demoText1"
         >

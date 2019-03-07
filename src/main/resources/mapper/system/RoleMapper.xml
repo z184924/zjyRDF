@@ -158,6 +158,7 @@
         INNER JOIN sys_role_rights rr ON rr.rightsId = r.rightsId
         INNER JOIN sys_user_role ur ON rr.roleId = ur.roleId
         WHERE ur.userId=#{userId}
+        ORDER BY r.sorting
     </select>
 
 </mapper>
