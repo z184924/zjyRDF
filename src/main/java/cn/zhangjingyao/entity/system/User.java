@@ -12,8 +12,11 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String userId;		//用户id
 	private String account;		//登录账号
-	private String userName;	//用户名
 	private String password; 	//密码
+	private String userName;	//用户名
+	private Boolean locked;		//是否锁定
+	private Boolean disable;	//是否禁用
+	private String specialRole; //特殊角色
 
 	public static long getSerialVersionUID() {
 		return serialVersionUID;
@@ -35,6 +38,14 @@ public class User implements Serializable {
 		this.account = account;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
@@ -43,12 +54,28 @@ public class User implements Serializable {
 		this.userName = userName;
 	}
 
-	public String getPassword() {
-		return password;
+	public Boolean getLocked() {
+		return locked;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setLocked(Boolean locked) {
+		this.locked = locked;
+	}
+
+	public Boolean getDisable() {
+		return disable;
+	}
+
+	public void setDisable(Boolean disable) {
+		this.disable = disable;
+	}
+
+	public String getSpecialRole() {
+		return specialRole;
+	}
+
+	public void setSpecialRole(String specialRole) {
+		this.specialRole = specialRole;
 	}
 }
 

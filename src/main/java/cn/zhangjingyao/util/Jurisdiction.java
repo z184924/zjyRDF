@@ -1,6 +1,5 @@
 package cn.zhangjingyao.util;
 
-import cn.zhangjingyao.entity.system.Menu;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -26,21 +25,21 @@ public class Jurisdiction {
 		 * 根据按钮权限，授权按钮(当前点的菜单和角色中各按钮的权限匹对)
 		 */
 		//shiro管理的session
-		Subject currentUser = SecurityUtils.getSubject();
-		Session session = currentUser.getSession();
-		Boolean b = true;
-		List<Menu> menuList = (List)session.getAttribute(Const.SESSION_allmenuList); //获取菜单列表
-		
-		//登陆首页菜单权限处理
-		if(menuList == null && ("main/index".equals(menuUrl) || "main/Workbench".equals(menuUrl))){
-			return true;
-		}
-		
-		for(int i=0;i<menuList.size();i++){
-			if(!menuList.get(i).isHasMenu()) {
-				return false;
-			}
-		}
+//		Subject currentUser = SecurityUtils.getSubject();
+//		Session session = currentUser.getSession();
+//		Boolean b = true;
+//		List<Menu> menuList = (List)session.getAttribute(Const.SESSION_allmenuList); //获取菜单列表
+//
+//		//登陆首页菜单权限处理
+//		if(menuList == null && ("main/index".equals(menuUrl) || "main/Workbench".equals(menuUrl))){
+//			return true;
+//		}
+//
+//		for(int i=0;i<menuList.size();i++){
+//			if(!menuList.get(i).isHasMenu()) {
+//				return false;
+//			}
+//		}
 		return true;
 	}
 	
@@ -57,34 +56,34 @@ public class Jurisdiction {
 		 * 根据按钮权限，授权按钮(当前点的菜单和角色中各按钮的权限匹对)
 		 */
 		//shiro管理的session
-		Subject currentUser = SecurityUtils.getSubject();
-		Session session = currentUser.getSession();
-		Boolean b = true;
-		List<Menu> menuList = (List)session.getAttribute(Const.SESSION_allmenuList); //获取菜单列表
-		
-		for(int i=0;i<menuList.size();i++){
-			for(int j=0;j<menuList.get(i).getSubMenu().size();j++){
-				if(menuList.get(i).getSubMenu().get(j).getMENU_URL().split(".do")[0].equals(menuUrl.split(".do")[0])){
-					if(!menuList.get(i).getSubMenu().get(j).isHasMenu()){				//判断有无此菜单权限
-						return false;
-					}else{																//按钮判断
-						Map<String, String> map = (Map<String, String>)session.getAttribute(Const.SESSION_QX);//按钮权限
-						String MENU_ID =  menuList.get(i).getSubMenu().get(j).getMENU_ID();
-						String USERNAME = session.getAttribute(Const.SESSION_USERNAME).toString();	//获取当前登录者loginname
-						Boolean isAdmin = "admin".equals(USERNAME);
-						if("add".equals(type)){
-							return ((RightsHelper.testRights(map.get("adds"), MENU_ID)) || isAdmin);
-						}else if("del".equals(type)){
-							return ((RightsHelper.testRights(map.get("dels"), MENU_ID)) || isAdmin);
-						}else if("edit".equals(type)){
-							return ((RightsHelper.testRights(map.get("edits"), MENU_ID)) || isAdmin);
-						}else if("cha".equals(type)){
-							return ((RightsHelper.testRights(map.get("chas"), MENU_ID)) || isAdmin);
-						}
-					}
-				}
-			}
-		}
+//		Subject currentUser = SecurityUtils.getSubject();
+//		Session session = currentUser.getSession();
+//		Boolean b = true;
+//		List<Menu> menuList = (List)session.getAttribute(Const.SESSION_allmenuList); //获取菜单列表
+//
+//		for(int i=0;i<menuList.size();i++){
+//			for(int j=0;j<menuList.get(i).getSubMenu().size();j++){
+//				if(menuList.get(i).getSubMenu().get(j).getMENU_URL().split(".do")[0].equals(menuUrl.split(".do")[0])){
+//					if(!menuList.get(i).getSubMenu().get(j).isHasMenu()){				//判断有无此菜单权限
+//						return false;
+//					}else{																//按钮判断
+//						Map<String, String> map = (Map<String, String>)session.getAttribute(Const.SESSION_QX);//按钮权限
+//						String MENU_ID =  menuList.get(i).getSubMenu().get(j).getMENU_ID();
+//						String USERNAME = session.getAttribute(Const.SESSION_USERNAME).toString();	//获取当前登录者loginname
+//						Boolean isAdmin = "admin".equals(USERNAME);
+//						if("add".equals(type)){
+//							return ((RightsHelper.testRights(map.get("adds"), MENU_ID)) || isAdmin);
+//						}else if("del".equals(type)){
+//							return ((RightsHelper.testRights(map.get("dels"), MENU_ID)) || isAdmin);
+//						}else if("edit".equals(type)){
+//							return ((RightsHelper.testRights(map.get("edits"), MENU_ID)) || isAdmin);
+//						}else if("cha".equals(type)){
+//							return ((RightsHelper.testRights(map.get("chas"), MENU_ID)) || isAdmin);
+//						}
+//					}
+//				}
+//			}
+//		}
 		return true;
 	}
 	

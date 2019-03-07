@@ -142,7 +142,7 @@ public class BaseController {
 	public String jsonContent(String state, List<PageData> dataList) {
 		Map<String,Object> res= new HashMap<String, Object>();
 		res.put("state", state);
-		res.put("rows",dataList);
+		res.put("data",dataList);
 		return JSON.toJSONString(res);
 	}
 

@@ -111,6 +111,29 @@ export default {
     },
     mixTimeStamp2String(timeStamp,format){
       return moment(timeStamp).utc().format(format)
+    },
+    mixCreateTreeData(idName, data, parentId) {
+      let result = []
+      data.forEach(element => {
+        if (element.parentId == parentId) {
+          let e = element
+          if (this.mixFindChild(data, e[idName])) {
+            e.children = this.mixCreateTreeData(idName, data, e[idName]);
+          } else {
+            e.children = []
+          }
+          result.push(e)
+        }
+      })
+      return result
+    },
+    mixFindChild(data, parentId) {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].parentId == parentId) {
+          return true
+        }
+      }
+      return false
     }
   }
 }

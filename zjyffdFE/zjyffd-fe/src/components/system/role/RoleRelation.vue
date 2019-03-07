@@ -62,29 +62,6 @@ export default {
         this.checkedKeys.splice(this.checkedKeys.findIndex(item => item == data[this.noedKey]), 1)
       }
     },
-    createTreeData(idName, data, parentId) {
-      let result = []
-      data.forEach(element => {
-        if (element.parentId == parentId) {
-          let e = element
-          if (this.findChild(data, e[idName])) {
-            e.children = this.createTreeData(idName, data, e[idName]);
-          } else {
-            e.children = []
-          }
-          result.push(e)
-        }
-      })
-      return result
-    },
-    findChild(data, parentId) {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].parentId == parentId) {
-          return true
-        }
-      }
-      return false
-    }
   },
   created() {
     switch (this.parameter.formTag) {
@@ -120,7 +97,7 @@ export default {
           this.$refs.tree.setCheckedKeys(this.checkedKeys);
           break;
         case 'Rights':
-          this.treeData = this.createTreeData('rightsId', res.data.rightsList, 0)
+          this.treeData = this.mixCreateTreeData('rightsId', res.data.rightsList, 0)
           res.data.roleRightsList.forEach(element => {
             this.checkedKeys.push(element[this.noedKey])
           });

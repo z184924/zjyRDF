@@ -10,6 +10,9 @@
 		<result column="account" property="account"/>
 		<result column="password" property="password"/>
 		<result column="userName" property="userName"/>
+		<result column="locked" property="locked"/>
+		<result column="disable" property="disable"/>
+		<result column="specialRole" property="specialRole"/>
 	</resultMap>
 
 	<select id="loginUser" parameterType="PageData" resultMap="userResultMap" useCache="false">

@@ -2,26 +2,56 @@
   <div>
     <el-container>
       <el-header style="background-color:#67C23A;height:60px;">
-        <el-row type="flex" class="row-bg" justify="space-between" style="margin-top:15px;">
-          <el-col :span="6"><div style="font-size:20px;color:#FFF;">Vue</div></el-col>
-          <el-col :span="6"><div></div></el-col>
-          <el-col :span="6"><div style="text-align:right;color:#FFF;"><a @click="logout">logout</a></div></el-col>
+        <el-row
+          type="flex"
+          class="row-bg"
+          justify="space-between"
+          style="margin-top:15px;"
+        >
+          <el-col :span="6">
+            <div style="font-size:20px;color:#FFF;">Vue</div>
+          </el-col>
+          <el-col :span="6">
+            <div></div>
+          </el-col>
+          <el-col :span="6">
+            <div style="text-align:right;color:#FFF;"><a @click="logout">logout</a></div>
+          </el-col>
         </el-row>
       </el-header>
-      <el-main style="padding:0px" v-bind:style="{height:mainHeight+'px'}">
+      <el-main
+        style="padding:0px"
+        v-bind:style="{height:mainHeight+'px'}"
+      >
         <el-container style="padding:0px;height:100%;">
           <el-aside width="auto">
-            <el-button :icon="menuStateButtonIcon" @click="changeMenuState"></el-button>
-            <el-menu default-active="1-3" class="el-menu-vertical-demo" :collapse="isCollapse">
+            <el-button
+              :icon="menuStateButtonIcon"
+              @click="changeMenuState"
+            ></el-button>
+            <el-menu
+              default-active="1-3"
+              class="el-menu-vertical-demo"
+              :collapse="isCollapse"
+            >
               <el-submenu index="1">
                 <template slot="title">
                   <i class="el-icon-tickets"></i>
                   <span slot="title">流程管理</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="1-1" @click="addTab('新建流程','1-1','start-process')">新建流程</el-menu-item>
-                  <el-menu-item index="1-2" @click="addTab('我的任务','1-2','my-task')">我的任务</el-menu-item>
-                  <el-menu-item index="1-3" @click="addTab('模板样例','1-3','demo-list')">模板样例</el-menu-item>
+                  <el-menu-item
+                    index="1-1"
+                    @click="addTab('新建流程','1-1','start-process')"
+                  >新建流程</el-menu-item>
+                  <el-menu-item
+                    index="1-2"
+                    @click="addTab('我的任务','1-2','my-task')"
+                  >我的任务</el-menu-item>
+                  <el-menu-item
+                    index="1-3"
+                    @click="addTab('模板样例','1-3','demo-list')"
+                  >模板样例</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="2">
@@ -30,17 +60,43 @@
                   <span slot="title">系统管理</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="2-1" @click="addTab('用户管理','2-1','user-list')">用户管理</el-menu-item>
-                  <el-menu-item index="2-2" @click="addTab('角色管理','2-2','role-list')">角色管理</el-menu-item>
-                  <el-menu-item index="2-3" @click="addTab('菜单管理','2-3','rights-list')">菜单管理</el-menu-item>
+                  <el-menu-item
+                    index="2-1"
+                    @click="addTab('用户管理','2-1','user-list')"
+                  >用户管理</el-menu-item>
+                  <el-menu-item
+                    index="2-2"
+                    @click="addTab('角色管理','2-2','role-list')"
+                  >角色管理</el-menu-item>
+                  <el-menu-item
+                    index="2-3"
+                    @click="addTab('菜单管理','2-3','rights-list')"
+                  >菜单管理</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
             </el-menu>
           </el-aside>
           <el-main>
-            <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
-              <el-tab-pane v-for="(item) in editableTabs" :key="item.name" :label="item.title" :name="item.name">
-                <component :is="item.content" :ref="item.name" v-bind:parameter="item.parameter" @openSubTab="openSubTab" @closeSelfTab="closeSelfTab" @refreshTab="refreshTab"></component>
+            <el-tabs
+              v-model="editableTabsValue"
+              type="card"
+              closable
+              @tab-remove="removeTab"
+            >
+              <el-tab-pane
+                v-for="(item) in editableTabs"
+                :key="item.name"
+                :label="item.title"
+                :name="item.name"
+              >
+                <component
+                  :is="item.content"
+                  :ref="item.name"
+                  v-bind:parameter="item.parameter"
+                  @openSubTab="openSubTab"
+                  @closeSelfTab="closeSelfTab"
+                  @refreshTab="refreshTab"
+                ></component>
               </el-tab-pane>
             </el-tabs>
           </el-main>
@@ -64,7 +120,7 @@ import RoleList from "@/components/system/role/RoleList"
 import RightsList from "@/components/system/rights/RightsList"
 import DemoList from "@/components/demo/demo/DemoList"
 export default {
-  components:{
+  components: {
     StartProcess,
     MyTask,
     DetialTask,
@@ -76,31 +132,32 @@ export default {
   data() {
     return {
       isCollapse: false,
-      menuStateButtonIcon:'el-icon-d-arrow-left',
+      menuStateButtonIcon: 'el-icon-d-arrow-left',
       editableTabsValue: '',
       editableTabs: [],
-      tabInitData:{},
+      tabInitData: {},
+      menuData:{},
       screenWidth: document.body.clientWidth,
       mainHeight: $(window).height() - 60 - 60 - 16
     }
   },
   methods: {
-    changeMenuState(){
-      this.isCollapse=(!this.isCollapse)
-      if(this.menuStateButtonIcon=='el-icon-d-arrow-left'){
-        this.menuStateButtonIcon='el-icon-d-arrow-right'
-      }else{
-        this.menuStateButtonIcon='el-icon-d-arrow-left'
+    changeMenuState() {
+      this.isCollapse = (!this.isCollapse)
+      if (this.menuStateButtonIcon == 'el-icon-d-arrow-left') {
+        this.menuStateButtonIcon = 'el-icon-d-arrow-right'
+      } else {
+        this.menuStateButtonIcon = 'el-icon-d-arrow-left'
       }
     },
-    addTab(title,targetName,content,parameter) {
-      let sameFlag=false
+    addTab(title, targetName, content, parameter) {
+      let sameFlag = false
       this.editableTabs.forEach(element => {
-        if(element.name==targetName){
-          sameFlag=true      
+        if (element.name == targetName) {
+          sameFlag = true
         }
       });
-      if(sameFlag){
+      if (sameFlag) {
         this.editableTabsValue = targetName;
         return
       }
@@ -108,7 +165,7 @@ export default {
         title: title,
         name: targetName,
         content: content,
-        parameter:parameter
+        parameter: parameter
       });
       this.editableTabsValue = targetName;
     },
@@ -128,23 +185,26 @@ export default {
       this.editableTabsValue = activeName;
       this.editableTabs = tabs.filter(tab => tab.name !== targetName);
     },
-    logout(){
+    logout() {
       this.mixLogout();
     },
-    openSubTab(tab){
-      this.addTab(tab.title,tab.name,tab.content,tab.parameter);
+    openSubTab(tab) {
+      this.addTab(tab.title, tab.name, tab.content, tab.parameter);
     },
-    closeSelfTab(tab){
+    closeSelfTab(tab) {
       this.removeTab(tab.name);
     },
-    refreshTab(tab){
+    refreshTab(tab) {
       console.log(this.$refs);
       console.log(tab);
       this.$refs[tab.name][0].refresh();
     }
   },
   mounted() {
-    this.addTab('模板样例','1-3','demo-list')
+    this.mixPost('api/role/listUserRights', {}).then(res => {
+      this.menuData = this.mixCreateTreeData('rightsId', res.data, 0)
+    })
+    this.addTab('模板样例', '1-3', 'demo-list')
     const that = this
     window.onresize = () => {
       return (() => {
@@ -157,8 +217,8 @@ export default {
 }
 </script>
 <style>
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
-  }
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
+}
 </style>

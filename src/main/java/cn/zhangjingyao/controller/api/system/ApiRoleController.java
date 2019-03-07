@@ -3,6 +3,7 @@ package cn.zhangjingyao.controller.api.system;
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.Page;
 import cn.zhangjingyao.entity.PageData;
+import cn.zhangjingyao.entity.system.User;
 import cn.zhangjingyao.service.system.RightsService;
 import cn.zhangjingyao.service.system.UserService;
 import com.github.pagehelper.PageInfo;
@@ -132,7 +133,7 @@ public class ApiRoleController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/listUserRole", produces = "application/json;charset=UTF-8")
     public Object listUserRole() throws Exception {
-        logBefore(logger, "获取Role列表Json");
+        logBefore(logger, "获取用户角色关系列表Json");
         PageData pd = this.getPageData();
         List<PageData> userRoleList = this.roleService.listUserRole(pd);
         List<PageData> userList = this.userService.listAll(pd);
@@ -148,7 +149,7 @@ public class ApiRoleController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/editUserRole", produces = "application/json;charset=UTF-8")
     public String editUserRole() throws Exception {
-        logBefore(logger, "修改Role");
+        logBefore(logger, "编辑用户角色关系");
         PageData pd = this.getPageData();
         String roleId = pd.getString("roleId");
         String checkedKeysString = pd.getString("checkedKeys");
@@ -176,7 +177,7 @@ public class ApiRoleController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/listRoleRights", produces = "application/json;charset=UTF-8")
     public Object listRoleRights() throws Exception {
-        logBefore(logger, "获取Role列表Json");
+        logBefore(logger, "获取角色权限关系列表Json");
         PageData pd = this.getPageData();
         List<PageData> roleRightsList = this.roleService.listRoleRights(pd);
         List<PageData> rightsList = this.rightsService.listAll(pd);
@@ -192,7 +193,7 @@ public class ApiRoleController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/editRoleRights", produces = "application/json;charset=UTF-8")
     public String editRoleRights() throws Exception {
-        logBefore(logger, "修改Role");
+        logBefore(logger, "编辑角色权限关系");
         PageData pd = this.getPageData();
         String roleId = pd.getString("roleId");
         String checkedKeysString = pd.getString("checkedKeys");
@@ -210,6 +211,22 @@ public class ApiRoleController extends BaseController {
         }
         this.roleService.editRoleRights(roleId, list);
         return this.jsonContent("success", "保存成功");
+    }
+
+    /**
+     * 查询用户权限关系
+     *
+     * @throws Exception
+     */
+    @ResponseBody
+    @RequestMapping(value = "/listUserRights", produces = "application/json;charset=UTF-8")
+    public Object listUserRights() throws Exception {
+        logBefore(logger, "获取用户权限关系列表Json");
+        User currentUser = this.getCurrentUser();
+        PageData pd = new PageData();
+        pd.put("userId",this.getCurrentUser().getUserId());
+        List<PageData> userRightsList = this.roleService.listUserRights(pd);
+        return this.jsonContent("success", userRightsList);
     }
 
     /**
