@@ -114,11 +114,9 @@ export default {
     mixButtonAuthenticate(buttonList, buttonCode) {
       for(let i=0;i<buttonList.length;i++){
         if (buttonList[i].rightsCode == buttonCode) {
-          console.log(true)
           return true
         }
       }
-      console.log(false)
       return false
     },
     mixCreateTreeData(idName, data, parentId) {
