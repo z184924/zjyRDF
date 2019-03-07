@@ -30,48 +30,42 @@
               @click="changeMenuState"
             ></el-button>
             <el-menu
-              default-active="1-3"
+              :default-active="defaultActiveMenu"
               class="el-menu-vertical-demo"
               :collapse="isCollapse"
             >
-              <el-submenu index="1">
+              <el-submenu index="process">
                 <template slot="title">
                   <i class="el-icon-tickets"></i>
                   <span slot="title">流程管理</span>
                 </template>
                 <el-menu-item-group>
                   <el-menu-item
-                    index="1-1"
-                    @click="addTab('新建流程','1-1','start-process')"
+                    index="start-process"
+                    @click="addTab('新建流程','start-process','start-process')"
                   >新建流程</el-menu-item>
                   <el-menu-item
-                    index="1-2"
-                    @click="addTab('我的任务','1-2','my-task')"
+                    index="my-task"
+                    @click="addTab('我的任务','my-task','my-task')"
                   >我的任务</el-menu-item>
-                  <el-menu-item
-                    index="1-3"
-                    @click="addTab('模板样例','1-3','demo-list')"
-                  >模板样例</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
-              <el-submenu index="2">
+              <el-submenu
+                v-for="(menu,index) in menuData"
+                :index="menu.rightsId"
+                :key="index"
+              >
                 <template slot="title">
-                  <i class="el-icon-setting"></i>
-                  <span slot="title">系统管理</span>
+                  <i :class="menu.icon"></i>
+                  <span slot="title">{{menu.rightsName}}</span>
                 </template>
                 <el-menu-item-group>
                   <el-menu-item
-                    index="2-1"
-                    @click="addTab('用户管理','2-1','user-list')"
-                  >用户管理</el-menu-item>
-                  <el-menu-item
-                    index="2-2"
-                    @click="addTab('角色管理','2-2','role-list')"
-                  >角色管理</el-menu-item>
-                  <el-menu-item
-                    index="2-3"
-                    @click="addTab('菜单管理','2-3','rights-list')"
-                  >菜单管理</el-menu-item>
+                    v-for="(child,childIndex) in menu.children"
+                    :key="childIndex"
+                    :index="child.rightsId"
+                    @click="addTab(child.rightsName,child.rightsId,child.rightsCode,{buttonList:child.children})"
+                  >{{child.rightsName}}</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
             </el-menu>
@@ -136,7 +130,8 @@ export default {
       editableTabsValue: '',
       editableTabs: [],
       tabInitData: {},
-      menuData:{},
+      menuData: {},
+      defaultActiveMenu: '',
       screenWidth: document.body.clientWidth,
       mainHeight: $(window).height() - 60 - 60 - 16
     }
@@ -204,7 +199,8 @@ export default {
     this.mixPost('api/role/listUserRights', {}).then(res => {
       this.menuData = this.mixCreateTreeData('rightsId', res.data, 0)
     })
-    this.addTab('模板样例', '1-3', 'demo-list')
+    this.addTab('模板样例', 'cf072403c545434f8aaf9e31beb777b3', 'demo-list')
+    this.defaultActiveMenu = 'cf072403c545434f8aaf9e31beb777b3'
     const that = this
     window.onresize = () => {
       return (() => {
