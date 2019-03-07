@@ -90,7 +90,7 @@
     </select>
 
 
-    <!-- 列表 -->
+    <!-- 查询 -->
     <select id="datalistPage" parameterType="page" resultType="PageData">
         select
 		<#list fieldList as var>
@@ -107,7 +107,7 @@
         "${tabletop}${objectNameUpper}" a
     </select>
 
-    <!-- 列表(全部) -->
+    <!-- 查询(全部) -->
     <select id="listAll" parameterType="PageData" resultType="PageData">
         select
 		<#list fieldList as var>

@@ -84,7 +84,7 @@ public class ${objectName}Service {
 	}
 
     /**
-	 * 分页列表
+	 * 分页查询
      * @param page
      * @return
      * @throws Exception
@@ -96,7 +96,7 @@ public class ${objectName}Service {
 	}
 
     /**
-     * 列表(全部)
+     * 查询(全部)
      * @param pd
      * @return
      * @throws Exception

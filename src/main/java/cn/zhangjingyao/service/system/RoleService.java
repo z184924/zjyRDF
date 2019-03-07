@@ -84,7 +84,7 @@ public class RoleService {
 	}
 
     /**
-	 * 分页列表
+	 * 分页查询
      * @param page
      * @return
      * @throws Exception
@@ -96,7 +96,7 @@ public class RoleService {
 	}
 
     /**
-     * 列表(全部)
+     * 查询(全部)
      * @param pd
      * @return
      * @throws Exception
@@ -126,7 +126,7 @@ public class RoleService {
 	}
 
 	/**
-	 * 列表用户角色关系
+	 * 查询用户角色关系
 	 * @param pd
 	 * @return
 	 * @throws Exception
@@ -148,7 +148,7 @@ public class RoleService {
 	}
 
 	/**
-	 * 列表角色权限关系
+	 * 查询角色权限关系
 	 * @param pd
 	 * @return
 	 * @throws Exception
@@ -169,6 +169,14 @@ public class RoleService {
 		}
 	}
 
-
+	/**
+	 * 查询用户权限关系
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> listUserRights(PageData pd)throws Exception{
+		return (List<PageData>)dao.findForList("RoleMapper.listUserRights", pd);
+	}
 }
 

@@ -50,7 +50,7 @@
     </select>
 
 
-    <!-- 列表 -->
+    <!-- 查询 -->
     <select id="datalistPage" parameterType="page" resultType="PageData">
         select
 			a.roleName,
@@ -60,7 +60,7 @@
         	SYS_ROLE a
     </select>
 
-    <!-- 列表(全部) -->
+    <!-- 查询(全部) -->
     <select id="listAll" parameterType="PageData" resultType="PageData">
         select
 			a.roleName,
@@ -101,7 +101,7 @@
         roleId= #{roleId}
     </delete>
 
-    <!-- 列表用户角色关系 -->
+    <!-- 查询用户角色关系 -->
     <select id="listUserRole" parameterType="PageData" resultType="PageData">
         select
         a.userId,
@@ -115,7 +115,7 @@
         </if>
     </select>
 
-    <!-- 新增角色权限关系 -->
+    <!-- 查询角色权限关系 -->
     <insert id="saveRoleRights" parameterType="PageData">
         insert into sys_role_rights(
         roleId,
@@ -135,7 +135,7 @@
         roleId= #{roleId}
     </delete>
 
-    <!-- 列表角色权限关系 -->
+    <!-- 查询角色权限关系 -->
     <select id="listRoleRights" parameterType="PageData" resultType="PageData">
         select
         a.roleId,
@@ -147,6 +147,17 @@
         <if test=" roleId != null and roleId != '' ">
             and roleId= #{roleId}
         </if>
+    </select>
+
+    <!-- 查询用户权限关系 -->
+    <select id="listUserRights" parameterType="PageData" resultType="PageData">
+        SELECT
+            DISTINCT r.*
+        FROM
+            sys_rights r
+        INNER JOIN sys_role_rights rr ON rr.rightsId = r.rightsId
+        INNER JOIN sys_user_role ur ON rr.roleId = ur.roleId
+        WHERE ur.userId=#{userId}
     </select>
 
 </mapper>
