@@ -7,6 +7,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * java压缩成zip
+ * @author
  * @version
  */
 public class FileZip {

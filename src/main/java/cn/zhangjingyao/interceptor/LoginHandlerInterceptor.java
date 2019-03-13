@@ -27,7 +27,8 @@ import java.util.Map;
 * 类描述：
 * Spring MVC中使用拦截器的方法，继承HandlerInterceptorAdapter类，
 * 并根据需求实现其中的preHandle方法（预处理）、
-* postHandle方法（返回处理）、afterCompletion方法（后处理） 
+* postHandle方法（返回处理）、afterCompletion方法（后处理）
+ * @author
  */
 public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
 

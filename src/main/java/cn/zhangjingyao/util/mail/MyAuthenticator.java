@@ -6,6 +6,9 @@ package cn.zhangjingyao.util.mail;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 
+/**
+ * @author
+ */
 public class MyAuthenticator extends Authenticator {
     String userName=null;
     String password=null;

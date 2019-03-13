@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author
+ */
 public class DBUtils {
 	// 参数定义
 	    private static String url = "jdbc:mysql://10.1.254.251:3366/dbadapter?useUnicode=true&characterEncoding=utf-8"; // 数据库地址

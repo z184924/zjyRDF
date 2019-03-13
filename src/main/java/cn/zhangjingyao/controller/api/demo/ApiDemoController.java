@@ -14,7 +14,9 @@ import cn.zhangjingyao.service.demo.DemoService;
 /** 
  * 类名称：DemoController
  * 创建时间：2019-03-04
+ * @author
  */
+@SuppressWarnings("ALL")
 @Controller
 @RequestMapping(value="/api/demo")
 public class ApiDemoController extends BaseController {

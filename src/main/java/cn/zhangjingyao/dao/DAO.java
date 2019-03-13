@@ -2,6 +2,9 @@ package cn.zhangjingyao.dao;
 
 import java.util.List;
 
+/**
+ * @author
+ */
 public interface DAO {
 	
 	/**

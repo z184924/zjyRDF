@@ -12,6 +12,9 @@ import java.util.Date;
 import java.util.Properties;
 
 
+/**
+ * @author
+ */
 public class SimpleMailSender {
 /**   
   * 以文本格式发送邮件   

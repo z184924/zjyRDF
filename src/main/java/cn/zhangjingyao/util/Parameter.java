@@ -3,6 +3,9 @@ package cn.zhangjingyao.util;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * @author
+ */
 public final class Parameter {
 	private static final Logger LOGGER = Logger
 			.getLogger(Parameter.class);

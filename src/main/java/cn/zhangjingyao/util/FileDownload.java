@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 
 /**
  * 下载文件
+ * @author
  * @version
  */
 public class FileDownload {

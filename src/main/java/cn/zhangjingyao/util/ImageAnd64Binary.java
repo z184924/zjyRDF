@@ -8,6 +8,9 @@ import sun.misc.BASE64Encoder;
 import java.io.*;
 
 
+/**
+ * @author
+ */
 public class ImageAnd64Binary {
     public static void main(String[] args){
     	

@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * 二维码
+ * @author
  * @version
  */
 public class TwoDimensionCodeImage implements QRCodeImage {

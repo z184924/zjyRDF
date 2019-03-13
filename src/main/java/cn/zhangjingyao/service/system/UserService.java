@@ -13,6 +13,9 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import java.util.List;
 
 
+/**
+ * @author
+ */
 @org.springframework.stereotype.Service
 public class UserService {
 	
@@ -48,7 +51,7 @@ public class UserService {
 	 * @throws Exception
 	 */
 	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
-	public boolean save(List<PageData> list)throws Exception{
+	public Boolean save(List<PageData> list)throws Exception{
 		Boolean saveFlag=true;
 		for (PageData pd:list) {
 			PageData account = (PageData) dao.findForObject("UserMapper.findByAccount", pd);

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
+/**
+ * @author
+ */
 @Controller
 @RequestMapping(value = "/api/user")
 public class ApiUserController extends BaseController {

@@ -2,6 +2,9 @@ package cn.zhangjingyao.util;
 
 import java.security.MessageDigest;
 
+/**
+ * @author
+ */
 public class MD5 {
 
 	public static String md5(String str) {

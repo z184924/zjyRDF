@@ -10,7 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+/**
+ * 类名称：${objectName}Service
+ * 创建时间：${nowDate?string("yyyy-MM-dd")}
+ * @author
+ */
 @org.springframework.stereotype.Service
 public class ${objectName}Service {
 

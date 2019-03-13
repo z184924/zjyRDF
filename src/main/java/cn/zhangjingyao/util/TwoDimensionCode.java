@@ -15,6 +15,7 @@ import java.io.OutputStream;
 
 /**
  * 二维码
+ * @author
  * @version
  */
 public class TwoDimensionCode {

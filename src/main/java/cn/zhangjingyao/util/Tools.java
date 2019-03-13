@@ -12,6 +12,9 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author
+ */
 public class Tools {
 
 	private static final Pattern REGEX = Pattern.compile("^(((13[0-9])|(15([0-3]|[5-9]))|(18[0,5-9]))\\d{8})|(0\\d{2}-\\d{8})|(0\\d{3}-\\d{7})$");
@@ -33,12 +36,7 @@ public class Tools {
 	public static boolean notEmpty(String s){
 		return s!=null && !"".equals(s) && !"null".equals(s);
 	}
-	/**
-	 * 默认加载的线路
-	 */
-	public static String getDefaultXl(){
-		 return "f7750c44b76d4c06b737d133371d9724";
-	}
+
 	/**
 	 * 检测字符串是否为空(null,"","null")
 	 * @param s

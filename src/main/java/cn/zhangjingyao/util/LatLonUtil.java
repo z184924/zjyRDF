@@ -1,5 +1,8 @@
 package cn.zhangjingyao.util;
 
+/**
+ * @author
+ */
 public class LatLonUtil {
 
 	private static final double PI = 3.14159265; // 圆周率

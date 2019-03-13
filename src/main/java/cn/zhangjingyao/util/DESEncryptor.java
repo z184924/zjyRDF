@@ -11,6 +11,9 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import java.security.MessageDigest;
 
+/**
+ * @author
+ */
 public class DESEncryptor {
 
 	public static final String ALGORITHM = "DES";

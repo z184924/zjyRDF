@@ -14,6 +14,7 @@ import cn.zhangjingyao.service.${packageName}.${objectName}Service;
 /** 
  * 类名称：${objectName}Controller
  * 创建时间：${nowDate?string("yyyy-MM-dd")}
+ * @author
  */
 @Controller
 @RequestMapping(value="/${objectNameFirstLower}")

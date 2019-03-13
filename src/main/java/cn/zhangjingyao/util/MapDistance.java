@@ -3,7 +3,10 @@ package cn.zhangjingyao.util;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapDistance {  
+/**
+ * @author
+ */
+public class MapDistance {
 	  
     private static double EARTH_RADIUS = 6378.137;  
   

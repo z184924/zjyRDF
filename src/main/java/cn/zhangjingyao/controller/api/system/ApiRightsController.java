@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 /** 
  * 类名称：RightsController
  * 创建时间：2019-03-05
+ * @author
  */
 @Controller
 @RequestMapping(value="/api/rights")

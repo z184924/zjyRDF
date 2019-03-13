@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author
+ */
 public class BaseController {
 
 	protected Logger logger = Logger.getLogger(this.getClass());
@@ -78,13 +81,6 @@ public class BaseController {
 		return UuidUtil.get32UUID();
 	}
 
-	/**
-	 * 得到分页列表的信息
-	 */
-	public Page getPage(){
-
-		return new Page();
-	}
 
 	public static void logBefore(Logger logger, String interfaceName){
 		logger.info("start");

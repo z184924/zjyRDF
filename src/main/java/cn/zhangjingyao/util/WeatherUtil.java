@@ -2,6 +2,7 @@ package cn.zhangjingyao.util;
 
 /**
  * 天气工具类
+ * @author
  */
 public class WeatherUtil {
     public static String getWeatherJson(String cityCode){

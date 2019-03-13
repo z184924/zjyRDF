@@ -3,6 +3,9 @@ package cn.zhangjingyao.entity;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+/**
+ * @author
+ */
 public class PageData extends HashMap implements Map {
 	
 	private static final long serialVersionUID = 1L;

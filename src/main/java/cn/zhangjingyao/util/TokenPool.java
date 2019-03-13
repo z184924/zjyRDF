@@ -9,6 +9,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author
+ */
 public class TokenPool extends HashMap<String,Token> {
 	
 	private static final long serialVersionUID = 1L;

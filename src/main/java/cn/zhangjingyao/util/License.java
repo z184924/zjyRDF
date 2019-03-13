@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
 
+/**
+ * @author
+ */
 public final class License {
 	private static final Logger LOGGER = Logger
 			.getLogger(License.class);

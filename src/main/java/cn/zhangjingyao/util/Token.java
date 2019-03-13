@@ -6,6 +6,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * @author
+ */
 public class Token {
 	private String token;
 	private User user;

@@ -35,7 +35,8 @@ import java.util.Properties;
 * 类描述：
 * sql的解析是在StatementHandler里完成的，所以为了自动生成sql需要拦截StatementHandler;
 * 拦截的方法是名称为prepare参数为Connection类型的方法;
-* @version 1.0
+* @author
+ * @version 1.0
 * 
 * mybatis控件实现原理简要说明：
 * 利用mybatis的拦截器Interceptor对StatementHandler进行拦截，通过判断SQL语句是否包含".*listPage.*"，对包含的sql语句利用反射机制动态修改拼接SQL语句，将拼接的sql返回执行，查出分页数据；

@@ -3,6 +3,9 @@ package cn.zhangjingyao.util;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author
+ */
 public class CustomizeEcharts {
 	
 	private static int LINE_NUM_EACH_ROW = 12; // 图例中每行显示的线条数目；

@@ -13,6 +13,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 
 //import cn.zhangjingyao.service.system.role.RoleService;
 
+/**
+ * @author
+ */
 public class ShiroRealm extends AuthorizingRealm {
 
 

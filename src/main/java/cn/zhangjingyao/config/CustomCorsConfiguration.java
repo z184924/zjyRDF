@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
  * 跨域配置
+ * @author
  */
 @Configuration
 public class CustomCorsConfiguration extends WebMvcConfigurerAdapter {

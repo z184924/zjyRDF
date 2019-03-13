@@ -15,7 +15,8 @@ import java.util.*;
 
 /**
  * UEditor(百度编辑器)文件上传辅助类
- * 
+ *
+ * @author
  */
 public class Uploader {
 

@@ -17,7 +17,8 @@ import java.util.Map;
  * 
 * 类名称：MyExceptionResolver.java
 * 类描述： 异常处理代理
-* @version 1.0
+* @author
+ * @version 1.0
  */
 public class MyExceptionResolver implements HandlerExceptionResolver {
 

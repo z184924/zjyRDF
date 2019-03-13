@@ -1,6 +1,9 @@
 package cn.zhangjingyao.util;
 
 
+/**
+ * @author
+ */
 public class Logger {
 
 	private org.apache.logging.log4j.Logger logger;

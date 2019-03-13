@@ -22,7 +22,9 @@ import java.util.List;
 /**
  * 类名称：RoleController
  * 创建时间：2019-03-05
+ * @author
  */
+@SuppressWarnings("ALL")
 @Controller
 @RequestMapping(value = "/api/role")
 public class ApiRoleController extends BaseController {

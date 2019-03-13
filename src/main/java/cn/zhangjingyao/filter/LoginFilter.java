@@ -10,6 +10,7 @@ import java.io.IOException;
 
 /**
  * 登录验证过滤器
+ * @author
  */
 public class LoginFilter extends BaseController implements Filter {
 

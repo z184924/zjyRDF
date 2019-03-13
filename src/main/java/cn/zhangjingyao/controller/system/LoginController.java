@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
-/*
+/**
+ * @author
+ *
  * 总入口
  */
 @Controller

@@ -2,6 +2,7 @@ package cn.zhangjingyao.util;
 /**
  * 字符串相关方法
  *
+ * @author
  */
 public class StringUtil {
 

@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * 全局异常处理拦截器配置
+ * @author
  */
 @Configuration
 public class InterceptorConfiguration extends WebMvcConfigurerAdapter {

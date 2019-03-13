@@ -7,6 +7,9 @@ import org.apache.commons.collections.comparators.ComparatorChain;
 
 import java.util.*;
 
+/**
+ * @author
+ */
 public class SortUtil {
 	public static void main(String[] args) {
 		System.out.println(testMapSort());
