@@ -5,6 +5,8 @@ import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.service.system.UserService;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -138,8 +140,10 @@ public class ApiUserController extends BaseController {
         } else {
             pd.put("disable", false);
         }
+
         //密码加密
-        String password = new SimpleHash("SHA-1", pd.getString("account"), pd.getString("password")).toString();
+        String password = new BCryptPasswordEncoder().encode(pd.getString("password"));
+//        String password = new SimpleHash("SHA-1", pd.getString("account"), pd.getString("password")).toString();
         pd.put("password",password);
         return pd;
     }

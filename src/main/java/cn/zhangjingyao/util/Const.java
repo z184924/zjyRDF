@@ -23,5 +23,4 @@ public class Const {
      * 对匹配该值的访问路径采用Token验证（正则）
      */
     public static final String TOKEN_INTERCEPTOR_PATH = ".*/((api)|(pdapi)).*";
-    public static final String DEFAULT_RESOURCE_ID = "defaultResource";
 }
