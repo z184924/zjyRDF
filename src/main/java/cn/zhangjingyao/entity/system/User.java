@@ -5,15 +5,14 @@ import cn.zhangjingyao.entity.PageData;
 import java.io.Serializable;
 
 /**
- * @author
- * 类名称：User.java
+ * @author 类名称：User.java
  * 类描述：
  * @version 1.0
  */
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
-     *用户id
+     * 用户id
      */
     private String userId;
     /**
@@ -123,16 +122,8 @@ public class User implements Serializable {
         this.password = pageData.getString("password");
         this.userName = pageData.getString("userName");
         this.specialRole = pageData.getString("specialRole");
-        if ("true".equals(pageData.getString("locked")) || "1".equals(pageData.getString("locked"))) {
-            this.locked = true;
-        } else {
-            this.locked = false;
-        }
-        if ("true".equals(pageData.getString("disable")) || "1".equals(pageData.getString("disable"))) {
-            this.disable = true;
-        } else {
-            this.disable = false;
-        }
+        this.locked = (Boolean) pageData.get("locked");
+        this.disable = (Boolean) pageData.get("disable");
     }
 }
 

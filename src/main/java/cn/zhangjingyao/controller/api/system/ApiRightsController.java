@@ -30,9 +30,7 @@ public class ApiRightsController extends BaseController {
 	public String saveOrUpdate() throws Exception{
 		logBefore(logger, "新增或编辑Rights");
 		PageData pd = this.getPageData();
-		if(pd.get("rightsId")==null||"".equals(pd.get("rightsId"))){
-			//添加主键
-			pd.put("rightsId", this.get32UUID());
+		if(pd.get("rightsId")==null||"".equals(pd.get("rightsId"))||0==pd.getInt("rightsId")){
 			//替换字段
         	pd=this.replaceAttribute(pd);
 			this.rightsService.save(pd);
@@ -52,8 +50,6 @@ public class ApiRightsController extends BaseController {
 	public String save() throws Exception{
 		logBefore(logger, "新增Rights");
 		PageData pd = this.getPageData();
-		//添加主键
-		pd.put("rightsId", this.get32UUID());
 		//替换字段
         pd=this.replaceAttribute(pd);
 		this.rightsService.save(pd);

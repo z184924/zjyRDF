@@ -210,7 +210,7 @@ export default {
   mounted() {
     this.mixPost('api/role/listUserRights', {}).then(res => {
       this.menuData = this.mixCreateTreeData('rightsId', res.data, 0)
-      this.openDefaultTab(this.menuData,'cf072403c545434f8aaf9e31beb777b3')
+      this.openDefaultTab(this.menuData,'18')
     })
     const that = this
     window.onresize = () => {

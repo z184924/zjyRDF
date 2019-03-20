@@ -9,6 +9,8 @@ import cn.zhangjingyao.util.Token;
 import cn.zhangjingyao.util.TokenPool;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

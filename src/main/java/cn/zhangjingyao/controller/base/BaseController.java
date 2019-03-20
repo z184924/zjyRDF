@@ -1,6 +1,8 @@
 package cn.zhangjingyao.controller.base;
 
 
+import cn.zhangjingyao.security.service.CustomTokenServices;
+import cn.zhangjingyao.service.system.UserService;
 import com.alibaba.fastjson.JSON;
 import cn.zhangjingyao.entity.Page;
 import cn.zhangjingyao.entity.PageData;
@@ -8,13 +10,20 @@ import cn.zhangjingyao.entity.system.User;
 import cn.zhangjingyao.util.*;
 import com.github.pagehelper.PageInfo;
 import org.apache.catalina.Session;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +32,9 @@ import java.util.Map;
  * @author
  */
 public class BaseController {
+
+	@Autowired
+	private CustomTokenServices customTokenServices;
 
 	protected Logger logger = Logger.getLogger(this.getClass());
 
@@ -60,16 +72,23 @@ public class BaseController {
 		return session;
 	}
 
+//	public User getCurrentUser() {
+//		HttpSession session = getSession();
+//		User currentUser = (User)session.getAttribute(Const.SESSION_USER);
+//		if(currentUser==null){
+//			PageData pd = this.getPageData();
+//			String tokenStr = pd.getString("token");
+//			TokenPool tokenPool = TokenPool.getInstance();
+//			currentUser = tokenPool.getToken(tokenStr).getUser();
+//		}
+//		return (currentUser == null ? new User() : currentUser);
+//	}
+
 	public User getCurrentUser() {
-		HttpSession session = getSession();
-		User currentUser = (User)session.getAttribute(Const.SESSION_USER);
-		if(currentUser==null){
-			PageData pd = this.getPageData();
-			String tokenStr = pd.getString("token");
-			TokenPool tokenPool = TokenPool.getInstance();
-			currentUser = tokenPool.getToken(tokenStr).getUser();
-		}
-		return (currentUser == null ? new User() : currentUser);
+		OAuth2Authentication authentication = (OAuth2Authentication)SecurityContextHolder.getContext().getAuthentication();
+		OAuth2AccessToken accessToken = customTokenServices.getAccessToken(authentication);
+		User user = (User) accessToken.getAdditionalInformation().get("user");
+		return user;
 	}
 
 	/**

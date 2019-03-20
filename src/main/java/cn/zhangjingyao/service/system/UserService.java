@@ -156,6 +156,18 @@ public class UserService {
 	}
 
 	/**
+	 * 通过account获取数据
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findByAccount(String account)throws Exception{
+		PageData pd = new PageData();
+		pd.put("account",account);
+		return (PageData)dao.findForObject("UserMapper.findByAccount", pd);
+	}
+
+	/**
 	 * 批量删除
 	 * @param ArrayDATA_IDS
 	 * @throws Exception

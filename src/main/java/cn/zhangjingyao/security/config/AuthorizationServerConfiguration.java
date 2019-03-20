@@ -1,10 +1,13 @@
 package cn.zhangjingyao.security.config;
 
+import cn.zhangjingyao.security.service.CustomTokenServices;
 import cn.zhangjingyao.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -12,7 +15,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.stereotype.Component;
 
 /**
  * @author
@@ -23,39 +26,27 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
-
-    @Bean
-    TokenStore tokenStore(){
-        return new InMemoryTokenStore();
-    }
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private CustomTokenServices customTokenServices;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
                 .inMemory()
                 .withClient("client")
-                .secret("secret")
-                .scopes("all")
+                .secret(new BCryptPasswordEncoder().encode("secret"))
                 .authorizedGrantTypes("password", "refresh_token")
+                .scopes("all")
         ;
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(tokenStore())
+        endpoints.authenticationManager(authenticationManager);
+        endpoints.tokenStore(new InMemoryTokenStore())
                 .userDetailsService(userDetailsService);
-        endpoints.tokenServices(defaultTokenServices());
+        endpoints.tokenServices(customTokenServices);
     }
-
-    @Primary
-    @Bean
-    public DefaultTokenServices defaultTokenServices(){
-        DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(tokenStore());
-        tokenServices.setSupportRefreshToken(true);
-        tokenServices.setAccessTokenValiditySeconds(60*60*12); // token有效期自定义设置，默认12小时
-        tokenServices.setRefreshTokenValiditySeconds(60 * 60 * 24 * 7);//默认30天，这里修改
-        return tokenServices;
-    }
-
 }
