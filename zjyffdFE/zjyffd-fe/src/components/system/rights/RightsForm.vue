@@ -95,7 +95,7 @@ export default {
     return {
       fromTag: "",
       readOnlyFlag: false,
-      submitUrl: 'api/rights/',
+      submitUrl: '/rights/',
       form: {
         rightsId: '',
         url: '',
@@ -148,7 +148,7 @@ export default {
       this.$emit("closeDialog")
     },
     getFormData() {
-      this.mixPost('api/rights/findById', {
+      this.mixPost('/rights/findById', {
         rightsId: this.parameter.currentRow.rightsId
       }).then(res => {
         this.form = res.data

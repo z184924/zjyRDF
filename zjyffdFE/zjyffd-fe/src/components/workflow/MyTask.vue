@@ -35,13 +35,13 @@ export default {
     }
   },
   mounted(){
-    this.mixPost('api/testProcess/getMyTask',{}).then(res=>{
+    this.mixPost('/testProcess/getMyTask',{}).then(res=>{
       this.taskList=res.data.taskList;
     })
   },
   methods:{
     refresh(){
-      this.mixPost('api/testProcess/getMyTask',{}).then(res=>{
+      this.mixPost('/testProcess/getMyTask',{}).then(res=>{
         this.taskList=res.data.taskList;
       })
     },

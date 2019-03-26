@@ -166,7 +166,7 @@ export default {
   },
   methods: {
     refreshTable() {
-      this.mixPost('api/rights/listPage', {
+      this.mixPost('/rights/listPage', {
         pageNum: this.pageInfo.pageNum,
         pageSize: this.pageInfo.pageSize,
       }).then(res => {
@@ -195,7 +195,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.mixPost('api/rights/delete', {
+          this.mixPost('/rights/delete', {
             rightsId: this.currentRow.rightsId
           }).then(res => {
             this.$message({

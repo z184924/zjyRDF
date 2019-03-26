@@ -69,14 +69,14 @@ export default {
       case 'User':
         this.noedKey = 'userId'
         this.treeProps.label = 'userName'
-        this.getDataUrl = 'api/role/listUserRole'
-        this.submitUrl = 'api/role/editUserRole'
+        this.getDataUrl = '/role/listUserRole'
+        this.submitUrl = '/role/editUserRole'
         break;
       case 'Rights':
         this.noedKey = 'rightsId'
         this.treeProps.label = 'rightsName'
-        this.getDataUrl = 'api/role/listRoleRights'
-        this.submitUrl = 'api/role/editRoleRights'
+        this.getDataUrl = '/role/listRoleRights'
+        this.submitUrl = '/role/editRoleRights'
         break;
       default:
         this.$message({

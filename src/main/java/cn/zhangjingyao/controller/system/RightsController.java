@@ -2,14 +2,13 @@ package cn.zhangjingyao.controller.system;
 
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
+import cn.zhangjingyao.service.system.RightsService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-
-import cn.zhangjingyao.service.system.RightsService;
 
 /** 
  * 类名称：RightsController
@@ -22,7 +21,7 @@ public class RightsController extends BaseController {
 
 	@Resource(name="rightsService")
 	private RightsService rightsService;
-	
+
 	/**
 	 * 新增或编辑
 	 */
@@ -33,7 +32,7 @@ public class RightsController extends BaseController {
 		PageData pd = this.getPageData();
 		if(pd.get("rightsId")==null||"".equals(pd.get("rightsId"))||0==pd.getInt("rightsId")){
 			//替换字段
-        	pd=this.replaceAttribute(pd);
+			pd=this.replaceAttribute(pd);
 			this.rightsService.save(pd);
 		}else {
 			//替换字段
@@ -42,7 +41,7 @@ public class RightsController extends BaseController {
 		}
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 新增
 	 */
@@ -52,11 +51,11 @@ public class RightsController extends BaseController {
 		logBefore(logger, "新增Rights");
 		PageData pd = this.getPageData();
 		//替换字段
-        pd=this.replaceAttribute(pd);
+		pd=this.replaceAttribute(pd);
 		this.rightsService.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 删除
 	 */
@@ -68,7 +67,7 @@ public class RightsController extends BaseController {
 		rightsService.delete(pd);
 		return this.jsonContent("success", "删除成功");
 	}
-	
+
 	/**
 	 * 修改
 	 */
@@ -78,14 +77,14 @@ public class RightsController extends BaseController {
 		logBefore(logger, "修改Rights");
 		PageData pd = this.getPageData();
 		//替换字段
-        pd=this.replaceAttribute(pd);
+		pd=this.replaceAttribute(pd);
 		this.rightsService.edit(pd);
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 分页查询列表
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	@ResponseBody
@@ -95,9 +94,9 @@ public class RightsController extends BaseController {
 		PageData pd = this.getPageData();
 		// 分页查询列表
 		PageInfo<PageData> pageInfo = this.rightsService.listPage(pd);
-    	return this.jsonContent("success",pageInfo);
+		return this.jsonContent("success",pageInfo);
 	}
-	
+
 	/**
 	 * 根据ID查询单条数据
 	 */
@@ -109,13 +108,13 @@ public class RightsController extends BaseController {
 		PageData resultPD = this.rightsService.findById(pd);
 		return this.jsonContent("success",resultPD);
 	}
-    /**
-    * 替换字段
-    * @param pd
-    * @return 替换后PageData
-    * @throws Exception
-    */
-    private PageData replaceAttribute(PageData pd) throws Exception{
-    	return pd;
-    }
+	/**
+	 * 替换字段
+	 * @param pd
+	 * @return 替换后PageData
+	 * @throws Exception
+	 */
+	private PageData replaceAttribute(PageData pd) throws Exception{
+		return pd;
+	}
 }

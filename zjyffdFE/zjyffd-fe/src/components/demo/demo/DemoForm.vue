@@ -122,7 +122,7 @@ export default {
     return {
       fromTag: "",
       readOnlyFlag: false,
-      submitUrl: 'api/demo/',
+      submitUrl: '/demo/',
       form: {
         demoId: '',
         demoText1: '',
@@ -182,7 +182,7 @@ export default {
       this.$emit("closeDialog")
     },
     getFormData() {
-      this.mixPost('api/demo/findById', {
+      this.mixPost('/demo/findById', {
         demoId: this.parameter.currentRow.demoId
       }).then(res => {
         this.form = res.data

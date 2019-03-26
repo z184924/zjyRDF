@@ -35,7 +35,7 @@ export default {
     }
   },
   mounted(){
-    this.mixPost('api/testProcess/getAllResource',{}).then(res=>{
+    this.mixPost('/testProcess/getAllResource',{}).then(res=>{
       this.processList=res.data.resultList;
     })
   },
@@ -46,7 +46,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.mixPost('api/testProcess/startProcess',{'processId':processId}).then(res=>{
+          this.mixPost('/testProcess/startProcess',{'processId':processId}).then(res=>{
             this.$message({
                 type: res.state,
                 message: res.message

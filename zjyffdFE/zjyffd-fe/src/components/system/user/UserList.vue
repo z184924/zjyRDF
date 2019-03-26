@@ -161,7 +161,7 @@ export default {
   },
   methods: {
     refreshTable() {
-      this.mixPost('api/user/listPage', {
+      this.mixPost('/user/listPage', {
         pageNum: this.pageInfo.pageNum,
         pageSize: this.pageInfo.pageSize,
       }).then(res => {
@@ -190,7 +190,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.mixPost('api/user/delete', {
+          this.mixPost('/user/delete', {
             userId: this.currentRow.userId
           }).then(res => {
             this.$message({

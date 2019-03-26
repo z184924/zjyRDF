@@ -153,7 +153,7 @@ export default {
   },
   methods: {
     refreshTable() {
-      this.mixPost('api/role/listPage', {
+      this.mixPost('/role/listPage', {
         pageNum: this.pageInfo.pageNum,
         pageSize: this.pageInfo.pageSize,
       }).then(res => {
@@ -182,7 +182,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.mixPost('api/role/delete', {
+          this.mixPost('/role/delete', {
             roleId: this.currentRow.roleId
           }).then(res => {
             this.$message({

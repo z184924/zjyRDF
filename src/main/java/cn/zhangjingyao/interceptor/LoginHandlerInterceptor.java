@@ -51,14 +51,14 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
 				res.put("state", "errorToken");
 				res.put("message", "Error Token");
 				String jsonString = JSON.toJSONString(res);
-				this.writeJson(response, jsonString);
+				WriteJsonUtil.writeJson(response, jsonString);
 				return false;
 			}else if(token.isExpiry()) {
 				Map<String,Object> res= new HashMap<String, Object>();
 				res.put("state", "errorToken");
 				res.put("message", "Expiry Token");
 				String jsonString = JSON.toJSONString(res);
-				this.writeJson(response, jsonString);
+				WriteJsonUtil.writeJson(response, jsonString);
 				return false;
 			}else {
 				tokenPool.flushToken(tokenStr);
@@ -80,20 +80,4 @@ public class LoginHandlerInterceptor extends HandlerInterceptorAdapter {
 		}
 	}
 
-	private void writeJson(HttpServletResponse response, String JsonStr) {
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json; charset=utf-8");
-		PrintWriter out = null;
-		try {
-			out = response.getWriter();
-			out.append(JsonStr);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (out != null) {
-				out.close();
-			}
-		}
-	}
-	
 }

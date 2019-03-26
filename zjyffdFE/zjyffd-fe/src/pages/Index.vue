@@ -208,7 +208,7 @@ export default {
     },
   },
   mounted() {
-    this.mixPost('api/role/listUserRights', {}).then(res => {
+    this.mixPost('/role/listUserRights', {}).then(res => {
       this.menuData = this.mixCreateTreeData('rightsId', res.data, 0)
       this.openDefaultTab(this.menuData,'18')
     })

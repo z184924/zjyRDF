@@ -18,17 +18,19 @@ export default {
       password = inputPassword;
       // console.log(username);
       return new Promise((resolve, reject) => {
-        this.mixPost("api/login", {
-          account: account,
+        this.mixPost("/oauth/token", {
+          grant_type: 'password',
+          username: account,
           password: password,
+          scope: 'all',
         }).then(res => {
           //登录成功
-          let data = res.data;
           let currentUser = {
-            account: data.user.account,
-            userName: data.user.userName,
-            token: data.token,
-            moreInfo: data.user,
+            account: res.user.account,
+            userName: res.user.userName,
+            access_token: res.access_token,
+            refresh_token: res.refresh_token,
+            moreInfo: res.user,
           }
           sessionStorage.setItem("sessionUser", JSON.stringify(currentUser));
           localStorage.setItem("account", account);
@@ -42,19 +44,23 @@ export default {
     },
     mixLogout() {
       this.$store.commit("logout");
-      this.mixPost("api/logout");
+      this.mixPost("/oauth/logout");
       this.$router.replace("/");
     },
     mixPost(api, data = {}, param = {}) {
+      let headers = {}
       if (param.isShowLoading === undefined) {
         param.isShowLoading = false;
       }
       if (param.loadingMaxTime === undefined) {
         param.loadingMaxTime = 15000;
       }
-      if (api != "api/login") {
-        data.token = this.mixCurrentUser.token;
+      if (api == "/oauth/token") {
+        headers.Authorization = 'Basic Y2xpZW50OnNlY3JldA=='
+      }else{
+        headers.Authorization = 'Bearer ' + this.mixCurrentUser.access_token
       }
+      
       return new Promise((resolve, reject) => {
         let url = this.mixApi(api);
         let vue = this;
@@ -67,37 +73,35 @@ export default {
         }
         $.ajax({
           url,
-          type: "post",
+          type: "POST",
           data,
+          dataType: "json",
+          headers,
           success(res) {
             if (param.isShowLoading) {
               vue.$store.commit("setLoading", false);
             }
             // this.mxLoading = false;
-            if (res) {
-              if (res.state == "errorToken") {
-                if (res.message == "Expiry Token") {
-                  vue.mixLogin();
-                } else {
-                  vue.$store.commit("logout");
-                  vue.$router.replace("/")
-                }
-              }
-              if (res.state != "success") {
-                reject(res.state);
-                vue.$alert(res.message, res.state, {
-                  confirmButtonText: '确定'
-                });
-              } else {
-                resolve(res);
-              }
-            }
+            resolve(res);
           },
           error(err) {
+            console.log(JSON.stringify(err))
+            switch (err.status) {
+              case 400:
+              case 401:
+                vue.$store.commit("logout");
+                vue.$router.replace("/")
+              case 403:
+                vue.$alert(err.message, err.state, {
+                  confirmButtonText: '确定'
+                });
+                break;
+              default:
+                vue.$message.error('无法连接服务器,请稍候重试');
+            }
             if (param.isShowLoading) {
               vue.$store.commit("setLoading", false);
             }
-            vue.$message.error('无法连接服务器,请稍候重试');
             reject(err);
           }
         })
@@ -112,7 +116,7 @@ export default {
       return moment(timeStamp).utc().format(format)
     },
     mixButtonAuthenticate(buttonList, buttonCode) {
-      for(let i=0;i<buttonList.length;i++){
+      for (let i = 0; i < buttonList.length; i++) {
         if (buttonList[i].rightsCode == buttonCode) {
           return true
         }

@@ -1,4 +1,4 @@
-package cn.zhangjingyao.plugin;
+package cn.zhangjingyao.util;
 
 import cn.zhangjingyao.entity.Page;
 import cn.zhangjingyao.util.ReflectHelper;

@@ -171,7 +171,7 @@ export default {
   },
   methods: {
     refreshTable() {
-      this.mixPost('api/demo/listPage', {
+      this.mixPost('/demo/listPage', {
         pageNum: this.pageInfo.pageNum,
         pageSize: this.pageInfo.pageSize,
       }).then(res => {
@@ -200,7 +200,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.mixPost('api/demo/delete', {
+          this.mixPost('/demo/delete', {
             demoId: this.currentRow.demoId
           }).then(res => {
             this.$message({

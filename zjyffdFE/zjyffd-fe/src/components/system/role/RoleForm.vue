@@ -50,7 +50,7 @@ export default {
     return {
       fromTag: "",
       readOnlyFlag: false,
-      submitUrl: 'api/role/',
+      submitUrl: '/role/',
       form: {
         roleId: '',
         roleName: '',
@@ -86,7 +86,7 @@ export default {
       this.$emit("closeDialog")
     },
     getFormData() {
-      this.mixPost('api/role/findById', {
+      this.mixPost('/role/findById', {
         roleId: this.parameter.currentRow.roleId
       }).then(res => {
         this.form = res.data

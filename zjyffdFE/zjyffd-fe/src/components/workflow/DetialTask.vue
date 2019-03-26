@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <img v-if="taskInfo.id" :src="mixBasePath+'api/testProcess/getProcessDiagram?taskId='+taskInfo.id+'&token='+mixCurrentUser.token">
+      <img v-if="taskInfo.id" :src="mixBasePath+'/testProcess/getProcessDiagram?taskId='+taskInfo.id+'&token='+mixCurrentUser.token">
     </div>
     <div v-for="formItem in taskInfo.formProperties">
       <el-form>
@@ -50,7 +50,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.mixPost('api/testProcess/finishTask',this.createFormData()).then(res => {
+        this.mixPost('/testProcess/finishTask',this.createFormData()).then(res => {
           this.$message({
             type: res.state,
             message: res.message
@@ -75,7 +75,7 @@ export default {
     },
   },
   mounted() {
-    this.mixPost('api/testProcess/getTaskInfo', { taskId: this.parameter.taskId }).then(res => {
+    this.mixPost('/testProcess/getTaskInfo', { taskId: this.parameter.taskId }).then(res => {
       this.taskInfo = res.data.taskInfo;
       this.taskInfo.formProperties.forEach(element => {
         let propertyName=element.id

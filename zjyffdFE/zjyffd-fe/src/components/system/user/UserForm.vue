@@ -96,7 +96,7 @@ export default {
     return {
       fromTag: "",
       readOnlyFlag: false,
-      submitUrl: 'api/user/',
+      submitUrl: '/user/',
       form: {
         userId: '',
         account: '',
@@ -145,7 +145,7 @@ export default {
       this.$emit("closeDialog")
     },
     getFormData() {
-      this.mixPost('api/user/findById', {
+      this.mixPost('/user/findById', {
         userId: this.parameter.currentRow.userId
       }).then(res => {
         this.form = res.data
