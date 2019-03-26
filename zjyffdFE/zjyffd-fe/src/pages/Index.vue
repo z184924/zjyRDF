@@ -52,7 +52,7 @@
               </el-submenu>
               <el-submenu
                 v-for="(menu,index) in menuData"
-                :index="menu.rightsId"
+                :index="menu.rightsId.toString()"
                 :key="index"
               >
                 <template slot="title">
@@ -63,7 +63,7 @@
                   <el-menu-item
                     v-for="(child,childIndex) in menu.children"
                     :key="childIndex"
-                    :index="child.rightsId"
+                    :index="child.rightsId.toString()"
                     @click="addTab(child.rightsName,child.rightsId,child.rightsCode,{buttonList:child.children})"
                   >{{child.rightsName}}</el-menu-item>
                 </el-menu-item-group>
@@ -146,6 +146,7 @@ export default {
       }
     },
     addTab(title, targetName, content, parameter) {
+      targetName = targetName.toString()
       let sameFlag = false
       this.editableTabs.forEach(element => {
         if (element.name == targetName) {
@@ -194,15 +195,15 @@ export default {
       console.log(tab);
       this.$refs[tab.name][0].refresh();
     },
-    openDefaultTab(menuList,defaultTabId){
-      this.defaultActiveMenu = defaultTabId
-      menuList.forEach(element=>{
-        if(element.rightsId==defaultTabId){
-          this.addTab(element.rightsName, element.rightsId, element.rightsCode,{buttonList:element.children})
+    openDefaultTab(menuList, defaultTabId) {
+      this.defaultActiveMenu = defaultTabId.toString()
+      menuList.forEach(element => {
+        if (element.rightsId == defaultTabId) {
+          this.addTab(element.rightsName, element.rightsId, element.rightsCode, { buttonList: element.children })
           return
         }
-        if(element.children.length>0){
-          this.openDefaultTab(element.children,defaultTabId)
+        if (element.children.length > 0) {
+          this.openDefaultTab(element.children, defaultTabId)
         }
       })
     },
@@ -210,7 +211,7 @@ export default {
   mounted() {
     this.mixPost('/role/listUserRights', {}).then(res => {
       this.menuData = this.mixCreateTreeData('rightsId', res.data, 0)
-      this.openDefaultTab(this.menuData,'18')
+      this.openDefaultTab(this.menuData, 18)
     })
     const that = this
     window.onresize = () => {
