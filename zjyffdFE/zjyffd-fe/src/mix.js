@@ -85,14 +85,14 @@ export default {
             resolve(res);
           },
           error(err) {
-            console.log(JSON.stringify(err))
+            let resMsg=JSON.parse(err.responseText);
             switch (err.status) {
               case 400:
               case 401:
                 vue.$store.commit("logout");
                 vue.$router.replace("/")
               case 403:
-                vue.$alert(err.message, err.state, {
+                vue.$alert(resMsg.message, resMsg.state+':'+resMsg.error, {
                   confirmButtonText: '确定'
                 });
                 break;

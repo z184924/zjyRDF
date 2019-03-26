@@ -15,7 +15,8 @@ export default new Vuex.Store({
       let info = {
         account: "",
         userName: "",
-        token: "",
+        access_token: "",
+        refresh_token: "",
       };
       sessionStorage.setItem("sessionUser", JSON.stringify(info));
     },

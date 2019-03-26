@@ -76,7 +76,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .and()
                 .authorizeRequests()
                 .antMatchers("/**")
-                .access("@rbacService.hasPermission(request,authentication) or hasRole('admin')")
+                .access("@rbacService.hasPermission(request,authentication) or hasRole('ROLE_admin')")
 //                .authenticated()
 //                .anonymous()
         ;
