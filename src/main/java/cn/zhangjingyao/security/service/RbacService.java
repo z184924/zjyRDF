@@ -27,7 +27,6 @@ public class RbacService {
         RightsCache rightsCache = RightsCache.getInstance();
         Integer rightsId = rightsCache.get(requestURL);
         BigInteger rightsCode = (BigInteger)accessToken.getAdditionalInformation().get("rightsCode");
-        logger.info(authentication.getName()+":"+requestURL+" - "+JSON.toJSON(request.getParameterMap()));
         return RightsHelper.testRights(rightsCode,rightsId);
     }
 }

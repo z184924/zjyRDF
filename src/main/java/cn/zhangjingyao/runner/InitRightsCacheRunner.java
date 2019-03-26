@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @author ZJY
+ * 权限列表启动缓存
+ * @author
  */
 @Component
 public class InitRightsCacheRunner implements ApplicationRunner {
