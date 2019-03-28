@@ -191,8 +191,6 @@ export default {
       this.removeTab(tab.name);
     },
     refreshTab(tab) {
-      console.log(this.$refs);
-      console.log(tab);
       this.$refs[tab.name][0].refresh();
     },
     openDefaultTab(menuList, defaultTabId) {
