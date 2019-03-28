@@ -37,7 +37,8 @@ public class CustomTokenServices extends DefaultTokenServices {
         this.setTokenStore(new InMemoryTokenStore());
         this.setSupportRefreshToken(true);
         //AccessToken有效期自定义设置，默认12小时
-        this.setAccessTokenValiditySeconds(30 * 60);
+//        this.setAccessTokenValiditySeconds(30 * 60);
+        this.setAccessTokenValiditySeconds(5);
         //RefreshToken有效期自定义设置，默认30天
         this.setRefreshTokenValiditySeconds(24 * 60 * 60);
     }
@@ -49,12 +50,7 @@ public class CustomTokenServices extends DefaultTokenServices {
         public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
             if (accessToken instanceof DefaultOAuth2AccessToken) {
                 DefaultOAuth2AccessToken token = ((DefaultOAuth2AccessToken) accessToken);
-                token.setValue(getNewToken());
-
-                OAuth2RefreshToken refreshToken = token.getRefreshToken();
-                if (refreshToken instanceof DefaultOAuth2RefreshToken) {
-                    token.setRefreshToken(new DefaultOAuth2RefreshToken(getNewToken()));
-                }
+                replaceShotLine(token);
                 try {
                     Map<String, Object> additionalInformation = new HashMap<String, Object>();
                     //放入用户信息
@@ -63,10 +59,10 @@ public class CustomTokenServices extends DefaultTokenServices {
                     additionalInformation.put("user", user);
                     //放入权限码
                     List<PageData> rightsData = roleService.listUserRights(user.getUserId());
-                    int[] rightsIds=new int[rightsData.size()];
-                    int i=0;
-                    for (PageData rights: rightsData) {
-                        rightsIds[i]=rights.getInt("rightsId");
+                    int[] rightsIds = new int[rightsData.size()];
+                    int i = 0;
+                    for (PageData rights : rightsData) {
+                        rightsIds[i] = rights.getInt("rightsId");
                         i++;
                     }
                     BigInteger rightsCode = RightsHelper.sumRights(rightsIds);
@@ -80,8 +76,10 @@ public class CustomTokenServices extends DefaultTokenServices {
             return accessToken;
         }
 
-        private String getNewToken() {
-            return UUID.randomUUID().toString().replace("-", "");
+        private DefaultOAuth2AccessToken replaceShotLine(DefaultOAuth2AccessToken token) {
+            token.setValue(token.getValue().replace("-", ""));
+            token.setRefreshToken(new DefaultOAuth2RefreshToken(token.getRefreshToken().getValue().replace("-", "")));
+            return token;
         }
 
     }

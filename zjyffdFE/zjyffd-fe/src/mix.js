@@ -1,12 +1,10 @@
 import $ from "jquery"
 import moment from "moment"
+import { isNullOrUndefined } from "util";
 export default {
   computed: {
     mixBasePath() {
       return this.$store.state.basePath;
-    },
-    mixCurrentUser() {
-      return JSON.parse(sessionStorage.getItem('sessionUser'))
     },
   },
   methods: {
@@ -28,11 +26,11 @@ export default {
           let currentUser = {
             account: res.user.account,
             userName: res.user.userName,
-            access_token: res.access_token,
-            refresh_token: res.refresh_token,
             moreInfo: res.user,
           }
           sessionStorage.setItem("sessionUser", JSON.stringify(currentUser));
+          sessionStorage.setItem("access_token", res.access_token);
+          localStorage.setItem("refresh_token", res.refresh_token)
           localStorage.setItem("account", account);
           localStorage.setItem("password", password);
           resolve(res);
@@ -40,6 +38,36 @@ export default {
           this.$router.replace("/");
           reject(res);
         });
+      })
+    },
+    mixRefreshToken(api, data = {}, param = {}) {
+      return new Promise((resolve, reject) => {
+        this.mixPost("/oauth/token", {
+          grant_type: 'refresh_token',
+          refresh_token: localStorage.getItem("refresh_token"),
+        }).then(res => {
+          let currentUser = {
+            account: res.user.account,
+            userName: res.user.userName,
+            access_token: res.access_token,
+            refresh_token: res.refresh_token,
+            moreInfo: res.user,
+          }
+          sessionStorage.setItem("sessionUser", JSON.stringify(currentUser));
+          sessionStorage.setItem("access_token", res.access_token);
+          localStorage.setItem("refresh_token", res.refresh_token)
+          if (!isNullOrUndefined(api)) {
+            this.mixPost(api, data, param).then(subres => {
+              resolve(subres)
+            }).catch(suberr => {
+              reject(suberr)
+            })
+          } else {
+            resolve(res)
+          }
+        }).catch(err => {
+          reject(err)
+        })
       })
     },
     mixLogout() {
@@ -57,10 +85,9 @@ export default {
       }
       if (api == "/oauth/token") {
         headers.Authorization = 'Basic Y2xpZW50OnNlY3JldA=='
-      }else{
-        headers.Authorization = 'Bearer ' + this.mixCurrentUser.access_token
+      } else {
+        headers.Authorization = 'Bearer ' + sessionStorage.getItem('access_token')
       }
-      
       return new Promise((resolve, reject) => {
         let url = this.mixApi(api);
         let vue = this;
@@ -85,24 +112,37 @@ export default {
             resolve(res);
           },
           error(err) {
-            let resMsg=JSON.parse(err.responseText);
+            let errMsg = JSON.parse(err.responseText);
             switch (err.status) {
-              case 400:
               case 401:
+                if (!param.refreshTokenFlag) {
+                  param.refreshTokenFlag = true
+                  vue.mixRefreshToken(api, data, param).then(res => {
+                    if (!isNullOrUndefined(res) && res.state == 'success') {
+                      resolve(res)
+                    }
+                  }).catch(err => {
+                    reject(err)
+                  })
+                }
+                break;
+              case 400:
                 vue.$store.commit("logout");
                 vue.$router.replace("/")
               case 403:
-                vue.$alert(resMsg.message, resMsg.state+':'+resMsg.error, {
+              case 500:
+                vue.$alert(errMsg.message, errMsg.state + ':' + errMsg.error, {
                   confirmButtonText: '确定'
                 });
+                reject(err);
                 break;
               default:
                 vue.$message.error('无法连接服务器,请稍候重试');
+                reject(err);
             }
             if (param.isShowLoading) {
               vue.$store.commit("setLoading", false);
             }
-            reject(err);
           }
         })
       });

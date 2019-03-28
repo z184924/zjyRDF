@@ -30,19 +30,18 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
                                          HttpServletResponse response, Object handler, Exception exception) {
         // TODO Auto-generated method stub
 
-        System.out.println("==============异常开始=============");
+        System.out.println("===============异常开始===============");
         exception.printStackTrace();
-        System.out.println("==============异常结束=============");
-//        response.setHeader("Cache-Control", "no-cache, must-revalidate");
+        System.out.println("===============异常结束===============");
         HashMap<String, Object> resData = new HashMap<>(16);
         if (exception instanceof InvalidGrantException) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             resData.put("state","error");
             resData.put("error",HttpStatus.BAD_REQUEST.value());
             resData.put("errorMessage",exception.getMessage());
-            resData.put("message","用户名或密码错误");
+            resData.put("message","用户名密码错误或无效令牌");
         } else {
-            response.setStatus(HttpStatus.OK.value());
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             resData.put("state","error");
             resData.put("error",HttpStatus.INTERNAL_SERVER_ERROR.value());
             resData.put("errorMessage",exception.getMessage());

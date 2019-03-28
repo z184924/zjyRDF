@@ -15,10 +15,11 @@ export default new Vuex.Store({
       let info = {
         account: "",
         userName: "",
-        access_token: "",
-        refresh_token: "",
+        moreInfo:{}
       };
       sessionStorage.setItem("sessionUser", JSON.stringify(info));
+      sessionStorage.setItem("access_token","");
+      localStorage.setItem("refresh_token","");
     },
     setLoading(state, loadingState) {
       state.loading = loadingState;
