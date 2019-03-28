@@ -135,7 +135,7 @@ export default {
           this.mixPost(this.submitUrl, this.form).then(res => {
             this.$emit("refreshTable")
             this.$emit("closeDialog")
-          })
+          }).catch(err => { })
         } else {
           return false;
         }
@@ -150,7 +150,7 @@ export default {
       }).then(res => {
         this.form = res.data
         this.replaceAttribute();
-      })
+      }).catch(err => { })
     },
     replaceAttribute() {
     }

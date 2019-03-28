@@ -130,6 +130,7 @@ export default {
                 vue.$router.replace("/")
               case 403:
               case 500:
+                let errMsg = JSON.parse(err.responseText)
                 vue.$alert(errMsg.message, errMsg.state + ':' + errMsg.error, {
                   confirmButtonText: '确定'
                 });

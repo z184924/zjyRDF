@@ -110,7 +110,7 @@ export default {
             type: 'error'
           });
       }
-    })
+    }).catch(err => { })
 
   }
 }

@@ -168,7 +168,7 @@ export default {
         this.pageInfo = res.pageInfo
         this.tableData = res.pageInfo.list;
         this.replaceAttribute();
-      })
+      }).catch(err => { })
     },
     addRow() {
       this.openDialog("user-form", { formTag: "add", currentRow: this.currentRow }, "添加")
@@ -198,7 +198,7 @@ export default {
               message: res.message
             });
             this.refreshTable()
-          })
+          }).catch(err => { })
         }).catch(() => {
           this.$message({
             type: 'info',
