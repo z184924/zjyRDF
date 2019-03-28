@@ -113,12 +113,12 @@ public class ${objectName}Controller extends BaseController {
 		PageData resultPD = this.${objectNameFirstLower}Service.findById(pd);
 		return this.jsonContent("success",resultPD);
 	}
-    /**
-     * 替换字段
-     * @param pd
-     * @return 替换后PageData
-     * @throws Exception
-     */
+	/**
+	 * 替换字段
+	 * @param pd
+	 * @return 替换后PageData
+	 * @throws Exception
+	 */
 	private PageData replaceAttribute(PageData pd) throws Exception{
 	<#list fieldList as var>
 		<#if var[1] == "Boolean">

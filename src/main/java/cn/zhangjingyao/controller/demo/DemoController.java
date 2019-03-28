@@ -22,7 +22,7 @@ public class DemoController extends BaseController {
 
 	@Resource(name="demoService")
 	private DemoService demoService;
-	
+
 	/**
 	 * 新增或编辑
 	 */
@@ -35,7 +35,7 @@ public class DemoController extends BaseController {
 			//添加主键
 			pd.put("demoId", this.get32UUID());
 			//替换字段
-        	pd=this.replaceAttribute(pd);
+			pd=this.replaceAttribute(pd);
 			this.demoService.save(pd);
 		}else {
 			//替换字段
@@ -44,7 +44,7 @@ public class DemoController extends BaseController {
 		}
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 新增
 	 */
@@ -56,11 +56,11 @@ public class DemoController extends BaseController {
 		//添加主键
 		pd.put("demoId", this.get32UUID());
 		//替换字段
-        pd=this.replaceAttribute(pd);
+		pd=this.replaceAttribute(pd);
 		this.demoService.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 删除
 	 */
@@ -72,7 +72,7 @@ public class DemoController extends BaseController {
 		demoService.delete(pd);
 		return this.jsonContent("success", "删除成功");
 	}
-	
+
 	/**
 	 * 修改
 	 */
@@ -82,14 +82,14 @@ public class DemoController extends BaseController {
 		logBefore(logger, "修改Demo");
 		PageData pd = this.getPageData();
 		//替换字段
-        pd=this.replaceAttribute(pd);
+		pd=this.replaceAttribute(pd);
 		this.demoService.edit(pd);
 		return this.jsonContent("success", "保存成功");
 	}
-	
+
 	/**
 	 * 分页查询列表
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	@ResponseBody
@@ -99,9 +99,9 @@ public class DemoController extends BaseController {
 		PageData pd = this.getPageData();
 		// 分页查询列表
 		PageInfo<PageData> pageInfo = this.demoService.listPage(pd);
-    	return this.jsonContent("success",pageInfo);
+		return this.jsonContent("success",pageInfo);
 	}
-	
+
 	/**
 	 * 根据ID查询单条数据
 	 */
@@ -114,12 +114,12 @@ public class DemoController extends BaseController {
 		return this.jsonContent("success",resultPD);
 	}
     /**
-    * 替换字段
-    * @param pd
-    * @return 替换后PageData
-    * @throws Exception
-    */
-    private PageData replaceAttribute(PageData pd) throws Exception{
+	 * 替换字段
+	 * @param pd
+	 * @return 替换后PageData
+	 * @throws Exception
+	 */
+	private PageData replaceAttribute(PageData pd) throws Exception{
 		if("true".equals(pd.getString("demoBoolean1"))){
 			pd.put("demoBoolean1",true);
 		}else{
@@ -130,6 +130,6 @@ public class DemoController extends BaseController {
 		}else{
 			pd.put("demoBoolean2",false);
 		}
-    	return pd;
-    }
+		return pd;
+	}
 }
