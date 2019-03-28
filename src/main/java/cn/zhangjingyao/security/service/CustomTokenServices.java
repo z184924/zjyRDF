@@ -37,8 +37,7 @@ public class CustomTokenServices extends DefaultTokenServices {
         this.setTokenStore(new InMemoryTokenStore());
         this.setSupportRefreshToken(true);
         //AccessToken有效期自定义设置，默认12小时
-//        this.setAccessTokenValiditySeconds(30 * 60);
-        this.setAccessTokenValiditySeconds(5);
+        this.setAccessTokenValiditySeconds(30 * 60);
         //RefreshToken有效期自定义设置，默认30天
         this.setRefreshTokenValiditySeconds(24 * 60 * 60);
     }
