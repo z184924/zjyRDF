@@ -10,8 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 /**
+ * 类名称：DemoService
+ * 创建时间：2019-03-28
  * @author
  */
 @org.springframework.stereotype.Service
@@ -87,7 +88,7 @@ public class DemoService {
 	}
 
     /**
-	 * 分页列表
+	 * 分页查询
      * @param page
      * @return
      * @throws Exception
@@ -99,7 +100,7 @@ public class DemoService {
 	}
 
     /**
-     * 列表(全部)
+     * 查询(全部)
      * @param pd
      * @return
      * @throws Exception

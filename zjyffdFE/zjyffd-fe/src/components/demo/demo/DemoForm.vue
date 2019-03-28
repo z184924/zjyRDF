@@ -172,7 +172,7 @@ export default {
           this.mixPost(this.submitUrl, this.form).then(res => {
             this.$emit("refreshTable")
             this.$emit("closeDialog")
-          })
+          }).catch(err => { })
         } else {
           return false;
         }
@@ -187,7 +187,7 @@ export default {
       }).then(res => {
         this.form = res.data
         this.replaceAttribute();
-      })
+      }).catch(err => { })
     },
     replaceAttribute() {
       this.form.demoTime1 = this.mixTimeStamp2String(this.form.demoTime1, "YYYY-MM-DD HH:mm:ss")

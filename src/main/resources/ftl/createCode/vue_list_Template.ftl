@@ -140,7 +140,7 @@ export default {
   },
   methods: {
     refreshTable() {
-      this.mixPost('api/${objectNameLower}/listPage', {
+      this.mixPost('/${objectNameLower}/listPage', {
         pageNum: this.pageInfo.pageNum,
         pageSize: this.pageInfo.pageSize,
       }).then(res => {
@@ -169,7 +169,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.mixPost('api/${objectNameLower}/delete', {
+          this.mixPost('/${objectNameLower}/delete', {
               <#list fieldList as var>
                 <#if var[4] == "是">
             ${var[0]}: this.currentRow.${var[0]}

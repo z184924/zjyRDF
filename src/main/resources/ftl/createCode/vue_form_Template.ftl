@@ -74,7 +74,7 @@ export default {
     return {
       fromTag: "",
       readOnlyFlag: false,
-      submitUrl: 'api/${objectNameLower}/',
+      submitUrl: '/${objectNameLower}/',
       form: {
         <#list fieldList as var>
           <#if var[1]=="String">
@@ -114,7 +114,7 @@ export default {
       this.$emit("closeDialog")
     },
     getFormData() {
-      this.mixPost('api/${objectNameLower}/findById', {
+      this.mixPost('/${objectNameLower}/findById', {
           <#list fieldList as var>
             <#if var[4] == "是">
         ${var[0]}: this.parameter.currentRow.${var[0]}
