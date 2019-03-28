@@ -6,6 +6,9 @@ export default {
     mixBasePath() {
       return this.$store.state.basePath;
     },
+    mixClientAndSecret() {
+      return this.$store.state.clientAndSecret;
+    },
   },
   methods: {
     // 登录
@@ -14,7 +17,6 @@ export default {
       var password;
       account = inputAccount;
       password = inputPassword;
-      // console.log(username);
       return new Promise((resolve, reject) => {
         this.mixPost("/oauth/token", {
           grant_type: 'password',
@@ -84,7 +86,7 @@ export default {
         param.loadingMaxTime = 15000;
       }
       if (api == "/oauth/token") {
-        headers.Authorization = 'Basic Y2xpZW50OnNlY3JldA=='
+        headers.Authorization = 'Basic ' + this.mixClientAndSecret
       } else {
         headers.Authorization = 'Bearer ' + sessionStorage.getItem('access_token')
       }
@@ -95,7 +97,6 @@ export default {
           this.$store.commit("setLoading", true);
           setTimeout(() => {
             this.$store.commit("setLoading", false);
-            // this.mxLoading = false;
           }, param.loadingMaxTime)
         }
         $.ajax({
@@ -108,14 +109,12 @@ export default {
             if (param.isShowLoading) {
               vue.$store.commit("setLoading", false);
             }
-            // this.mxLoading = false;
             resolve(res);
           },
           error(err) {
-            let errMsg = JSON.parse(err.responseText);
             switch (err.status) {
               case 401:
-                if (!param.refreshTokenFlag) {
+                if (!param.refreshTokenFlag&&api!='/oauth/logout') {
                   param.refreshTokenFlag = true
                   vue.mixRefreshToken(api, data, param).then(res => {
                     if (!isNullOrUndefined(res) && res.state == 'success') {
