@@ -126,7 +126,7 @@ public class UserController extends BaseController {
 	}
 
 	/**
-	 * 修改
+	 * 修改密码
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/editPassword", produces = "application/json;charset=UTF-8")
