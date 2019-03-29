@@ -47,8 +47,7 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
             resData.put("error",HttpStatus.NOT_IMPLEMENTED.value());
             resData.put("errorMessage",exception.getMessage());
             resData.put("message",exception.getMessage());
-        }
-        else {
+        } else {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             resData.put("state","error");
             resData.put("error",HttpStatus.INTERNAL_SERVER_ERROR.value());
