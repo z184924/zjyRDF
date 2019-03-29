@@ -15,7 +15,17 @@
             <div></div>
           </el-col>
           <el-col :span="6">
-            <div style="text-align:right;color:#FFF;"><a @click="logout">logout</a></div>
+            <div style="text-align:right;color:#FFF;">
+              <el-dropdown @command="handleCommand">
+                <span style="cursor: pointer;color: #FFF;">
+                  {{mixCurrentUser.userName}}<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item command="editPassword">修改密码</el-dropdown-item>
+                  <el-dropdown-item command="logout">注销</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
           </el-col>
         </el-row>
       </el-header>
@@ -102,10 +112,24 @@
         </div>
       </el-footer>
     </el-container>
+    <el-dialog
+      :title="dialogContent.title"
+      :visible.sync="dialogVisible"
+      width="50%"
+      @closed="dialogClosed"
+    >
+      <component
+        :is="dialogContent.componentName"
+        :ref="dialogContent.name"
+        v-bind:parameter="dialogContent.parameter"
+        @closeDialog="closeDialog"
+      ></component>
+    </el-dialog>
   </div>
 </template>
 <script>
 import $ from "jquery"
+import EditPassword from "@/components/system/EditPassword"
 import StartProcess from "@/components/workflow/StartProcess"
 import MyTask from "@/components/workflow/MyTask"
 import DetialTask from "@/components/workflow/DetialTask"
@@ -115,6 +139,7 @@ import RightsList from "@/components/system/rights/RightsList"
 import DemoList from "@/components/demo/demo/DemoList"
 export default {
   components: {
+    EditPassword,
     StartProcess,
     MyTask,
     DetialTask,
@@ -123,8 +148,19 @@ export default {
     RightsList,
     DemoList,
   },
+  computed: {
+    mixCurrentUser() {
+      return JSON.parse(sessionStorage.getItem("sessionUser"))
+    }
+  },
   data() {
     return {
+      dialogVisible: false,
+      dialogContent: {
+        title: "",
+        parameter: {},
+        componentName: ""
+      },
       isCollapse: false,
       menuStateButtonIcon: 'el-icon-d-arrow-left',
       editableTabsValue: '',
@@ -181,9 +217,6 @@ export default {
       this.editableTabsValue = activeName;
       this.editableTabs = tabs.filter(tab => tab.name !== targetName);
     },
-    logout() {
-      this.mixLogout();
-    },
     openSubTab(tab) {
       this.addTab(tab.title, tab.name, tab.content, tab.parameter);
     },
@@ -204,6 +237,32 @@ export default {
           this.openDefaultTab(element.children, defaultTabId)
         }
       })
+    },
+    openDialog(componentName, parameter, title) {
+      this.dialogContent.componentName = componentName
+      this.dialogContent.parameter = parameter
+      this.dialogContent.title = title
+      this.dialogVisible = true
+    },
+    closeDialog() {
+      this.dialogVisible = false
+    },
+    dialogClosed() {
+      this.dialogContent.componentName = ""
+      this.dialogContent.parameter = {}
+      this.dialogContent.title = ""
+    },
+    handleCommand(command) {
+      switch (command) {
+        case "editPassword":
+          this.openDialog("edit-password", {}, "修改密码")
+          break;
+        case "logout":
+          this.mixLogout();
+          break;
+        default:
+          console.error("command:" + command + "未定义")
+      }
     },
   },
   mounted() {

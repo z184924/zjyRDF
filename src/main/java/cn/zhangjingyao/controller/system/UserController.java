@@ -2,6 +2,7 @@ package cn.zhangjingyao.controller.system;
 
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
+import cn.zhangjingyao.entity.system.User;
 import cn.zhangjingyao.service.system.UserService;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -122,6 +123,26 @@ public class UserController extends BaseController {
 		PageData pd = this.getPageData();
 		PageData resultPD = this.userService.findById(pd);
 		return this.jsonContent("success", resultPD);
+	}
+
+	/**
+	 * 修改
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/editPassword", produces = "application/json;charset=UTF-8")
+	public String editPassword() throws Exception {
+		User currentUser = this.getCurrentUser();
+		logBefore(logger, "用户:"+currentUser.getAccount()+"修改密码");
+		PageData oldUser = this.userService.findById(currentUser.getUserId());
+		PageData pd = this.getPageData();
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		if(bCryptPasswordEncoder.matches(pd.getString("oldPassword"),oldUser.getString("password"))){
+			oldUser.put("password",bCryptPasswordEncoder.encode(pd.getString("newPassword")));
+			this.userService.edit(pd);
+			return this.jsonContent("success", "修改成功");
+		}else{
+			return this.jsonContent("error", "旧密码错误");
+		}
 	}
 
 	/**

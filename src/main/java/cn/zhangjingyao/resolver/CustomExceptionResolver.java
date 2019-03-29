@@ -1,5 +1,6 @@
 package cn.zhangjingyao.resolver;
 
+import cn.zhangjingyao.exception.CustomException;
 import cn.zhangjingyao.util.WriteJsonUtil;
 import com.alibaba.fastjson.JSON;
 import org.omg.CORBA.DynAnyPackage.Invalid;
@@ -40,7 +41,14 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
             resData.put("error",HttpStatus.BAD_REQUEST.value());
             resData.put("errorMessage",exception.getMessage());
             resData.put("message","用户名密码错误或无效令牌");
-        } else {
+        }else if(exception instanceof CustomException){
+            response.setStatus(HttpStatus.NOT_IMPLEMENTED.value());
+            resData.put("state","error");
+            resData.put("error",HttpStatus.NOT_IMPLEMENTED.value());
+            resData.put("errorMessage",exception.getMessage());
+            resData.put("message",exception.getMessage());
+        }
+        else {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             resData.put("state","error");
             resData.put("error",HttpStatus.INTERNAL_SERVER_ERROR.value());
