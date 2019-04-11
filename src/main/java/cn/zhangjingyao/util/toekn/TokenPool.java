@@ -2,6 +2,7 @@ package cn.zhangjingyao.util.toekn;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -9,12 +10,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author
  */
-public class TokenPool extends HashMap<String,Token> {
+public class TokenPool extends ConcurrentHashMap<String,Token> {
 	
 	private static final long serialVersionUID = 1L;
 	private static TokenPool tokenPool;
 	private TokenPool() {}
-	public static synchronized TokenPool getInstance() {
+	public static TokenPool getInstance() {
 		if(tokenPool==null) {
 			tokenPool=new TokenPool();
 			cleanPoolTask();
@@ -56,7 +57,7 @@ public class TokenPool extends HashMap<String,Token> {
 		return true;
 	}
 	
-	public static synchronized boolean cleanPool() {
+	public static boolean cleanPool() {
 		if(tokenPool!=null) {
 			System.out.println("TokenPool Clean Start");
 			Set<String> keySet = tokenPool.keySet();
