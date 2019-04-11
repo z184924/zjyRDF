@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
@@ -25,19 +24,29 @@ import java.util.List;
 public class CustomWebMvcConfiguration implements WebMvcConfigurer {
 
     //在此处，将拦截器注册为一个 Bean 使拦截器可使用Autowired
+
+    /**
+     * @return LogInterceptor
+     */
     @Bean
     public LogInterceptor logInterceptor() {
         return new LogInterceptor();
     }
 
+    /**
+     * @return FormInterceptor
+     */
     @Bean
     public FormInterceptor formInterceptor() {
         return new FormInterceptor();
     }
 
+    /**
+     * 添加拦截器
+     * @param registry InterceptorRegistry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //添加拦截器
         registry.addInterceptor(logInterceptor())
                 .addPathPatterns("/**")
                 .order(Ordered.LOWEST_PRECEDENCE);
@@ -50,6 +59,11 @@ public class CustomWebMvcConfiguration implements WebMvcConfigurer {
 //        super.addInterceptors(registry);
     }
 
+
+    /**
+     * 添加异常转换器
+     * @param exceptionResolvers HandlerExceptionResolver List
+     */
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> exceptionResolvers) {
 //        super.configureHandlerExceptionResolvers(exceptionResolvers);
