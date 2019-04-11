@@ -1,5 +1,6 @@
 package cn.zhangjingyao.config;
 
+import cn.zhangjingyao.interceptor.FormInterceptor;
 import cn.zhangjingyao.interceptor.LogInterceptor;
 import cn.zhangjingyao.resolver.CustomExceptionResolver;
 import org.springframework.context.annotation.Bean;
@@ -24,12 +25,23 @@ public class InterceptorConfiguration extends WebMvcConfigurerAdapter {
         return new LogInterceptor();
     }
 
+    @Bean
+    public FormInterceptor formInterceptor() {
+        return new FormInterceptor();
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //添加拦截器
         registry.addInterceptor(logInterceptor())
                 .addPathPatterns("/**")
                 .order(Ordered.LOWEST_PRECEDENCE);
+        registry.addInterceptor(formInterceptor())
+                .addPathPatterns("/**/save*")
+                .addPathPatterns("/**/edit*")
+                .addPathPatterns("/**/delete*")
+                .addPathPatterns("/**/saveOrUpdate*")
+                .order(Ordered.LOWEST_PRECEDENCE-1);
         super.addInterceptors(registry);
     }
 

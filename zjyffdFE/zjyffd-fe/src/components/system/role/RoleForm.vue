@@ -49,6 +49,9 @@ export default {
   data() {
     return {
       fromTag: "",
+      formToken: {
+        token: ''
+      },
       readOnlyFlag: false,
       submitUrl: '/role/',
       form: {
@@ -73,6 +76,7 @@ export default {
     submit() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
+          this.form.formToken = this.formToken.token
           this.mixPost(this.submitUrl, this.form).then(res => {
             this.$emit("refreshTable")
             this.$emit("closeDialog")
@@ -91,6 +95,7 @@ export default {
       }).then(res => {
         this.form = res.data
         this.replaceAttribute();
+        this.mixSetFormToken(this.formToken);
       }).catch(err => { })
     },
     replaceAttribute() {
@@ -102,6 +107,7 @@ export default {
       case 'add':
         this.readOnlyFlag = false;
         this.submitUrl = this.submitUrl + 'save';
+        this.mixSetFormToken(this.formToken);
         break;
       case 'edit':
         this.readOnlyFlag = false;

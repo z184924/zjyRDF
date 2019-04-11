@@ -3,7 +3,7 @@
 <mapper namespace="${objectName}Mapper">
 	
 	
-	<!-- 新增-->
+	<!-- 新增 -->
 	<insert id="save" parameterType="PageData">
 		insert into "${tabletop}${objectNameUpper}"(
 	<#list fieldList as var>
@@ -31,7 +31,7 @@
     </insert>
 
 
-    <!-- 删除-->
+    <!-- 删除 -->
     <delete id="delete" parameterType="PageData">
         delete from "${tabletop}${objectNameUpper}"
         where

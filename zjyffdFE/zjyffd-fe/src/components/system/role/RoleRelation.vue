@@ -40,6 +40,9 @@ export default {
       treeProps: {
         children: 'children',
         label: ''
+      },
+      formToken: {
+        token: ''
       }
     };
   },
@@ -47,7 +50,8 @@ export default {
     submit() {
       this.mixPost(this.submitUrl, {
         checkedKeys: this.checkedKeys.join(),
-        roleId: this.parameter.currentRow.roleId
+        roleId: this.parameter.currentRow.roleId,
+        formToken: this.formToken.token
       }).then(res => {
         this.$emit("refreshTable")
         this.$emit("closeDialog")
@@ -110,6 +114,7 @@ export default {
             type: 'error'
           });
       }
+      this.mixSetFormToken(this.formToken)
     }).catch(err => { })
 
   }

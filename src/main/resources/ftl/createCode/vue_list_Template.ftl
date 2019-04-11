@@ -136,6 +136,9 @@ export default {
         parameter: {},
         componentName: ""
       },
+      formToken:{
+        token:''
+      },
     }
   },
   methods: {
@@ -145,8 +148,9 @@ export default {
         pageSize: this.pageInfo.pageSize,
       }).then(res => {
         this.pageInfo = res.pageInfo
-        this.tableData = res.pageInfo.list;
-        this.replaceAttribute();
+        this.tableData = res.pageInfo.list
+        this.replaceAttribute()
+        this.mixSetFormToken(this.formToken)
       }).catch(err => { })
     },
     addRow() {
@@ -172,9 +176,10 @@ export default {
           this.mixPost('/${objectNameLower}/delete', {
               <#list fieldList as var>
                 <#if var[4] == "是">
-            ${var[0]}: this.currentRow.${var[0]}
+            ${var[0]}: this.currentRow.${var[0]},
                 </#if>
               </#list>
+            formToken: this.formToken.token,
           }).then(res => {
             this.$message({
               type: res.state,

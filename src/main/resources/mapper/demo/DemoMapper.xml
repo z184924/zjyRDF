@@ -3,7 +3,7 @@
 <mapper namespace="DemoMapper">
 	
 	
-	<!-- 新增-->
+	<!-- 新增 -->
 	<insert id="save" parameterType="PageData">
 		insert into DEMO_DEMO(
 			demoText1,
@@ -29,11 +29,11 @@
     </insert>
 
 
-    <!-- 删除-->
+    <!-- 删除 -->
     <delete id="delete" parameterType="PageData">
         delete from DEMO_DEMO
         where
-		demoId= #{demoId}
+			demoId= #{demoId}
     </delete>
 
 
@@ -41,17 +41,17 @@
     <update id="edit" parameterType="PageData">
         update  DEMO_DEMO
         set
-				demoText1 = #{demoText1},
-				demoText2 = #{demoText2},
-				demoNumber1 = #{demoNumber1},
-				demoNumber2 = #{demoNumber2},
-				demoBoolean1 = #{demoBoolean1},
-				demoBoolean2 = #{demoBoolean2},
-				demoTime1 = #{demoTime1},
-				demoTime2 = #{demoTime2},
-				demoId= demoId
+			demoText1 = #{demoText1},
+			demoText2 = #{demoText2},
+			demoNumber1 = #{demoNumber1},
+			demoNumber2 = #{demoNumber2},
+			demoBoolean1 = #{demoBoolean1},
+			demoBoolean2 = #{demoBoolean2},
+			demoTime1 = #{demoTime1},
+			demoTime2 = #{demoTime2},
+			demoId= demoId
         where
-		demoId= #{demoId}
+			demoId= #{demoId}
     </update>
 
 

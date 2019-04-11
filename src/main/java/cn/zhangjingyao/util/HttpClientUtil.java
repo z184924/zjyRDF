@@ -13,6 +13,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,7 +31,7 @@ import java.util.Map;
  */
 public class HttpClientUtil {
 
-    private static Logger logger = Logger.getLogger(HttpClientUtil.class);
+    private static Logger logger = LogManager.getLogger(HttpClientUtil.class);
 
     /**
      * get请求

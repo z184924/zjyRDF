@@ -114,7 +114,7 @@ export default {
           error(err) {
             switch (err.status) {
               case 401:
-                if (!param.refreshTokenFlag&&api!='/oauth/logout') {
+                if (!param.refreshTokenFlag && api != '/oauth/logout') {
                   param.refreshTokenFlag = true
                   vue.mixRefreshToken(api, data, param).then(res => {
                     if (!isNullOrUndefined(res) && res.state == 'success') {
@@ -146,6 +146,11 @@ export default {
             }
           }
         })
+      });
+    },
+    mixSetFormToken(formToken) {
+      this.mixPost("/formToken").then(res => {
+        formToken.token = res.data.formToken;
       });
     },
     mixApi(api) {

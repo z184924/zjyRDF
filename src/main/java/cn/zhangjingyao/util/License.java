@@ -1,5 +1,8 @@
 package cn.zhangjingyao.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -11,8 +14,7 @@ import java.util.Random;
  * @author
  */
 public final class License {
-	private static final Logger LOGGER = Logger
-			.getLogger(License.class);
+	private static final Logger LOGGER = LogManager.getLogger(License.class);
 
 	private static final String PARAMETER_FILE = "/license.properties";
 

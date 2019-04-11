@@ -71,7 +71,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/role/listUserRights")
+                .antMatchers("/role/listUserRights","/formToken","/user/editPassword")
                 .authenticated()
                 .and()
                 .authorizeRequests()

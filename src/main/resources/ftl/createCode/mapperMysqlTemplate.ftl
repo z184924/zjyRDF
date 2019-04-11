@@ -3,7 +3,7 @@
 <mapper namespace="${objectName}Mapper">
 	
 	
-	<!-- 新增-->
+	<!-- 新增 -->
 	<insert id="save" parameterType="PageData">
 		insert into ${tabletop}${objectNameUpper}(
 	<#list fieldList as var>
@@ -31,13 +31,13 @@
     </insert>
 
 
-    <!-- 删除-->
+    <!-- 删除 -->
     <delete id="delete" parameterType="PageData">
         delete from ${tabletop}${objectNameUpper}
         where
 		<#list fieldList as var>
 			<#if var[4] == "是">
-		${var[0]}= ${r"#{"}${var[0]}${r"}"}
+			${var[0]}= ${r"#{"}${var[0]}${r"}"}
 			</#if>
 		</#list>
     </delete>
@@ -49,18 +49,18 @@
         set
 	<#list fieldList as var>
 		<#if var[3] == "是">
-				${var[0]} = ${r"#{"}${var[0]}${r"}"},
+			${var[0]} = ${r"#{"}${var[0]}${r"}"},
 		</#if>
 	</#list>
         <#list fieldList as var>
 			<#if var[4] == "是">
-				${var[0]}= ${var[0]}
+			${var[0]}= ${var[0]}
 			</#if>
 		</#list>
         where
         <#list fieldList as var>
 			<#if var[4] == "是">
-		${var[0]}= ${r"#{"}${var[0]}${r"}"}
+			${var[0]}= ${r"#{"}${var[0]}${r"}"}
 			</#if>
 		</#list>
     </update>

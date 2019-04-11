@@ -32,7 +32,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/saveOrUpdate", produces = "application/json;charset=UTF-8")
 	public String saveOrUpdate() throws Exception {
-		logBefore(logger, "新增或编辑User");
+		logger.info("新增或编辑User");
 		PageData pd = this.getPageData();
 		if (pd.get("userId") == null || "".equals(pd.get("userId"))) {
 			//添加主键
@@ -58,7 +58,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/save", produces = "application/json;charset=UTF-8")
 	public String save() throws Exception {
-		logBefore(logger, "新增User");
+		logger.info("新增User");
 		PageData pd = this.getPageData();
 		//添加主键
 		pd.put("userId", this.get32UUID());
@@ -78,7 +78,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/delete", produces = "application/json;charset=UTF-8")
 	public String delete() throws Exception {
-		logBefore(logger, "删除User");
+		logger.info("删除User");
 		PageData pd = this.getPageData();
 		userService.delete(pd);
 		return this.jsonContent("success", "删除成功");
@@ -90,7 +90,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/edit", produces = "application/json;charset=UTF-8")
 	public String edit() throws Exception {
-		logBefore(logger, "修改User");
+		logger.info("修改User");
 		PageData pd = this.getPageData();
 		//替换字段
 		pd = this.replaceAttribute(pd);
@@ -106,7 +106,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	@RequestMapping(value = "/listPage", produces = "application/json;charset=UTF-8")
 	public Object listPage() throws Exception {
-		logBefore(logger, "获取User列表Json");
+		logger.info("获取User列表Json");
 		PageData pd = this.getPageData();
 		// 分页查询列表
 		PageInfo<PageData> pageInfo = this.userService.listPage(pd);
@@ -119,7 +119,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public Object findById() throws Exception {
-		logBefore(logger, "根据ID获取User数据");
+		logger.info("根据ID获取User数据");
 		PageData pd = this.getPageData();
 		PageData resultPD = this.userService.findById(pd);
 		return this.jsonContent("success", resultPD);
@@ -132,7 +132,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/editPassword", produces = "application/json;charset=UTF-8")
 	public String editPassword() throws Exception {
 		User currentUser = this.getCurrentUser();
-		logBefore(logger, "用户:"+currentUser.getAccount()+"修改密码");
+		logger.info("用户:"+currentUser.getAccount()+"修改密码");
 		PageData oldUser = this.userService.findById(currentUser.getUserId());
 		PageData pd = this.getPageData();
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();

@@ -47,10 +47,11 @@
           label="上级Id"
           prop="parentId"
         >
-          <el-input
+          <el-input-number
             v-model="form.parentId"
             :readonly="readOnlyFlag"
-          ></el-input>
+            :min="0"
+          ></el-input-number>
         </el-form-item>
         <el-form-item
           label="图标"
@@ -94,6 +95,9 @@ export default {
   data() {
     return {
       fromTag: "",
+      formToken: {
+        token: ''
+      },
       readOnlyFlag: false,
       submitUrl: '/rights/',
       form: {
@@ -135,6 +139,7 @@ export default {
     submit() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
+          this.form.formToken = this.formToken.token
           this.mixPost(this.submitUrl, this.form).then(res => {
             this.$emit("refreshTable")
             this.$emit("closeDialog")
@@ -152,7 +157,8 @@ export default {
         rightsId: this.parameter.currentRow.rightsId
       }).then(res => {
         this.form = res.data
-        this.replaceAttribute();
+        this.replaceAttribute()
+        this.mixSetFormToken(this.formToken)
       }).catch(err => { })
     },
     replaceAttribute() {
@@ -164,6 +170,7 @@ export default {
       case 'add':
         this.readOnlyFlag = false;
         this.submitUrl = this.submitUrl + 'save';
+        this.mixSetFormToken(this.formToken);
         break;
       case 'edit':
         this.readOnlyFlag = false;

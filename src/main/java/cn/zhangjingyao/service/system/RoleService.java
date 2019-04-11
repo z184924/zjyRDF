@@ -52,6 +52,8 @@ public class RoleService {
      */
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void delete(PageData pd) throws Exception {
+        dao.delete("RoleMapper.deleteUserRole", pd.getString("roleId"));
+        dao.delete("RoleMapper.deleteRoleRights", pd.getString("roleId"));
         dao.delete("RoleMapper.delete", pd);
     }
 
@@ -64,6 +66,8 @@ public class RoleService {
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void delete(List<PageData> list) throws Exception {
         for (PageData pd : list) {
+            dao.delete("RoleMapper.deleteUserRole", pd.getString("roleId"));
+            dao.delete("RoleMapper.deleteRoleRights", pd.getString("roleId"));
             dao.delete("RoleMapper.delete", pd);
         }
     }

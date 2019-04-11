@@ -75,7 +75,11 @@ export default {
       }
     };
     return {
+      formToken:{
+        token:''
+      },
       form: {
+        formToken: '',
         oldPassword: '',
         newPassword: '',
         checkPassword: '',
@@ -98,10 +102,11 @@ export default {
     submit() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
+          this.form.formToken = this.formToken.token
           this.mixPost('/user/editPassword', this.form).then(res => {
             switch (res.state) {
               case "success":
-                res.message="修改成功,请重新登录!"
+                res.message = "修改成功,请重新登录!"
                 this.mixLogout()
               case "error":
               default:
@@ -119,7 +124,10 @@ export default {
     closeDialog() {
       this.$emit("closeDialog")
     },
-  }
+  },
+  mounted() {
+    this.mixSetFormToken(this.formToken)
+  },
 }
 </script>
 

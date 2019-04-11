@@ -12,8 +12,7 @@
 			rightsType,
 			parentId,
 			icon,
-			sorting,
-			rightsId
+			sorting
         ) values (
 			#{url},
 			#{rightsCode},
@@ -21,8 +20,7 @@
 			#{rightsType},
 			#{parentId},
 			#{icon},
-			#{sorting},
-			#{rightsId}
+			#{sorting}
         )
     </insert>
 

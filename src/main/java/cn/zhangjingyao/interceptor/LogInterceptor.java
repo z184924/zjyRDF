@@ -1,13 +1,10 @@
 package cn.zhangjingyao.interceptor;
 
-import cn.zhangjingyao.entity.system.User;
 import cn.zhangjingyao.security.service.CustomTokenServices;
-import cn.zhangjingyao.util.Logger;
-import cn.zhangjingyao.util.RightsCache;
-import cn.zhangjingyao.util.RightsHelper;
 import com.alibaba.fastjson.JSON;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -21,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LogInterceptor extends HandlerInterceptorAdapter {
 
-    Logger logger = Logger.getLogger(this.getClass());
+    private Logger logger = LogManager.getLogger(this.getClass());
 
     @Autowired
     CustomTokenServices customTokenServices;
