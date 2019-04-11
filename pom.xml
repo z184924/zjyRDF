@@ -127,11 +127,6 @@
 			<artifactId>jackson-dataformat-yaml</artifactId>
 			<version>2.9.6</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-all</artifactId>
-			<version>1.2.3</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -190,7 +185,6 @@
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.9.3</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>com.thetransactioncompany</groupId>
@@ -266,44 +260,26 @@
 			<version>1.6.1</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.puppycrawl.tools/checkstyle -->
+		<!-- https://mvnrepository.com/artifact/com.belerweb/pinyin4j -->
 		<dependency>
-			<groupId>com.puppycrawl.tools</groupId>
-			<artifactId>checkstyle</artifactId>
-			<version>5.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>jp.sourceforge</groupId>
-			<artifactId>QRCode</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/QRCode.jar</systemPath>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sourceforge</groupId>
+			<groupId>com.belerweb</groupId>
 			<artifactId>pinyin4j</artifactId>
-			<version>2.5.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/pinyin4j-2.5.0.jar</systemPath>
+			<version>2.5.1</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.google.zxing/core -->
 		<dependency>
-			<groupId>cn.jpush</groupId>
-			<artifactId>jpush</artifactId>
-			<version>2.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/jpush-java-libraryV2.jar</systemPath>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.zxing/javase -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.3.3</version>
 		</dependency>
 
-		<dependency>
-			<groupId>net.sf</groupId>
-			<artifactId>json-lib</artifactId>
-			<version>2.4</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/json-lib-2.4-jdk15.jar</systemPath>
-		</dependency>
 	</dependencies>
 
 	<build>

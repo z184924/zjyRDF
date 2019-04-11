@@ -8,12 +8,12 @@ zjy fast framework demo
 
 zjy 快速开发框架
 
-本框架为个人实验作品，意在测试某些功能时可快速实现业务功能，免去搭建框架的繁琐步骤
+本框架为个人实验作品,意在测试某些功能时可快速实现业务功能,免去搭建框架的繁琐步骤
 
 ## 技术选型
-    ● 核心框架：Sring boot
-    ● 安全框架：Sring Security
-    ● 持久层框架：MyBatis
-    ● 数据库连接池：Alibaba Druid
-    ● 日志管理：Log4j2
-    ● 前端框架：Vue + Element + Jquery
+    ● 核心框架:Sring boot
+    ● 安全框架:Sring Security
+    ● 持久层框架:MyBatis
+    ● 数据库连接池:Alibaba Druid
+    ● 日志管理:Log4j2
+    ● 前端框架:Vue + Element + Jquery

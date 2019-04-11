@@ -5,7 +5,6 @@ import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.entity.system.User;
 import cn.zhangjingyao.service.system.UserService;
 import com.github.pagehelper.PageInfo;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
