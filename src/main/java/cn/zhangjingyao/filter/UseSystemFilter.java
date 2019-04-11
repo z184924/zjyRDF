@@ -7,6 +7,8 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -35,7 +37,8 @@ public class UseSystemFilter extends BaseController implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 
 		String useEndDate = "2017-01-14";
-		String nowDate = DateUtil.getDay();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String nowDate = sdf.format(new Date());
 		if (DateUtil.compareDate(nowDate, useEndDate)) {
 			response.sendRedirect("use_error.jsp");
 			return;

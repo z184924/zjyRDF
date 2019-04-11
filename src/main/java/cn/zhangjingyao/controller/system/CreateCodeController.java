@@ -89,7 +89,7 @@ public class CreateCodeController extends BaseController {
 			fieldList.add(pd.getString("field"+i).split(","));	//属性放到集合里面
 		}
 		String primaryKey = pd.getString("primaryKey");	   				//主键			========5
-		Map<String,Object> root = new HashMap<String,Object>();		//创建数据模型
+		Map<String,Object> root = new HashMap<String,Object>(16);		//创建数据模型
 		root.put("fieldList", fieldList);
 		root.put("packageName", packageName);						//包名
 		root.put("objectName", objectName);							//类名

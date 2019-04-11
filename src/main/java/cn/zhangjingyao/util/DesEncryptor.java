@@ -14,16 +14,16 @@ import java.security.MessageDigest;
 /**
  * @author
  */
-public class DESEncryptor {
+public class DesEncryptor {
 
 	public static final String ALGORITHM = "DES";
 
 	private static String strDefaultKey = "huatek";
-	private static final Log LOGGER = LogFactory.getLog(DESEncryptor.class);
+	private static final Log LOGGER = LogFactory.getLog(DesEncryptor.class);
 
 	private SecretKey desKey;
 
-	public DESEncryptor(){
+	public DesEncryptor(){
 		try{
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.update(strDefaultKey.getBytes());
@@ -86,7 +86,7 @@ public class DESEncryptor {
 //	 * @param args
 //	 */
 //	public static void main(String[] args) {
-//		String str = new DESEncryptor().decrypt("dX3o2n7E3ok=");
+//		String str = new DesEncryptor().decrypt("dX3o2n7E3ok=");
 //		System.out.println(str);
 //	}
 

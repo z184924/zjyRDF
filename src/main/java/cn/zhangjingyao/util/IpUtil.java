@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author
  */
-public class IPUtil {
+public class IpUtil {
 	public String getIpAddr(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for"); 
         System.out.println("x-forwarded-for ip: " + ip);

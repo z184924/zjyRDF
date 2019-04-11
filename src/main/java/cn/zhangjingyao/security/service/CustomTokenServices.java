@@ -51,7 +51,7 @@ public class CustomTokenServices extends DefaultTokenServices {
                 DefaultOAuth2AccessToken token = ((DefaultOAuth2AccessToken) accessToken);
                 replaceShotLine(token);
                 try {
-                    Map<String, Object> additionalInformation = new HashMap<String, Object>();
+                    Map<String, Object> additionalInformation = new HashMap<String, Object>(16);
                     //放入用户信息
                     PageData userInfo = userService.findByAccount(authentication.getName());
                     User user = new User(userInfo);

@@ -28,8 +28,8 @@ public class WriteJsonUtil {
             if (out != null) {
                 out.close();
             }
-            return flag;
         }
+        return flag;
     }
 
     public static boolean writeJson(HttpServletResponse response, Map jsonMap) {

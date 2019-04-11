@@ -134,12 +134,12 @@ public class RoleService {
     /**
      * 批量删除
      *
-     * @param ArrayDATA_IDS
+     * @param arrayDataIds
      * @throws Exception
      */
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-    public void deleteAll(String[] ArrayDATA_IDS) throws Exception {
-        dao.delete("RoleMapper.deleteAll", ArrayDATA_IDS);
+    public void deleteAll(String[] arrayDataIds) throws Exception {
+        dao.delete("RoleMapper.deleteAll", arrayDataIds);
     }
 
     /**

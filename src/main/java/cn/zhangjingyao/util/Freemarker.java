@@ -3,6 +3,7 @@ package cn.zhangjingyao.util;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import freemarker.template.Version;
 
 import java.io.*;
 import java.util.Locale;
@@ -59,7 +60,7 @@ public class Freemarker {
 	 */
 	public static Template getTemplate(String ftlName, String ftlPath) throws Exception {
 		try {
-			Configuration cfg = new Configuration();  												//通过Freemaker的Configuration读取相应的ftl
+			Configuration cfg = new Configuration(new Version("2.3.23"));  												//通过Freemaker的Configuration读取相应的ftl
 			cfg.setEncoding(Locale.CHINA, "utf-8");
 			cfg.setDirectoryForTemplateLoading(new File(PathUtil.getClassResources()+"/ftl/"+ftlPath));		//设定去哪里读取相应的ftl模板文件
 			Template temp = cfg.getTemplate(ftlName);												//在模板文件目录中找到名称为name的文件

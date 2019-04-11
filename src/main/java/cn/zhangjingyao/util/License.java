@@ -83,10 +83,10 @@ public final class License {
 	public static boolean licenseCheck(){
 		License license= License.getInstance();
 		Properties properties=license.getProp();
-		String PropwT=properties.getProperty("PropwT");
-		PropwT=PropwT.substring(15,28);
+		String propwT=properties.getProperty("PropwT");
+		propwT=propwT.substring(15,28);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		long lt = new Long(PropwT);
+		long lt = new Long(propwT);
 		Date date = new Date(lt);
 		String outTime= simpleDateFormat.format(date);
 		String nowTime=simpleDateFormat.format(new Date());

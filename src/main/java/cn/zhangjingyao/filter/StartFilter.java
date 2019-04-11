@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author
  */
-public class startFilter extends BaseController implements Filter {
+public class StartFilter extends BaseController implements Filter {
 
 	
 	

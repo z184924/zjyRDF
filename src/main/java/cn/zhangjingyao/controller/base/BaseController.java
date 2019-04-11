@@ -86,7 +86,7 @@ public class BaseController {
 	 * @return
 	 */
 	public String jsonContent(String state,String message) {
-		Map<String,Object> res= new HashMap<String, Object>();
+		Map<String,Object> res= new HashMap<String, Object>(16);
 		res.put("state", state);
 		res.put("message", message);
 		return JSON.toJSONString(res);
@@ -98,7 +98,7 @@ public class BaseController {
 	 * @return
 	 */
 	public String jsonContent(String state,PageData pageData) {
-		Map<String,Object> res= new HashMap<String, Object>();
+		Map<String,Object> res= new HashMap<String, Object>(16);
 		res.put("state", state);
 		res.put("data", pageData);
 		return JSON.toJSONString(res);
@@ -112,7 +112,7 @@ public class BaseController {
 	 * @return
 	 */
 	public String jsonContent(String state, PageInfo pageInfo) {
-		Map<String,Object> res= new HashMap<String, Object>();
+		Map<String,Object> res= new HashMap<String, Object>(16);
 		res.put("state", state);
 		res.put("pageInfo",pageInfo);
 		return JSON.toJSONString(res);
@@ -125,7 +125,7 @@ public class BaseController {
 	 * @return
 	 */
 	public String jsonContent(String state, List<PageData> dataList) {
-		Map<String,Object> res= new HashMap<String, Object>();
+		Map<String,Object> res= new HashMap<String, Object>(16);
 		res.put("state", state);
 		res.put("data",dataList);
 		return JSON.toJSONString(res);

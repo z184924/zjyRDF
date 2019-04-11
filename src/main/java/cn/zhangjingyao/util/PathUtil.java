@@ -75,7 +75,7 @@ public class PathUtil {
 		return path;
 	}
 	
-	public static String PathAddress() {
+	public static String pathAddress() {
 		String strResult = "";
 
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder

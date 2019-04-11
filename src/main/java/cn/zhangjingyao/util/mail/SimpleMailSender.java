@@ -137,25 +137,25 @@ public class SimpleMailSender {
      * @param CONTENT	内容
      * @param TYPE		1：文本格式;2：HTML格式
      */
-    public static void sendEmail(String SMTP, String PORT, String EMAIL, String PAW, String toEMAIL, String TITLE, String CONTENT, String TYPE) throws Exception {
+    public static void sendEmail(String smtp, String port, String email, String paw, String toEmail, String title, String content, String type) throws Exception {
     	
         //这个类主要是设置邮件   
 	     MailSenderInfo mailInfo = new MailSenderInfo();
 	     
-	     mailInfo.setMailServerHost(SMTP);    
-	     mailInfo.setMailServerPort(PORT);    
+	     mailInfo.setMailServerHost(smtp);
+	     mailInfo.setMailServerPort(port);
 	     mailInfo.setValidate(true);    
-	     mailInfo.setUserName(EMAIL);    
-	     mailInfo.setPassword(PAW);   
-	     mailInfo.setFromAddress(EMAIL);    
-	     mailInfo.setToAddress(toEMAIL);    
-	     mailInfo.setSubject(TITLE);    
-	     mailInfo.setContent(CONTENT);    
+	     mailInfo.setUserName(email);
+	     mailInfo.setPassword(paw);
+	     mailInfo.setFromAddress(email);
+	     mailInfo.setToAddress(toEmail);
+	     mailInfo.setSubject(title);
+	     mailInfo.setContent(content);
 	     //这个类主要来发送邮件   
 	  
 	     SimpleMailSender sms = new SimpleMailSender();
 	     
-	    if("1".equals(TYPE)){
+	    if("1".equals(type)){
 	    	sms.sendTextMail(mailInfo);
 	    }else{
 	    	sms.sendHtmlMail(mailInfo);

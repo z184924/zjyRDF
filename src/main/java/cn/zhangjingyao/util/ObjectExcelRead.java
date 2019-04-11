@@ -78,6 +78,7 @@ public class ObjectExcelRead {
 						case 5:
 							cellValue = String.valueOf(cell.getErrorCellValue());
 							break;
+						default:
 						}
 					} else {
 						cellValue = "";
@@ -147,6 +148,7 @@ public class ObjectExcelRead {
 						case 5:
 							cellValue = String.valueOf(cell.getErrorCellValue());
 							break;
+						default:
 						}
 					} else {
 						cellValue = "";

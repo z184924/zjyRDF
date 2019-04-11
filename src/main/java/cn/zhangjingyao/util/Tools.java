@@ -163,7 +163,7 @@ public class Tools {
 	 * 把时间根据时、分、秒转换为时间段
 	 * @param StrDate
 	 */
-	public static String getTimes(String StrDate){
+	public static String getTimes(String strDate){
 		String resultTimes = "";
 		
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -171,7 +171,7 @@ public class Tools {
 
 	    try {
 	    	now = new Date();
-	    	Date date=df.parse(StrDate);
+	    	Date date=df.parse(strDate);
 	    	long times = now.getTime()-date.getTime();
 	    	long day  =  times/(24*60*60*1000);
 	    	long hour = (times/(60*60*1000)-day*24);
@@ -259,9 +259,10 @@ public class Tools {
 	 * @param FKEY		接收的 KEY
 	 * @return 为空则返回true，不否则返回false
 	 */
-	public static boolean checkKey(String paraname, String FKEY){
+	public static boolean checkKey(String paraname, String fKey){
 		paraname = (null == paraname)? "":paraname;
-		return MD5.md5(paraname+ DateUtil.getDays()+",fh,").equals(FKEY);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		return Md5.md5(paraname+ sdf.format(new Date())+",fh,").equals(fKey);
 	}
 	 
 	/**
