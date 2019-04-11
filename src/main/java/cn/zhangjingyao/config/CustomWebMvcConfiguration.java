@@ -61,7 +61,7 @@ public class CustomWebMvcConfiguration implements WebMvcConfigurer {
 
 
     /**
-     * 添加异常转换器
+     * 添加异常解析器
      * @param exceptionResolvers HandlerExceptionResolver List
      */
     @Override
