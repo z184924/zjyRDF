@@ -36,8 +36,9 @@ Configuration:
   Loggers:
     Logger: # 为部分包配置特殊的Log级别，方便调试
       - name: org.springframework.boot.autoconfigure
+      - name: org.springframework.security
         additivity: false
-        level: Error
+        level: Info
         AppenderRef:
           - ref: CONSOLE
     Root:
