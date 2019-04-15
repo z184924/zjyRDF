@@ -1,5 +1,6 @@
 /target/
 /static/file/createCode
+/logs/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
