@@ -68,12 +68,5 @@ spring:
   thymeleaf:
     content-type: text/html
     mode: LEGACYHTML5
-logging:
-  level:
-    org:
-      springframework:
-        boot:
-          autoconfigure: DEBUG
-
 
 
