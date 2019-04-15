@@ -67,7 +67,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/static/**", "/createCode/**", "/error/**", "/oauth/**")
+                .antMatchers("/static/**", "/createCode/**", "/error/**", "/oauth/**","/druid/**")
                 .permitAll()
                 .and()
                 .authorizeRequests()
