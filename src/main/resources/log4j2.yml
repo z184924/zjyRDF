@@ -15,7 +15,7 @@ Configuration:
       name: CONSOLE
       target: SYSTEM_OUT
       PatternLayout:
-        pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS}:%4p %t (%F:%L) - %m%n"
+        pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS}:%p %t (%F:%L) - %m%n"
       ThresholdFilter:
         level: ${sys:log.level.console} # “sys:”表示：如果VM参数中没指定这个变量值，则使用本文件中定义的缺省全局变量值
         onMatch: ACCEPT
@@ -26,7 +26,7 @@ Configuration:
         fileName: ${log.path}/${project.name}/${project.name}.log
         filePattern: "${log.path}/${project.name}/${project.name}-%d{yyyy-MM-dd}-%i.log"
         PatternLayout:
-          pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS}:%4p %t (%F:%L) - %m%n"
+          pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS}:%p %t (%C:%L) - %m%n"
         Policies:
           SizeBasedTriggeringPolicy: #基于文件大小归档策略
             size: "128 MB"
