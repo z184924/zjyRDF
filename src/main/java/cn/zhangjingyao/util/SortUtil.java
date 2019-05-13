@@ -7,6 +7,9 @@ import org.apache.commons.collections.comparators.ComparatorChain;
 
 import java.util.*;
 
+/**
+ * @author
+ */
 public class SortUtil {
 	public static void main(String[] args) {
 		System.out.println(testMapSort());
@@ -60,15 +63,15 @@ public class SortUtil {
 	public static List testMapSort(){
 		//List sortList = new ArrayList();
 		
-		Map map = new HashMap();
+		Map map = new HashMap(16);
 		map.put("name", "1");
 		map.put("age", "1");
 		
-		Map map2 = new HashMap();
+		Map map2 = new HashMap(16);
 		map2.put("name", "2");
 		map2.put("age", "13");
 		
-		Map map1 = new HashMap();
+		Map map1 = new HashMap(16);
 		map1.put("name", "2");
 		map1.put("age", "12");
 		

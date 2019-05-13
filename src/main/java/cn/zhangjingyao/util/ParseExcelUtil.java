@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author
+ */
 public class ParseExcelUtil {
 	
 	 private OPCPackage xlsxPackage;
@@ -50,7 +53,7 @@ public class ParseExcelUtil {
 	    SAXParserFactory saxFactory = SAXParserFactory.newInstance();
 	    SAXParser saxParser = saxFactory.newSAXParser();
 	    XMLReader sheetParser = saxParser.getXMLReader();
-	    MyXSSFSheetHandler handler = new MyXSSFSheetHandler(styles, strings, this.minColumns, this.output);
+	    MyXssfSheetHandler handler = new MyXssfSheetHandler(styles, strings, this.minColumns, this.output);
 	    sheetParser.setContentHandler(handler);
 	    sheetParser.parse(sheetSource);
 	    return handler.getRows();
@@ -87,7 +90,7 @@ public class ParseExcelUtil {
 	    return list;
 	  }
 
-	  class MyXSSFSheetHandler extends DefaultHandler
+	  class MyXssfSheetHandler extends DefaultHandler
 	  {
 	    private StylesTable stylesTable;
 	    private ReadOnlySharedStringsTable sharedStringsTable;
@@ -106,7 +109,7 @@ public class ParseExcelUtil {
 	    private List<String[]> rows = new ArrayList();
 	    private boolean isCellNull = false;
 
-	    public MyXSSFSheetHandler(StylesTable styles, ReadOnlySharedStringsTable strings, int cols, PrintStream target)
+	    public MyXssfSheetHandler(StylesTable styles, ReadOnlySharedStringsTable strings, int cols, PrintStream target)
 	    {
 	      this.stylesTable = styles;
 	      this.sharedStringsTable = strings;

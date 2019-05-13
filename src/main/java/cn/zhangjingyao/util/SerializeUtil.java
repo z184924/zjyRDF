@@ -2,6 +2,9 @@ package cn.zhangjingyao.util;
 
 import java.io.*;
 
+/**
+ * @author
+ */
 public class SerializeUtil {
     //序列化
     public static byte [] serialize(Object obj){

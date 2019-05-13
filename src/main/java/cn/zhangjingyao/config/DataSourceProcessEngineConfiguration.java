@@ -25,9 +25,9 @@ public class DataSourceProcessEngineConfiguration extends AbstractProcessEngineA
     @Bean
     @ConditionalOnMissingBean
     public PlatformTransactionManager transactionManager() throws Exception {
-        Map<String,Object> properties=new HashMap<>();
-        properties.put("driverClassName","com.mysql.jdbc.Driver");
-        properties.put("url","jdbc:mysql://192.168.0.102:3306/test_activiti?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true");
+        Map<String,Object> properties=new HashMap<>(16);
+        properties.put("driverClassName","com.mysql.cj.jdbc.Driver");
+        properties.put("url","jdbc:mysql://192.168.0.201:3306/zjyffd_activiti?useSSL=FALSE&serverTimezone=UTC");
         properties.put("username","root");
         properties.put("password","root");
         DataSource dataSource = DruidDataSourceFactory.createDataSource(properties);
@@ -37,9 +37,9 @@ public class DataSourceProcessEngineConfiguration extends AbstractProcessEngineA
     @Bean
     @ConditionalOnMissingBean
     public SpringProcessEngineConfiguration springProcessEngineConfiguration(PlatformTransactionManager transactionManager, SpringAsyncExecutor springAsyncExecutor) throws Exception {
-        Map<String,Object> properties=new HashMap<>();
-        properties.put("driverClassName","com.mysql.jdbc.Driver");
-        properties.put("url","jdbc:mysql://192.168.0.102:3306/test_activiti?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true");
+        Map<String,Object> properties=new HashMap<>(16);
+        properties.put("driverClassName","com.mysql.cj.jdbc.Driver");
+        properties.put("url","jdbc:mysql://192.168.0.201:3306/zjyffd_activiti?useSSL=FALSE&serverTimezone=UTC");
         properties.put("username","root");
         properties.put("password","root");
         DataSource dataSource = DruidDataSourceFactory.createDataSource(properties);

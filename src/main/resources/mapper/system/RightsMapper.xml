@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RightsMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="PageData">
+		insert into SYS_RIGHTS(
+			url,
+			rightsCode,
+			rightsName,
+			rightsType,
+			parentId,
+			icon,
+			sorting
+        ) values (
+			#{url},
+			#{rightsCode},
+			#{rightsName},
+			#{rightsType},
+			#{parentId},
+			#{icon},
+			#{sorting}
+        )
+    </insert>
+
+
+    <!-- 删除-->
+    <delete id="delete" parameterType="PageData">
+        delete from SYS_RIGHTS
+        where
+		rightsId= #{rightsId}
+    </delete>
+
+
+    <!-- 修改 -->
+    <update id="edit" parameterType="PageData">
+        update  SYS_RIGHTS
+        set
+				url = #{url},
+				rightsCode = #{rightsCode},
+				rightsName = #{rightsName},
+				rightsType = #{rightsType},
+				parentId = #{parentId},
+				icon = #{icon},
+				sorting = #{sorting},
+				rightsId= rightsId
+        where
+		rightsId= #{rightsId}
+    </update>
+
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="PageData" resultType="PageData">
+        select
+			a.url,
+			a.rightsCode,
+			a.rightsName,
+			a.rightsType,
+			a.parentId,
+			a.icon,
+			a.sorting,
+			a.rightsId
+        from
+        	SYS_RIGHTS a
+        where
+			a.rightsId= #{rightsId}
+    </select>
+
+
+    <!-- 查询 -->
+    <select id="datalistPage" parameterType="page" resultType="PageData">
+        select
+			a.url,
+			a.rightsCode,
+			a.rightsName,
+			a.rightsType,
+			a.parentId,
+			a.icon,
+			a.sorting,
+			a.rightsId
+        from
+        	SYS_RIGHTS a
+    </select>
+
+    <!-- 查询(全部) -->
+    <select id="listAll" parameterType="PageData" resultType="PageData">
+        select
+			a.url,
+			a.rightsCode,
+			a.rightsName,
+			a.rightsType,
+			a.parentId,
+			a.icon,
+			a.sorting,
+			a.rightsId
+        from
+        	SYS_RIGHTS a
+    </select>
+
+    <!-- 批量删除 -->
+    <delete id="deleteAll" parameterType="String">
+        delete from SYS_RIGHTS
+        where
+			a.rightsId
+		in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+		#{item}
+        </foreach>
+    </delete>
+
+</mapper>

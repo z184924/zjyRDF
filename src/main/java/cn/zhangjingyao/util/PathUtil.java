@@ -8,7 +8,8 @@ import java.io.File;
 
 /**
  * 路径工具类
- * 
+ *
+ * @author
  */
 public class PathUtil {
 
@@ -74,7 +75,7 @@ public class PathUtil {
 		return path;
 	}
 	
-	public static String PathAddress() {
+	public static String pathAddress() {
 		String strResult = "";
 
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder

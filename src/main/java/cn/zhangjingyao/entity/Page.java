@@ -1,10 +1,12 @@
 package cn.zhangjingyao.entity;
 
 import cn.zhangjingyao.util.Const;
-import cn.zhangjingyao.util.Tools;
 
 import java.io.Serializable;
 
+/**
+ * @author
+ */
 public class Page implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -21,7 +23,7 @@ public class Page implements Serializable {
 	
 	public Page(){
 		try {
-			this.showCount = Integer.parseInt(Tools.readTxtFile(Const.PAGE));
+			this.showCount = Const.PAGE_SHOW_COUNT;
 		} catch (Exception e) {
 			this.showCount = 15;
 		}

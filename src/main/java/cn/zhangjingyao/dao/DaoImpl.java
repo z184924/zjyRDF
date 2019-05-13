@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author
+ */
 @Component
 public class DaoImpl implements DAO {
 
@@ -123,7 +126,7 @@ public class DaoImpl implements DAO {
 	}
 
     @Override
-	public Object findForMap(String str, Object obj, String key, String value) throws Exception {
+	public Object findForMap(String str, Object obj, String key) throws Exception {
 		return sqlSessionTemplate.selectMap(str, obj, key);
 	}
 

@@ -2,6 +2,9 @@ package cn.zhangjingyao.util;
 
 import java.util.UUID;
 
+/**
+ * @author
+ */
 public class UuidUtil {
 
 	public static String get32UUID() {

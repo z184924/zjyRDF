@@ -1,6 +1,8 @@
 package cn.zhangjingyao.util;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -9,11 +11,12 @@ import java.io.InputStream;
 
 /**
  * 上传文件
+ * @author
  * @version
  */
 public class FileUpload {
 	
-	protected static final Logger logger = Logger.getLogger(FileUpload.class);
+	protected static final Logger logger = LogManager.getLogger(FileUpload.class);
 
 	/**
 	 * @param file 			//文件对象

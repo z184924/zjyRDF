@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RoleMapper">
+	
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="PageData">
+		insert into SYS_ROLE(
+			roleName,
+			sorting,
+			roleId
+        ) values (
+			#{roleName},
+			#{sorting},
+			#{roleId}
+        )
+    </insert>
+
+
+    <!-- 删除-->
+    <delete id="delete" parameterType="PageData">
+        delete from SYS_ROLE
+        where
+		roleId= #{roleId}
+    </delete>
+
+
+    <!-- 修改 -->
+    <update id="edit" parameterType="PageData">
+        update  SYS_ROLE
+        set
+				roleName = #{roleName},
+				sorting = #{sorting},
+				roleId= roleId
+        where
+		roleId= #{roleId}
+    </update>
+
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="PageData" resultType="PageData">
+        select
+			a.roleName,
+			a.sorting,
+			a.roleId
+        from
+        	SYS_ROLE a
+        where
+			a.roleId= #{roleId}
+    </select>
+
+
+    <!-- 查询 -->
+    <select id="datalistPage" parameterType="page" resultType="PageData">
+        select
+			a.roleName,
+			a.sorting,
+			a.roleId
+        from
+        	SYS_ROLE a
+    </select>
+
+    <!-- 查询(全部) -->
+    <select id="listAll" parameterType="PageData" resultType="PageData">
+        select
+			a.roleName,
+			a.sorting,
+			a.roleId
+        from
+        	SYS_ROLE a
+    </select>
+
+    <!-- 批量删除 -->
+    <delete id="deleteAll" parameterType="String">
+        delete from SYS_ROLE
+        where
+			a.roleId
+		in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+		#{item}
+        </foreach>
+    </delete>
+
+    <!-- 新增用户角色关系 -->
+    <insert id="saveUserRole" parameterType="PageData">
+        insert into sys_user_role(
+        userId,
+        roleId,
+        id
+        ) values (
+        #{userId},
+        #{roleId},
+        #{id}
+        )
+    </insert>
+
+    <!-- 删除用户角色关系 -->
+    <delete id="deleteUserRole" parameterType="String">
+        delete from sys_user_role
+        where
+        roleId= #{roleId}
+    </delete>
+
+    <!-- 查询用户角色关系 -->
+    <select id="listUserRole" parameterType="PageData" resultType="PageData">
+        select
+        a.userId,
+        a.roleId,
+        a.id
+        from
+        sys_user_role a
+        WHERE 1=1
+        <if test=" roleId != null and roleId != '' ">
+            and roleId= #{roleId}
+        </if>
+    </select>
+
+    <!-- 查询角色权限关系 -->
+    <insert id="saveRoleRights" parameterType="PageData">
+        insert into sys_role_rights(
+        roleId,
+        rightsId,
+        id
+        ) values (
+        #{roleId},
+        #{rightsId},
+        #{id}
+        )
+    </insert>
+
+    <!-- 删除角色权限关系 -->
+    <delete id="deleteRoleRights" parameterType="String">
+        delete from sys_role_rights
+        where
+        roleId= #{roleId}
+    </delete>
+
+    <!-- 查询角色权限关系 -->
+    <select id="listRoleRights" parameterType="PageData" resultType="PageData">
+        select
+        a.roleId,
+        a.rightsId,
+        a.id
+        from
+        sys_role_rights a
+        WHERE 1=1
+        <if test=" roleId != null and roleId != '' ">
+            and roleId= #{roleId}
+        </if>
+    </select>
+
+    <!-- 查询用户权限关系 -->
+    <select id="listUserRights" parameterType="PageData" resultType="PageData">
+        SELECT
+            DISTINCT r.*
+        FROM
+            sys_rights r
+        INNER JOIN sys_role_rights rr ON rr.rightsId = r.rightsId
+        INNER JOIN sys_user_role ur ON rr.roleId = ur.roleId
+        WHERE ur.userId=#{userId}
+        ORDER BY r.sorting DESC
+    </select>
+
+</mapper>

@@ -6,6 +6,9 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
+/**
+ * @author
+ */
 public class FileUtil {
 
 	/**
@@ -102,10 +105,10 @@ public class FileUtil {
 		BufferedInputStream in = null;
 		try {
 			in = new BufferedInputStream(new FileInputStream(f));
-			int buf_size = 1024;
-			byte[] buffer = new byte[buf_size];
+			int bufSize = 1024;
+			byte[] buffer = new byte[bufSize];
 			int len = 0;
-			while (-1 != (len = in.read(buffer, 0, buf_size))) {
+			while (-1 != (len = in.read(buffer, 0, bufSize))) {
 				bos.write(buffer, 0, len);
 			}
 			return bos.toByteArray();

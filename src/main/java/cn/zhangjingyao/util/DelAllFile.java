@@ -4,6 +4,7 @@ import java.io.File;
 
 /**
  * java删除所有文件和文件夹
+ * @author
  * @version
  */
 public class DelAllFile {

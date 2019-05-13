@@ -8,16 +8,18 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,10 +27,11 @@ import java.util.Map;
 
 /**
  * HttpClient工具类
+ * @author
  */
 public class HttpClientUtil {
 
-    private static Logger logger = Logger.getLogger(HttpClientUtil.class);
+    private static Logger logger = LogManager.getLogger(HttpClientUtil.class);
 
     /**
      * get请求
@@ -36,7 +39,7 @@ public class HttpClientUtil {
      */
     public static String doGet(String url) {
         try {
-            HttpClient client = new DefaultHttpClient();
+            HttpClient client = HttpClientBuilder.create().build();
             //发送get请求
             HttpGet request = new HttpGet(url);
             request.setHeader("Content-Type", "application/json; charset=UTF-8");
@@ -68,7 +71,7 @@ public class HttpClientUtil {
         BufferedReader in = null;
         try {
             // 定义HttpClient
-            HttpClient client = new DefaultHttpClient();
+            HttpClient client = HttpClientBuilder.create().build();
             // 实例化HTTP方法
             HttpPost request = new HttpPost();
             request.setURI(new URI(url));
@@ -83,7 +86,7 @@ public class HttpClientUtil {
 
                 //System.out.println(name +"-"+value);
             }
-            request.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+            request.setEntity(new UrlEncodedFormEntity(nvps, StandardCharsets.UTF_8));
 
             HttpResponse response = client.execute(request);
             int code = response.getStatusLine().getStatusCode();
@@ -92,9 +95,9 @@ public class HttpClientUtil {
                         .getContent(),"utf-8"));
                 StringBuffer sb = new StringBuffer("");
                 String line = "";
-                String NL = System.getProperty("line.separator");
+                String nl = System.getProperty("line.separator");
                 while ((line = in.readLine()) != null) {
-                    sb.append(line + NL);
+                    sb.append(line + nl);
                 }
 
                 in.close();

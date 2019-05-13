@@ -2,7 +2,10 @@ package cn.zhangjingyao.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class IPUtil {
+/**
+ * @author
+ */
+public class IpUtil {
 	public String getIpAddr(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for"); 
         System.out.println("x-forwarded-for ip: " + ip);

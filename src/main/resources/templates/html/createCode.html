@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>模板引擎代码生成</title>
+    <meta charset="UTF-8"/>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/handsontable/6.2.0/handsontable.full.min.js"></script>
+    <link href="https://cdn.bootcss.com/handsontable/6.2.0/handsontable.full.min.css" rel="stylesheet">
+</head>
+<script>
+    $.fn.formSerialize = function (formdate) {
+        var element = $(this);
+        if (!!formdate) {
+            for (var key in formdate) {
+                var $id = element.find('#' + key);
+                var value = $.trim(formdate[key]).replace(/&nbsp;/g, '');
+                var $name = element.find("input[name='" + key+"']");
+                if($name){
+                    $ ("input[name='"+key+"'][value='"+value+"']").attr('checked','true');
+                }
+                var type = $id.attr('type');
+                if ($id.hasClass("select2-hidden-accessible")) {
+                    type = "select";
+                }
+                switch (type) {
+                    case "checkbox":
+                        if (value == "true") {
+                            $id.attr("checked", 'checked');
+                        } else {
+                            $id.removeAttr("checked");
+                        }
+                        break;
+                    case "select":
+                        $id.val(value).trigger("change");
+                        break;
+                    default:
+                        $id.val(value);
+                        break;
+                }
+            };
+            return false;
+        }
+        var postdata = {};
+        element.find('input,select,textarea').each(function (r) {
+            var $this = $(this);
+            var id = $this.attr('id');
+            var name = $this.attr('name');
+            var type = $this.attr('type');
+            switch (type) {
+                case "checkbox":
+                    postdata[id] = $this.is(":checked");
+                    break;
+                case "radio":
+                    postdata[name] = $("input[name='"+name+"']:checked").val();
+                    break;
+                default:
+                    var value =$this.val();
+                    /*var value = $this.val() == "" ? "&nbsp;" : $this.val();
+                    if (!$.request("keyValue")) {
+                        value = value.replace(/&nbsp;/g, '');
+                    }*/
+                    postdata[id] = value;
+                    break;
+            }
+        });
+
+        if ($('[name=__RequestVerificationToken]').length > 0) {
+            postdata["__RequestVerificationToken"] = $('[name=__RequestVerificationToken]').val();
+        }
+        return postdata;
+    };
+    var data = [
+        ['', '', '', '', '']
+    ];
+    $(function () {
+        initControl();
+    });
+    function initControl() {
+        var isEdit = ['是','否'];
+        var isPK = ['是','否'];
+        $("#fieldList").handsontable({
+            data: data,
+            minSpareRows: 1,
+            colHeaders: ["字段", "数据类型", "字段名称", "是否可修改", "是否主键"],
+            colWidths: [200, 200, 200, 200, 200],
+            stretchH: 'none',
+            columns: [
+                { data: 'field' },
+                {   data: 'dataType',
+                    type: 'dropdown',
+                    source: ['String','Number','Boolean','DateTime'] },
+                { data: 'fieldName' },
+                {
+                    data: 'isEdit',
+                    type: 'dropdown',
+                    source: isEdit
+                },
+                {
+                    data: 'isPK',
+                    type: 'dropdown',
+                    source: isPK
+                }
+            ]
+        });
+    }
+    function submitForm() {
+        var $container = $("#fieldList");
+        var tableData = $container.data('handsontable').getData();
+        temp = "";
+        for (var i = 0; i < tableData.length; i++) {
+            if (tableData[i][0] != null && tableData[i][0] != "") {
+                temp+=tableData[i][0]+","+tableData[i][1]+","+tableData[i][2]+","+tableData[i][3]+","+tableData[i][4]+"|"
+            }
+        }
+
+        $("#fieldListData").val(temp);
+        $.ajax({
+            url:"/createCode/submit",
+            type: "post",
+            data:$("#form1").formSerialize(),
+            success: function (data) {
+                window.location.href="/static/file/createCode/code.zip";
+            }
+        })
+    }
+</script>
+<body>
+    <button onclick="submitForm()">生成代码</button>
+    <div style="padding-top: 20px; margin-right: 30px;">
+        <form id="form1">
+            <table class="form">
+                <tr>
+                    <th class="formTitle">包名</th>
+                    <td class="formValue">
+                        <input id="packageName" name="packageName" type="text"/>
+                    </td>
+                    <th class="formTitle">类名</th>
+                    <td class="formValue">
+                        <input id="objectName" name="objectName" type="text" />
+                    </td>
+                    <th class="formTitle">表开头字段</th>
+                    <td class="formValue">
+                        <input id="tabletop" name="tabletop" type="text"/>
+                        <input id="fieldListData" name="fieldListData" type="hidden"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div id="fieldList"></div>
+    </div>
+</body>
+
+</html>

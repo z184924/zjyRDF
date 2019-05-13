@@ -1,5 +1,8 @@
 package cn.zhangjingyao.util;
 
+/**
+ * @author
+ */
 public class Functions {
 	  public Functions() {}
 	  

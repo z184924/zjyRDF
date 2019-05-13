@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 /**
  * 权限计算帮助类
+ * @author
  */
 public class RightsHelper {
 	/**

@@ -3,7 +3,10 @@ package cn.zhangjingyao.util;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapDistance {  
+/**
+ * @author
+ */
+public class MapDistance {
 	  
     private static double EARTH_RADIUS = 6378.137;  
   
@@ -47,7 +50,7 @@ public class MapDistance {
 	 * 最大纬度 minLat
 	 */
 	public static Map getAround(String latStr, String lngStr, String raidus) {
-		Map map = new HashMap();
+		Map map = new HashMap(16);
 		
 		Double latitude = Double.parseDouble(latStr);// 传值给经度
 		Double longitude = Double.parseDouble(lngStr);// 传值给纬度

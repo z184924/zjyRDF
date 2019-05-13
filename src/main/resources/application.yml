@@ -31,8 +31,10 @@ spring:
         allow: 127.0.0.1
         #IP黑名单
         deny:
-      driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.0.102:3306/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true
+      #driver-class-name: com.mysql.jdbc.Driver
+      #url: jdbc:mysql://192.168.0.102:3306/zjyffd?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://192.168.0.201:3306/zjyffd?useSSL=FALSE&serverTimezone=UTC
       username: root
       password: root
       #下面为连接池的补充设置，应用到上面所有数据源中
@@ -59,13 +61,12 @@ spring:
     　filters: stat
       #通过connectProperties属性来打开mergeSql功能；慢SQL记录
     　connect-properties:  druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  mvc:
+    static-path-pattern: /static/**
   activiti:
     database-schema-update: true
   thymeleaf:
     content-type: text/html
     mode: LEGACYHTML5
-
-
-
 
 
