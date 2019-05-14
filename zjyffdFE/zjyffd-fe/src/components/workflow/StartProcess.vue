@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="text-align:right">
-      <el-button type="primary" icon="el-icon-refresh" circle @click="refresh()"></el-button>
+      <el-button type="primary" icon="el-icon-refresh" circle  @refreshTable="refreshTable"></el-button>
     </div>
     <el-table :data="processList">
       <el-table-column label="流程ID">
@@ -35,11 +35,14 @@ export default {
     }
   },
   mounted(){
-    this.mixPost('/testProcess/getAllResource',{}).then(res=>{
-      this.processList=res.data.resultList;
-    })
+    this.refreshTable();
   },
   methods:{
+    refreshTable(){
+      this.mixPost('/testProcess/getAllResource',{}).then(res=>{
+        this.processList=res.data.resultList;
+      })
+    },
     startProcess(processId,processName){
        this.$confirm('您是否要启动'+processName+'?', '提示', {
           confirmButtonText: '确定',

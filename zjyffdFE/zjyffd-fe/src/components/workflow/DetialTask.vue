@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <img v-if="taskInfo.id" :src="mixBasePath+'/testProcess/getProcessDiagram?taskId='+taskInfo.id+'&token='+mixCurrentUser.token">
+      <img v-if="taskInfo.id" :src="mixBasePath+'/testProcess/getProcessDiagram?taskId='+taskInfo.id">
     </div>
     <div v-for="formItem in taskInfo.formProperties">
       <el-form>
@@ -55,7 +55,7 @@ export default {
             type: res.state,
             message: res.message
           });
-          this.$emit("refreshTab",{name:'1-2'})
+          this.$emit("refreshTab",{name:'my-task'})
           this.closeSelfTab()
         })
       }).catch(() => {
