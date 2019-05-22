@@ -7,6 +7,9 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "bpmn-js": "^3.4.1",
+    "bpmn-js-properties-panel": "^0.30.0",
+    "camunda-bpmn-moddle": "^3.2.0",
     "element-ui": "^2.4.11",
     "jquery": "^3.3.1",
     "moment": "^2.23.0",

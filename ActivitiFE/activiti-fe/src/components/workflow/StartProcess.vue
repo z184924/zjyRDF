@@ -21,7 +21,7 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="startProcess(scope.row.id,scope.row.name)">启动流程</el-button>
+          <el-button type="primary" size="mini" @click="startProcess(scope.row.id,scope.row.name)">发起流程</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -44,7 +44,7 @@ export default {
       })
     },
     startProcess(processId,processName){
-       this.$confirm('您是否要启动'+processName+'?', '提示', {
+       this.$confirm('您是否要发起'+processName+'?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -58,7 +58,7 @@ export default {
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消启动'
+            message: '已取消发起'
           });          
         });
     }

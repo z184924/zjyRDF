@@ -52,12 +52,16 @@
                 <el-menu-item-group>
                   <el-menu-item
                     index="start-process"
-                    @click="addTab('新建流程','start-process','start-process')"
-                  >新建流程</el-menu-item>
+                    @click="addTab('发起流程','start-process','start-process')"
+                  >发起流程</el-menu-item>
                   <el-menu-item
                     index="my-task"
                     @click="addTab('我的任务','my-task','my-task')"
                   >我的任务</el-menu-item>
+                  <el-menu-item
+                    index="create-process"
+                    @click="addTab('创建流程','create-process','create-process')"
+                  >创建流程</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu
@@ -137,6 +141,7 @@ import UserList from "@/components/system/user/UserList"
 import RoleList from "@/components/system/role/RoleList"
 import RightsList from "@/components/system/rights/RightsList"
 import DemoList from "@/components/demo/demo/DemoList"
+import CreateProcess from "@/components/workflow/CreateProcess"
 export default {
   components: {
     EditPassword,
@@ -147,6 +152,7 @@ export default {
     RoleList,
     RightsList,
     DemoList,
+    CreateProcess,
   },
   computed: {
     mixCurrentUser() {
