@@ -1,28 +1,43 @@
 package cn.zhangjingyao.util;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * java压缩成zip
+ * java压缩zip
  * @author
- * @version
  */
 public class FileZip {
 
 	/**
-	 * @param inputFileName 你要压缩的文件夹(整个完整路径)
-	 * @param zipFileName 压缩后的文件(整个完整路径)
+	 * @param inputFileName 需要压缩的文件夹(整个完整路径)
+	 * @param zipFileName   压缩后的文件(整个完整路径)
 	 */
 	public static void zip(String inputFileName, String zipFileName) throws Exception {
 		zip(zipFileName, new File(inputFileName));
 	}
 
+	/**
+	 * @param inputFileNameList 需要压缩的文件或文件夹列表(整个完整路径)
+	 * @param zipFileName   压缩后的文件(整个完整路径)
+	 */
+	public static void zip(List<String> inputFileNameList, String zipFileName) throws Exception {
+		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileName));
+		for (String inputFileName : inputFileNameList) {
+			File file = new File(inputFileName);
+			zip(out, file, "/"+file.getName());
+		}
+		out.flush();
+		out.close();
+	}
+
 	private static void zip(String zipFileName, File inputFile) throws Exception {
-		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(
-				zipFileName));
+		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileName));
 		zip(out, inputFile, "");
 		out.flush();
 		out.close();
@@ -37,26 +52,38 @@ public class FileZip {
 				zip(out, fl[i], base + fl[i].getName());
 			}
 		} else {
-			out.putNextEntry(new ZipEntry(base));
-			FileInputStream in = new FileInputStream(f);
-			int b;
-			//System.out.println(base);
-			while ((b = in.read()) != -1) {
-				out.write(b);
-			}
-			in.close();
+			ZipEntry zipEntry = new ZipEntry(base);
+			zipEntry.setTime(f.lastModified());
+			out.putNextEntry(zipEntry);
+			writeZip(out,f);
 		}
 	}
-	
-	 public static void main(String[] temp){
-		 try {           
-			 zip("E:\\ftl","E:\\test.zip");//你要压缩的文件夹      和  压缩后的文件 
-			 }catch (Exception ex) {
-				 ex.printStackTrace();    
-			 }   
-		}
-}
 
+	private static void writeZip(ZipOutputStream out,File f)throws Exception{
+		FileInputStream in = new FileInputStream(f);
+		int b;
+		//System.out.println(base);
+		while ((b = in.read()) != -1) {
+			out.write(b);
+		}
+		in.close();
+	}
+
+	public static void main(String[] temp) {
+		long statTime = System.currentTimeMillis();
+		try {
+			List<String> fileList = new ArrayList<>();
+			fileList.add("C:\\Users\\ZJY\\Desktop\\test.docx");
+			fileList.add("C:\\Users\\ZJY\\Desktop\\联系单编号.xls");
+			fileList.add("C:\\Users\\ZJY\\Desktop\\testZiped");
+			zip(fileList, "C:\\Users\\ZJY\\Desktop\\testZip.zip");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		long endTime = System.currentTimeMillis();
+		System.out.println("Used Time:"+((endTime-statTime)/1000)+"s");
+	}
+}
 
 
 //=====================文件压缩=========================
