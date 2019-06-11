@@ -1,8 +1,6 @@
 package cn.zhangjingyao.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -15,7 +13,7 @@ import java.util.zip.ZipOutputStream;
 public class FileZip {
 
 	/**
-	 * @param inputFileName 需要压缩的文件夹(整个完整路径)
+	 * @param inputFileName 你要压缩的文件夹(整个完整路径)
 	 * @param zipFileName   压缩后的文件(整个完整路径)
 	 */
 	public static void zip(String inputFileName, String zipFileName) throws Exception {
@@ -27,7 +25,7 @@ public class FileZip {
 	 * @param zipFileName   压缩后的文件(整个完整路径)
 	 */
 	public static void zip(List<String> inputFileNameList, String zipFileName) throws Exception {
-		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileName));
+		ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFileName)));
 		for (String inputFileName : inputFileNameList) {
 			File file = new File(inputFileName);
 			zip(out, file, "/"+file.getName());
@@ -60,7 +58,7 @@ public class FileZip {
 	}
 
 	private static void writeZip(ZipOutputStream out,File f)throws Exception{
-		FileInputStream in = new FileInputStream(f);
+		BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
 		int b;
 		//System.out.println(base);
 		while ((b = in.read()) != -1) {
