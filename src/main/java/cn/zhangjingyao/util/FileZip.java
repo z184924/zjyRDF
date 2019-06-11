@@ -74,7 +74,6 @@ public class FileZip {
 		try {
 			List<String> fileList = new ArrayList<>();
 			fileList.add("C:\\Users\\ZJY\\Desktop\\test.docx");
-			fileList.add("C:\\Users\\ZJY\\Desktop\\北城建一体化安全管理模块子系统_用户手册_施工方巡查人.docx");
 			fileList.add("C:\\Users\\ZJY\\Desktop\\联系单编号.xls");
 			fileList.add("C:\\Users\\ZJY\\Desktop\\testZiped");
 			zip(fileList, "C:\\Users\\ZJY\\Desktop\\testZip.zip");
