@@ -35,7 +35,7 @@ public class FileZip {
 	}
 
 	private static void zip(String zipFileName, File inputFile) throws Exception {
-		ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileName));
+		ZipOutputStream out =  new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFileName)));
 		zip(out, inputFile, "");
 		out.flush();
 		out.close();
