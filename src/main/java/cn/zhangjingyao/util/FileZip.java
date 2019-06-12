@@ -13,14 +13,19 @@ import java.util.zip.ZipOutputStream;
 public class FileZip {
 
 	/**
+	 * 压缩文件夹为zip文件
 	 * @param inputFileName 你要压缩的文件夹(整个完整路径)
 	 * @param zipFileName   压缩后的文件(整个完整路径)
 	 */
 	public static void zip(String inputFileName, String zipFileName) throws Exception {
-		zip(zipFileName, new File(inputFileName));
+		ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFileName)));
+		zip(out, new File(inputFileName), "");
+		out.flush();
+		out.close();
 	}
 
 	/**
+	 * 压缩文件或文件夹列表为zip文件
 	 * @param inputFileNameList 需要压缩的文件或文件夹列表(整个完整路径)
 	 * @param zipFileName   压缩后的文件(整个完整路径)
 	 */
@@ -34,9 +39,29 @@ public class FileZip {
 		out.close();
 	}
 
-	private static void zip(String zipFileName, File inputFile) throws Exception {
-		ZipOutputStream out =  new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFileName)));
-		zip(out, inputFile, "");
+	/**
+	 * 压缩文件夹为zip文件并通过指定流输出
+	 * @param inputFileName 需要压缩文件夹(整个完整路径)
+	 * @param outputStream 输出流
+	 */
+	public static void zip(String inputFileName,OutputStream outputStream) throws Exception {
+		ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(outputStream));
+		zip(out, new File(inputFileName), "");
+		out.flush();
+		out.close();
+	}
+
+	/**
+	 * 压缩文件或文件夹列表为zip文件并通过指定流输出
+	 * @param inputFileNameList 需要压缩的文件或文件夹列表(整个完整路径)
+	 * @param outputStream 输出流
+	 */
+	public static void zip(List<String> inputFileNameList,OutputStream outputStream) throws Exception {
+		ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(outputStream));
+		for (String inputFileName : inputFileNameList) {
+			File file = new File(inputFileName);
+			zip(out, file, "/"+file.getName());
+		}
 		out.flush();
 		out.close();
 	}
@@ -53,18 +78,13 @@ public class FileZip {
 			ZipEntry zipEntry = new ZipEntry(base);
 			zipEntry.setTime(f.lastModified());
 			out.putNextEntry(zipEntry);
-			writeZip(out,f);
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
+			int b;
+			while ((b = in.read()) != -1) {
+				out.write(b);
+			}
+			in.close();
 		}
-	}
-
-	private static void writeZip(ZipOutputStream out,File f)throws Exception{
-		BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
-		int b;
-		//System.out.println(base);
-		while ((b = in.read()) != -1) {
-			out.write(b);
-		}
-		in.close();
 	}
 
 	public static void main(String[] temp) {
