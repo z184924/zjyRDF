@@ -50,7 +50,7 @@ public class CreateCodeController extends BaseController {
 				pd.put("primaryKey",setting[0]);
 			}
 		}
-		String file = new CreateCodeController().createCode(pd);
+		String file = createCode(pd);
 		System.out.println("Generated file put on :"+file);
 		return this.jsonContent("success", "生成成功");
 	}
