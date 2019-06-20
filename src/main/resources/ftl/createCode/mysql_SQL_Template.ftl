@@ -20,4 +20,4 @@ CREATE TABLE `${tabletop}${objectNameUpper}` (
 		</#if>
 	</#list>
   		PRIMARY KEY (`<#list fieldList as var><#if var[4] == '是'>${var[0]}</#if></#list>`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

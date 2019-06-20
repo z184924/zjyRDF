@@ -4,13 +4,13 @@ Navicat MySQL Data Transfer
 Source Server         : localhost
 Source Server Version : 80013
 Source Host           : localhost:3306
-Source Database       : zjyRDF
+Source Database       : zjyrdf
 
 Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2019-03-26 15:09:47
+Date: 2019-06-20 19:16:10
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `demo_demo`;
 CREATE TABLE `demo_demo` (
-  `demoId` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `demoId` varchar(32) DEFAULT NULL,
   `demoText1` varchar(255) DEFAULT NULL,
   `demoText2` varchar(255) DEFAULT NULL,
   `demoNumber1` int(11) DEFAULT NULL,
@@ -44,11 +44,11 @@ DROP TABLE IF EXISTS `sys_rights`;
 CREATE TABLE `sys_rights` (
   `rightsId` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(255) DEFAULT NULL,
-  `rightsCode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `rightsName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `rightsCode` varchar(255) DEFAULT NULL,
+  `rightsName` varchar(255) DEFAULT NULL,
   `rightsType` int(2) DEFAULT NULL,
   `parentId` int(11) unsigned DEFAULT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
   `sorting` int(11) DEFAULT NULL,
   PRIMARY KEY (`rightsId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -148,8 +148,8 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `userId` varchar(32) NOT NULL,
   `account` varchar(255) NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `userName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `userName` varchar(255) NOT NULL,
   `locked` bit(1) NOT NULL,
   `disable` bit(1) NOT NULL,
   `specialRole` varchar(255) DEFAULT NULL,
@@ -159,9 +159,9 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', '$2a$10$UwdWOlIaEP7BKYBEsUBU9.3BQVat4upwz8s9Jp1W9j4e3qWJMXzCm', 'admin', '\0', '\0', 'admin');
+INSERT INTO `sys_user` VALUES ('1', 'admin', '$2a$10$UwdWOlIaEP7BKYBEsUBU9.3BQVat4upwz8s9Jp1W9j4e3qWJMXzCm', 'admin', '\0', '\0', 'ROLE_admin');
 INSERT INTO `sys_user` VALUES ('b8e9ba17b06a4674b69342c93a7fd774', 'test', '$2a$10$ifNZ4DJwmS.d1/GtejoCa.fXzO625FB/XO6NLoU5ox.VtfqehSVHy', 'test', '\0', '\0', '');
-INSERT INTO `sys_user` VALUES ('eda56955597847d39707fe0cfba4ebab', 'user', '$2a$10$pJlKA2REfYux5h2gYIGp4.PH5pd.Tl4kSnB9p/xID4UChOK7pShlq', 'user', '\0', '\0', 'user');
+INSERT INTO `sys_user` VALUES ('eda56955597847d39707fe0cfba4ebab', 'user', '$2a$10$pJlKA2REfYux5h2gYIGp4.PH5pd.Tl4kSnB9p/xID4UChOK7pShlq', 'user', '\0', '\0', 'ROLE_user');
 
 -- ----------------------------
 -- Table structure for sys_user_role
