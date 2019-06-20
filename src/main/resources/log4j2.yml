@@ -5,7 +5,7 @@ Configuration:
       - name: log.path
         value: ./logs
       - name: project.name
-        value: zjyFDD
+        value: zjyRDF
 
   Appenders:
     Console:  #输出到控制台
