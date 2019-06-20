@@ -32,9 +32,9 @@ spring:
         #IP黑名单
         deny:
       #driver-class-name: com.mysql.jdbc.Driver
-      #url: jdbc:mysql://192.168.0.102:3306/zjyffd?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true
+      #url: jdbc:mysql://192.168.0.102:3306/zjyRDF?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=true
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.0.201:3306/zjyffd?useSSL=FALSE&serverTimezone=UTC
+      url: jdbc:mysql://192.168.0.201:3306/zjyrdf?useSSL=FALSE&serverTimezone=UTC
       username: root
       password: root
       #下面为连接池的补充设置，应用到上面所有数据源中

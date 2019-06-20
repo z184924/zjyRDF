@@ -4,7 +4,7 @@ Navicat MySQL Data Transfer
 Source Server         : localhost
 Source Server Version : 80013
 Source Host           : localhost:3306
-Source Database       : zjyffd
+Source Database       : zjyRDF
 
 Target Server Type    : MYSQL
 Target Server Version : 80013
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `demo_demo`;
 CREATE TABLE `demo_demo` (
-  `demoId` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `demoId` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `demoText1` varchar(255) DEFAULT NULL,
   `demoText2` varchar(255) DEFAULT NULL,
   `demoNumber1` int(11) DEFAULT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE `demo_demo` (
   `demoBoolean2` bit(1) DEFAULT NULL,
   `demoTime1` datetime DEFAULT NULL,
   `demoTime2` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of demo_demo
@@ -44,14 +44,14 @@ DROP TABLE IF EXISTS `sys_rights`;
 CREATE TABLE `sys_rights` (
   `rightsId` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(255) DEFAULT NULL,
-  `rightsCode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `rightsName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `rightsCode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `rightsName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `rightsType` int(2) DEFAULT NULL,
   `parentId` int(11) unsigned DEFAULT NULL,
-  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `sorting` int(11) DEFAULT NULL,
   PRIMARY KEY (`rightsId`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of sys_rights
@@ -88,7 +88,7 @@ CREATE TABLE `sys_role` (
   `roleName` varchar(255) DEFAULT NULL,
   `sorting` int(11) DEFAULT NULL,
   PRIMARY KEY (`roleId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of sys_role
@@ -105,7 +105,7 @@ CREATE TABLE `sys_role_rights` (
   `roleId` varchar(32) NOT NULL,
   `rightsId` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of sys_role_rights
@@ -148,13 +148,13 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `userId` varchar(32) NOT NULL,
   `account` varchar(255) NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `userName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `userName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `locked` bit(1) NOT NULL,
   `disable` bit(1) NOT NULL,
   `specialRole` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of sys_user
@@ -172,7 +172,7 @@ CREATE TABLE `sys_user_role` (
   `userId` varchar(32) NOT NULL,
   `roleId` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- ----------------------------
 -- Records of sys_user_role

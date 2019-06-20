@@ -8,10 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author
  */
 @SpringBootApplication
-public class ZjyffdApplication {
+public class ZjyRdfApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ZjyffdApplication.class, args);
+		SpringApplication.run(ZjyRdfApplication.class, args);
 	}
 
 }
