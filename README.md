@@ -3,8 +3,8 @@
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 [![JDK 1.8](https://img.shields.io/badge/JDK-1.8-green.svg "JDK 1.8")]()
 
-# zjyFFD
-zjy fast framework demo
+# zjyRDF
+zjy rapid development framework
 
 zjy 快速开发框架
 

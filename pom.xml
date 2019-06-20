@@ -10,10 +10,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cn.zhangjingyao</groupId>
-	<artifactId>zjyffd</artifactId>
+	<artifactId>zjyrdf</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>zjyffd</name>
-	<description>zjy fast framework demo</description>
+	<name>zjyrdf</name>
+	<description>zjy rapid development framework</description>
 
 	<properties>
 		<java.version>1.8</java.version>

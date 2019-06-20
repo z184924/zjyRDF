@@ -27,7 +27,7 @@ public class DataSourceProcessEngineConfiguration extends AbstractProcessEngineA
     public PlatformTransactionManager transactionManager() throws Exception {
         Map<String,Object> properties=new HashMap<>(16);
         properties.put("driverClassName","com.mysql.cj.jdbc.Driver");
-        properties.put("url","jdbc:mysql://192.168.0.201:3306/zjyffd_activiti?useSSL=FALSE&serverTimezone=UTC");
+        properties.put("url","jdbc:mysql://192.168.0.201:3306/zjyrdf_activiti?useSSL=FALSE&serverTimezone=UTC");
         properties.put("username","root");
         properties.put("password","root");
         DataSource dataSource = DruidDataSourceFactory.createDataSource(properties);
@@ -39,7 +39,7 @@ public class DataSourceProcessEngineConfiguration extends AbstractProcessEngineA
     public SpringProcessEngineConfiguration springProcessEngineConfiguration(PlatformTransactionManager transactionManager, SpringAsyncExecutor springAsyncExecutor) throws Exception {
         Map<String,Object> properties=new HashMap<>(16);
         properties.put("driverClassName","com.mysql.cj.jdbc.Driver");
-        properties.put("url","jdbc:mysql://192.168.0.201:3306/zjyffd_activiti?useSSL=FALSE&serverTimezone=UTC");
+        properties.put("url","jdbc:mysql://192.168.0.201:3306/zjyrdf_activiti?useSSL=FALSE&serverTimezone=UTC");
         properties.put("username","root");
         properties.put("password","root");
         DataSource dataSource = DruidDataSourceFactory.createDataSource(properties);
