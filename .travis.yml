@@ -2,10 +2,6 @@ language: java
 
 install: true
 
-script:
-  - ./mvnw clean install -DskipTests=false -Dcheckstyle.skip=false -Drat.skip=false -Dmaven.javadoc.skip=true
-
-
 jdk:
   - openjdk8
   - oraclejdk8
