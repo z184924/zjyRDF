@@ -2,7 +2,7 @@ language: java
 
 sudo: true
 
-script:  chmod -R 777 ./mvnw
+script:  chmod -R 755 ./mvnw
 
 install: true
 
