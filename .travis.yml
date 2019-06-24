@@ -2,6 +2,8 @@ language: java
 
 sudo: true
 
+script:  chmod -R 777 ./mvnw
+
 install: true
 
 jdk:
