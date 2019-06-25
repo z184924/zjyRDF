@@ -34,24 +34,24 @@ public class SimpleTests {
         return b;
     }
 
-    @Test
-    public void testFormToken() throws Exception {
-        ExecutorService threadPool = Executors.newFixedThreadPool(500);
-        final CountDownLatch countDownLatch = new CountDownLatch(1000);
-        for (int i = 0; i < 500; i++) {
-            threadPool.execute(() -> {
-                String s = addFormTokenPool();
-                countDownLatch.countDown();
-                threadPool.execute(() -> {
-                    removeFormTokenPool(s);
-                    countDownLatch.countDown();
-                });
-            });
-        }
-        long count = countDownLatch.getCount();
-        System.out.println(count);
-        countDownLatch.await();
-        count = countDownLatch.getCount();
-        System.out.println(count);
-    }
+//    @Test
+//    public void testFormToken() throws Exception {
+//        ExecutorService threadPool = Executors.newFixedThreadPool(500);
+//        final CountDownLatch countDownLatch = new CountDownLatch(1000);
+//        for (int i = 0; i < 500; i++) {
+//            threadPool.execute(() -> {
+//                String s = addFormTokenPool();
+//                countDownLatch.countDown();
+//                threadPool.execute(() -> {
+//                    removeFormTokenPool(s);
+//                    countDownLatch.countDown();
+//                });
+//            });
+//        }
+//        long count = countDownLatch.getCount();
+//        System.out.println(count);
+//        countDownLatch.await();
+//        count = countDownLatch.getCount();
+//        System.out.println(count);
+//    }
 }
