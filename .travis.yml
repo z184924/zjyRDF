@@ -4,13 +4,9 @@ sudo: false
 
 script:
   - chmod -R 755 ./mvnw
-  - mvn cobertura:cobertura
 
 install: true
 
 jdk:
   - openjdk8
   - oraclejdk8
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
