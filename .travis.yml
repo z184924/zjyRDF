@@ -2,7 +2,9 @@ language: java
 
 sudo: false
 
-script:  chmod -R 755 ./mvnw
+script:
+  - chmod -R 755 ./mvnw
+  - mvn cobertura:cobertura
 
 install: true
 
