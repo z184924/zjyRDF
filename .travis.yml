@@ -1,6 +1,6 @@
 language: java
 
-sudo: true
+sudo: false
 
 script:  chmod -R 755 ./mvnw
 
@@ -9,3 +9,6 @@ install: true
 jdk:
   - openjdk8
   - oraclejdk8
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
