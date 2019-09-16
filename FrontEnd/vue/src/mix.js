@@ -1,4 +1,5 @@
-import $ from "jquery"
+import axios from "axios"
+import qs from "qs"
 import moment from "moment"
 import { isNullOrUndefined } from "util";
 export default {
@@ -78,7 +79,7 @@ export default {
       this.$router.replace("/");
     },
     mixPost(api, data = {}, param = {}) {
-      let headers = {}
+      let headers = { "Content-Type": "application/x-www-form-urlencoded" }
       if (param.isShowLoading === undefined) {
         param.isShowLoading = false;
       }
@@ -99,26 +100,26 @@ export default {
             this.$store.commit("setLoading", false);
           }, param.loadingMaxTime)
         }
-        $.ajax({
-          url,
-          type: "POST",
-          data,
-          dataType: "json",
-          headers,
-          success(res) {
+        axios({
+          method: 'post',
+          url: url,
+          data: qs.stringify(data),
+          headers: headers,
+        })
+          .then(res => {
             if (param.isShowLoading) {
               vue.$store.commit("setLoading", false);
             }
-            resolve(res);
-          },
-          error(err) {
-            switch (err.status) {
+            resolve(res.data);
+          })
+          .catch(err => {
+            switch (err.response.status) {
               case 401:
                 if (!param.refreshTokenFlag && api != '/oauth/logout') {
                   param.refreshTokenFlag = true
                   vue.mixRefreshToken(api, data, param).then(res => {
                     if (!isNullOrUndefined(res) && res.state == 'success') {
-                      resolve(res)
+                      resolve(res.data)
                     }
                   }).catch(err => {
                     reject(err)
@@ -131,21 +132,20 @@ export default {
               case 403:
               case 500:
               case 501:
-                let errMsg = JSON.parse(err.responseText)
+                let errMsg = err.response.data
                 vue.$alert(errMsg.message, errMsg.state + ':' + errMsg.error, {
                   confirmButtonText: '确定'
                 });
-                reject(err);
+                reject(err.response.data);
                 break;
               default:
                 vue.$message.error('无法连接服务器,请稍候重试');
-                reject(err);
+                reject(err.response.data);
             }
             if (param.isShowLoading) {
               vue.$store.commit("setLoading", false);
             }
-          }
-        })
+          })
       });
     },
     mixSetFormToken(formToken) {
