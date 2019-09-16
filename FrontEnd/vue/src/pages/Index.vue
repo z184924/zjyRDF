@@ -128,7 +128,6 @@
   </div>
 </template>
 <script>
-import $ from "jquery"
 import EditPassword from "@/components/system/EditPassword"
 import StartProcess from "@/components/workflow/StartProcess"
 import MyTask from "@/components/workflow/MyTask"
@@ -169,7 +168,7 @@ export default {
       menuData: {},
       defaultActiveMenu: '',
       screenWidth: document.body.clientWidth,
-      mainHeight: $(window).height() - 60 - 60 - 16
+      mainHeight: window.innerHeight - 60 - 60 - 16
     }
   },
   methods: {
@@ -274,7 +273,7 @@ export default {
     window.onresize = () => {
       return (() => {
         window.screenWidth = document.body.clientWidth
-        this.mainHeight = $(window).height() - 60 - 60 - 16
+        this.mainHeight = window.innerHeight - 60 - 60 - 16
         that.screenWidth = window.screenWidth
       })()
     }

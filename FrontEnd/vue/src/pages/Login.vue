@@ -67,14 +67,15 @@
   </div>
 </template>
 <script>
-import $ from "jquery"
 export default {
   data() {
     return {
       account: "",
       password: "",
       screenWidth: document.body.clientWidth,
-      mainHeight: $(window).height() - 60 - 60 - 16,
+      // mainHeight: $(window).height() - 60 - 60 - 16,
+      mainHeight: window.innerHeight - 60 - 60 - 16,
+      
     }
   },
   methods: {
@@ -91,7 +92,8 @@ export default {
     window.onresize = () => {
       return (() => {
         window.screenWidth = document.body.clientWidth
-        this.mainHeight = $(window).height() - 60 - 60 - 16
+        // this.mainHeight = $(window).height() - 60 - 60 - 16
+        this.mainHeight = window.innerHeight - 60 - 60 - 16
         that.screenWidth = window.screenWidth
       })()
     }
