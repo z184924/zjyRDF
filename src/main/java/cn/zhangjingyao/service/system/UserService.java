@@ -34,7 +34,6 @@ public class UserService {
 	 * @param pd
 	 * @throws Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public boolean save(PageData pd)throws Exception{
 		PageData account = (PageData) dao.findForObject("UserMapper.findByAccount", pd);
 		if(account==null){
@@ -50,7 +49,6 @@ public class UserService {
 	 * @param list
 	 * @throws Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public Boolean save(List<PageData> list)throws Exception{
 		Boolean saveFlag=true;
 		for (PageData pd:list) {
@@ -74,7 +72,6 @@ public class UserService {
 	 * @param pd
 	 * @throws Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void delete(PageData pd)throws Exception{
 		dao.delete("UserMapper.delete", pd);
 	}
@@ -84,7 +81,6 @@ public class UserService {
 	 * @param list
 	 * @throws Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void delete(List<PageData> list)throws Exception{
 		for (PageData pd:list) {
 			dao.delete("UserMapper.delete", pd);
@@ -96,7 +92,6 @@ public class UserService {
 	 * @param pd
 	 * @throws Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void edit(PageData pd)throws Exception{
 		dao.update("UserMapper.edit", pd);
 	}
@@ -106,7 +101,6 @@ public class UserService {
 	 * @param list
 	 * @throws Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void edit(List<PageData> list)throws Exception{
 		for (PageData pd:list) {
 			dao.update("UserMapper.edit", pd);
@@ -184,7 +178,6 @@ public class UserService {
 	 * @param arrayDataIds
 	 * @throws Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void deleteAll(String[] arrayDataIds)throws Exception{
 		dao.delete("UserMapper.deleteAll", arrayDataIds);
 	}

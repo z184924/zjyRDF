@@ -25,7 +25,6 @@ public class RightsService {
 	 * @param pd
 	 * @throws Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void save(PageData pd)throws Exception{
 		dao.save("RightsMapper.save", pd);
 	}
@@ -35,7 +34,6 @@ public class RightsService {
 	 * @param list
 	 * @throws Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void save(List<PageData> list)throws Exception{
 		for (PageData pd:list) {
 			dao.save("RightsMapper.save", pd);
@@ -47,7 +45,6 @@ public class RightsService {
      * @param pd
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void delete(PageData pd)throws Exception{
 		dao.delete("RightsMapper.delete", pd);
 	}
@@ -57,7 +54,6 @@ public class RightsService {
      * @param list
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void delete(List<PageData> list)throws Exception{
         for (PageData pd:list) {
 			dao.delete("RightsMapper.delete", pd);
@@ -69,7 +65,6 @@ public class RightsService {
      * @param pd
      * @throws Exception
      */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void edit(PageData pd)throws Exception{
 		dao.update("RightsMapper.edit", pd);
 	}
@@ -79,7 +74,6 @@ public class RightsService {
      * @param list
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void edit(List<PageData> list)throws Exception{
         for (PageData pd:list) {
 			dao.update("RightsMapper.edit", pd);
@@ -123,7 +117,6 @@ public class RightsService {
       * @param arrayDataIds
       * @throws Exception
       */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void deleteAll(String[] arrayDataIds)throws Exception{
 		dao.delete("RightsMapper.deleteAll", arrayDataIds);
 	}

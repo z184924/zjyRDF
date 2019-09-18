@@ -27,8 +27,9 @@ public class DemoService {
 	 * @param pd PageData
 	 * @throws Exception Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void save(PageData pd)throws Exception{
+		dao.save("DemoMapper.save", pd);
+		pd.remove("demoText2");
 		dao.save("DemoMapper.save", pd);
 	}
 
@@ -37,7 +38,6 @@ public class DemoService {
 	 * @param list PageData List
 	 * @throws Exception Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void save(List<PageData> list)throws Exception{
 		for (PageData pd:list) {
 			dao.save("DemoMapper.save", pd);
@@ -49,7 +49,6 @@ public class DemoService {
      * @param pd PageData
      * @throws Exception Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void delete(PageData pd)throws Exception{
 		dao.delete("DemoMapper.delete", pd);
 	}
@@ -59,7 +58,6 @@ public class DemoService {
      * @param list PageData List
      * @throws Exception Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void delete(List<PageData> list)throws Exception{
         for (PageData pd:list) {
 			dao.delete("DemoMapper.delete", pd);
@@ -71,7 +69,6 @@ public class DemoService {
      * @param pd PageData
      * @throws Exception Exception
      */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void edit(PageData pd)throws Exception{
 		dao.update("DemoMapper.edit", pd);
 	}
@@ -81,7 +78,6 @@ public class DemoService {
      * @param list PageData List
      * @throws Exception Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void edit(List<PageData> list)throws Exception{
         for (PageData pd:list) {
 			dao.update("DemoMapper.edit", pd);
@@ -125,7 +121,6 @@ public class DemoService {
      * @param arrayDataIds Id数组
      * @throws Exception Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void deleteAll(String[] arrayDataIds)throws Exception{
 		dao.delete("DemoMapper.deleteAll", arrayDataIds);
 	}

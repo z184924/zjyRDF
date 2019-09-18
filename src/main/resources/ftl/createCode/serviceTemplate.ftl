@@ -27,7 +27,6 @@ public class ${objectName}Service {
 	 * @param pd PageData
 	 * @throws Exception Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void save(PageData pd)throws Exception{
 		dao.save("${objectName}Mapper.save", pd);
 	}
@@ -37,7 +36,6 @@ public class ${objectName}Service {
 	 * @param list PageData List
 	 * @throws Exception Exception
 	 */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void save(List<PageData> list)throws Exception{
 		for (PageData pd:list) {
 			dao.save("${objectName}Mapper.save", pd);
@@ -49,7 +47,6 @@ public class ${objectName}Service {
      * @param pd PageData
      * @throws Exception Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void delete(PageData pd)throws Exception{
 		dao.delete("${objectName}Mapper.delete", pd);
 	}
@@ -59,7 +56,6 @@ public class ${objectName}Service {
      * @param list PageData List
      * @throws Exception Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void delete(List<PageData> list)throws Exception{
         for (PageData pd:list) {
 			dao.delete("${objectName}Mapper.delete", pd);
@@ -71,7 +67,6 @@ public class ${objectName}Service {
      * @param pd PageData
      * @throws Exception Exception
      */
-	@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void edit(PageData pd)throws Exception{
 		dao.update("${objectName}Mapper.edit", pd);
 	}
@@ -81,7 +76,6 @@ public class ${objectName}Service {
      * @param list PageData List
      * @throws Exception Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void edit(List<PageData> list)throws Exception{
         for (PageData pd:list) {
 			dao.update("${objectName}Mapper.edit", pd);
@@ -125,7 +119,6 @@ public class ${objectName}Service {
      * @param arrayDataIds Id数组
      * @throws Exception Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
 	public void deleteAll(String[] arrayDataIds)throws Exception{
 		dao.delete("${objectName}Mapper.deleteAll", arrayDataIds);
 	}

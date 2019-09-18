@@ -26,7 +26,6 @@ public class RoleService {
      * @param pd
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void save(PageData pd) throws Exception {
         dao.save("RoleMapper.save", pd);
     }
@@ -37,7 +36,6 @@ public class RoleService {
      * @param list
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void save(List<PageData> list) throws Exception {
         for (PageData pd : list) {
             dao.save("RoleMapper.save", pd);
@@ -50,7 +48,6 @@ public class RoleService {
      * @param pd
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void delete(PageData pd) throws Exception {
         dao.delete("RoleMapper.deleteUserRole", pd.getString("roleId"));
         dao.delete("RoleMapper.deleteRoleRights", pd.getString("roleId"));
@@ -63,7 +60,6 @@ public class RoleService {
      * @param list
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void delete(List<PageData> list) throws Exception {
         for (PageData pd : list) {
             dao.delete("RoleMapper.deleteUserRole", pd.getString("roleId"));
@@ -78,7 +74,6 @@ public class RoleService {
      * @param pd
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void edit(PageData pd) throws Exception {
         dao.update("RoleMapper.edit", pd);
     }
@@ -89,7 +84,6 @@ public class RoleService {
      * @param list
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void edit(List<PageData> list) throws Exception {
         for (PageData pd : list) {
             dao.update("RoleMapper.edit", pd);
@@ -137,7 +131,6 @@ public class RoleService {
      * @param arrayDataIds
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void deleteAll(String[] arrayDataIds) throws Exception {
         dao.delete("RoleMapper.deleteAll", arrayDataIds);
     }
@@ -158,7 +151,6 @@ public class RoleService {
      *
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void editUserRole(String roleId, List<PageData> list) throws Exception {
         dao.delete("RoleMapper.deleteUserRole", roleId);
         for (PageData pd : list) {
@@ -182,7 +174,6 @@ public class RoleService {
      *
      * @throws Exception
      */
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void editRoleRights(String roleId, List<PageData> list) throws Exception {
         dao.delete("RoleMapper.deleteRoleRights", roleId);
         for (PageData pd : list) {
