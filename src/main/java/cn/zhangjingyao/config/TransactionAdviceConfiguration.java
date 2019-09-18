@@ -20,7 +20,6 @@ import java.util.Collections;
  * @author
  *
  */
-
 @Aspect
 @Configuration
 public class TransactionAdviceConfiguration {
