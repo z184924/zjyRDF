@@ -1,13 +1,12 @@
-package cn.zhangjingyao.controller.system;
+package cn.zhangjingyao.controller;
 
 import cn.zhangjingyao.controller.base.BaseController;
-import cn.zhangjingyao.entity.Page;
 import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.util.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -100,13 +99,13 @@ public class CreateCodeController extends BaseController {
 		root.put("primaryKey", primaryKey);							//主键
 		root.put("tabletop", tabletop);								//表前缀
 		root.put("nowDate", new Date());							//当前日期
-		
-		DelAllFile.delFolder(PathUtil.getClasspath()+"static/file/createCode"); //生成代码前,先清空之前生成的代码
-		/* ============================================================================================= */
-		
+
 		String filePath = "static/file/createCode/";						//存放路径
 		String ftlPath = "createCode";								//ftl路径
-		
+		DelAllFile.delFolder(PathUtil.getClassResources()+filePath); //生成代码前,先清空之前生成的代码
+		/* ============================================================================================= */
+
+
 		/*生成controller*/
 		Freemarker.printFile("controllerTemplate.ftl", root, "controller/"+packageName+"/"+objectName.toLowerCase()+"/"+objectName+"Controller.java", filePath, ftlPath);
 		
@@ -138,8 +137,8 @@ public class CreateCodeController extends BaseController {
 		//this.print("oracle_SQL_Template.ftl", root);  控制台打印
 		
 		/*生成的全部代码压缩成zip文件*/
-		FileZip.zip(PathUtil.getClasspath()+"static/file/createCode", PathUtil.getClasspath()+"static/file/createCode/code.zip");
-		createdFilePath =  PathUtil.getClasspath()+"static/file/createCode/code.zip";
+		FileZip.zip(PathUtil.getClassResources()+filePath, PathUtil.getClassResources()+filePath+"code.zip");
+		createdFilePath =  PathUtil.getClassResources()+filePath+"code.zip";
 		
 		return createdFilePath;
 	}
