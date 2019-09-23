@@ -23,8 +23,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         PageData searchPd = new PageData();
         searchPd.put("account", account);
         PageData userPageData = userService.findByAccount(searchPd);
-        if(userPageData==null){
-            throw new UsernameNotFoundException("账号:"+account+"不存在");
+        if (userPageData == null) {
+            throw new UsernameNotFoundException("账号:" + account + "不存在");
         }
         cn.zhangjingyao.entity.system.User entityUser = new cn.zhangjingyao.entity.system.User(userPageData);
         User user = new User(entityUser.getAccount(), entityUser.getPassword(), !entityUser.getDisable(), true, true, !entityUser.getLocked(), AuthorityUtils.commaSeparatedStringToAuthorityList(entityUser.getSpecialRole()));
