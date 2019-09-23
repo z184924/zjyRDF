@@ -1,6 +1,7 @@
 package cn.zhangjingyao.security.service;
 
 import cn.zhangjingyao.entity.PageData;
+import cn.zhangjingyao.exception.CustomException;
 import cn.zhangjingyao.service.system.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -22,15 +23,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
         User user = null;
-        try {
-            PageData searchPd = new PageData();
-            searchPd.put("account", account);
-            PageData userPageData = userService.findByAccount(searchPd);
-            cn.zhangjingyao.entity.system.User entityUser = new cn.zhangjingyao.entity.system.User(userPageData);
-            user = new User(entityUser.getAccount(), entityUser.getPassword(), !entityUser.getDisable(), true, true, !entityUser.getLocked(), AuthorityUtils.commaSeparatedStringToAuthorityList(entityUser.getSpecialRole()));
-        } catch (Exception e) {
-            e.printStackTrace();
+        PageData searchPd = new PageData();
+        searchPd.put("account", account);
+        PageData userPageData = userService.findByAccount(searchPd);
+        if(userPageData==null){
+            throw new UsernameNotFoundException("账号:"+account+"不存在");
         }
+        cn.zhangjingyao.entity.system.User entityUser = new cn.zhangjingyao.entity.system.User(userPageData);
+        user = new User(entityUser.getAccount(), entityUser.getPassword(), !entityUser.getDisable(), true, true, !entityUser.getLocked(), AuthorityUtils.commaSeparatedStringToAuthorityList(entityUser.getSpecialRole()));
         return user;
     }
 }

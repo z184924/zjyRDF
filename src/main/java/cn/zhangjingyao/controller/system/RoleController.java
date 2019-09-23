@@ -2,7 +2,6 @@ package cn.zhangjingyao.controller.system;
 
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
-import cn.zhangjingyao.entity.system.User;
 import cn.zhangjingyao.service.system.RightsService;
 import cn.zhangjingyao.service.system.UserService;
 import com.github.pagehelper.PageInfo;
@@ -40,7 +39,7 @@ public class RoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/saveOrUpdate", produces = "application/json;charset=UTF-8")
-    public String saveOrUpdate() throws Exception {
+    public String saveOrUpdate() {
         logger.info("新增或编辑Role");
         PageData pd = this.getPageData();
         if (pd.get("roleId") == null || "".equals(pd.get("roleId"))) {
@@ -62,7 +61,7 @@ public class RoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/save", produces = "application/json;charset=UTF-8")
-    public String save() throws Exception {
+    public String save() {
         logger.info("新增Role");
         PageData pd = this.getPageData();
         //添加主键
@@ -78,7 +77,7 @@ public class RoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/delete", produces = "application/json;charset=UTF-8")
-    public String delete() throws Exception {
+    public String delete() {
         logger.info("删除Role");
         PageData pd = this.getPageData();
         roleService.delete(pd);
@@ -90,7 +89,7 @@ public class RoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/edit", produces = "application/json;charset=UTF-8")
-    public String edit() throws Exception {
+    public String edit() {
         logger.info("修改Role");
         PageData pd = this.getPageData();
         //替换字段
@@ -101,12 +100,10 @@ public class RoleController extends BaseController {
 
     /**
      * 分页查询列表
-     *
-     * @throws Exception
      */
     @ResponseBody
     @RequestMapping(value = "/listPage", produces = "application/json;charset=UTF-8")
-    public Object listPage() throws Exception {
+    public Object listPage() {
         logger.info("获取Role列表Json");
         PageData pd = this.getPageData();
         // 分页查询列表
@@ -119,7 +116,7 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public Object findById() throws Exception {
+    public Object findById() {
         logger.info("根据ID获取Role数据");
         PageData pd = this.getPageData();
         PageData resultPD = this.roleService.findById(pd);
@@ -128,12 +125,10 @@ public class RoleController extends BaseController {
 
     /**
      * 列表用户角色关系
-     *
-     * @throws Exception
      */
     @ResponseBody
     @RequestMapping(value = "/listUserRole", produces = "application/json;charset=UTF-8")
-    public Object listUserRole() throws Exception {
+    public Object listUserRole() {
         logger.info("获取用户角色关系列表Json");
         PageData pd = this.getPageData();
         List<PageData> userRoleList = this.roleService.listUserRole(pd);
@@ -149,7 +144,7 @@ public class RoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/editUserRole", produces = "application/json;charset=UTF-8")
-    public String editUserRole() throws Exception {
+    public String editUserRole() {
         logger.info("编辑用户角色关系");
         PageData pd = this.getPageData();
         String roleId = pd.getString("roleId");
@@ -172,12 +167,10 @@ public class RoleController extends BaseController {
 
     /**
      * 列表角色权限关系
-     *
-     * @throws Exception
      */
     @ResponseBody
     @RequestMapping(value = "/listRoleRights", produces = "application/json;charset=UTF-8")
-    public Object listRoleRights() throws Exception {
+    public Object listRoleRights() {
         logger.info("获取角色权限关系列表Json");
         PageData pd = this.getPageData();
         List<PageData> roleRightsList = this.roleService.listRoleRights(pd);
@@ -193,7 +186,7 @@ public class RoleController extends BaseController {
      */
     @ResponseBody
     @RequestMapping(value = "/editRoleRights", produces = "application/json;charset=UTF-8")
-    public String editRoleRights() throws Exception {
+    public String editRoleRights() {
         logger.info("编辑角色权限关系");
         PageData pd = this.getPageData();
         String roleId = pd.getString("roleId");
@@ -216,14 +209,11 @@ public class RoleController extends BaseController {
 
     /**
      * 查询用户权限关系
-     *
-     * @throws Exception
      */
     @ResponseBody
     @RequestMapping(value = "/listUserRights", produces = "application/json;charset=UTF-8")
-    public Object listUserRights() throws Exception {
+    public Object listUserRights() {
         logger.info("获取用户权限关系列表Json");
-        User currentUser = this.getCurrentUser();
         PageData pd = new PageData();
         pd.put("userId", this.getCurrentUser().getUserId());
         List<PageData> userRightsList = this.roleService.listUserRights(pd);
@@ -235,9 +225,8 @@ public class RoleController extends BaseController {
      *
      * @param pd
      * @return 替换后PageData
-     * @throws Exception
      */
-    private PageData replaceAttribute(PageData pd) throws Exception {
+    private PageData replaceAttribute(PageData pd) {
         return pd;
     }
 }

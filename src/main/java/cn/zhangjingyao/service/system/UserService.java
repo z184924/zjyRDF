@@ -6,8 +6,6 @@ import cn.zhangjingyao.entity.system.User;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
@@ -18,169 +16,169 @@ import java.util.List;
  */
 @org.springframework.stereotype.Service
 public class UserService {
-	
-	@Autowired
-	private DaoImpl dao;
 
-	/**
-	 * 通过用户名密码获取数据
-	 */
-	public User loginUser(PageData pd)throws Exception{
-		return (User)dao.findForObject("UserMapper.loginUser", pd);
-	}
+    @Autowired
+    private DaoImpl dao;
 
-	/**
-	 * 新增
-	 * @param pd
-	 * @throws Exception
-	 */
-	public boolean save(PageData pd)throws Exception{
-		PageData account = (PageData) dao.findForObject("UserMapper.findByAccount", pd);
-		if(account==null){
-			dao.save("UserMapper.save", pd);
-			return true;
-		}else{
-			return false;
-		}
-	}
+    /**
+     * 通过用户名密码获取数据
+     */
+    public User loginUser(PageData pd) {
+        return (User) dao.findForObject("UserMapper.loginUser", pd);
+    }
 
-	/**
-	 * 批量新增
-	 * @param list
-	 * @throws Exception
-	 */
-	public Boolean save(List<PageData> list)throws Exception{
-		Boolean saveFlag=true;
-		for (PageData pd:list) {
-			PageData account = (PageData) dao.findForObject("UserMapper.findByAccount", pd);
-			if(account==null){
-				dao.save("UserMapper.save", pd);
-			}else{
-				saveFlag=false;
-				break;
-			}
-		}
-		if(!saveFlag){
-			//手动回滚事务
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-		}
-		return saveFlag;
-	}
+    /**
+     * 新增
+     *
+     * @param pd
+     */
+    public boolean save(PageData pd) {
+        PageData account = (PageData) dao.findForObject("UserMapper.findByAccount", pd);
+        if (account == null) {
+            dao.save("UserMapper.save", pd);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	/**
-	 * 删除
-	 * @param pd
-	 * @throws Exception
-	 */
-	public void delete(PageData pd)throws Exception{
-		dao.delete("UserMapper.delete", pd);
-	}
+    /**
+     * 批量新增
+     *
+     * @param list
+     */
+    public Boolean save(List<PageData> list) {
+        Boolean saveFlag = true;
+        for (PageData pd : list) {
+            PageData account = (PageData) dao.findForObject("UserMapper.findByAccount", pd);
+            if (account == null) {
+                dao.save("UserMapper.save", pd);
+            } else {
+                saveFlag = false;
+                break;
+            }
+        }
+        if (!saveFlag) {
+            //手动回滚事务
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        }
+        return saveFlag;
+    }
 
-	/**
-	 * 批量删除
-	 * @param list
-	 * @throws Exception
-	 */
-	public void delete(List<PageData> list)throws Exception{
-		for (PageData pd:list) {
-			dao.delete("UserMapper.delete", pd);
-		}
-	}
+    /**
+     * 删除
+     *
+     * @param pd
+     */
+    public void delete(PageData pd) {
+        dao.delete("UserMapper.delete", pd);
+    }
 
-	/**
-	 * 修改
-	 * @param pd
-	 * @throws Exception
-	 */
-	public void edit(PageData pd)throws Exception{
-		dao.update("UserMapper.edit", pd);
-	}
+    /**
+     * 批量删除
+     *
+     * @param list
+     */
+    public void delete(List<PageData> list) {
+        for (PageData pd : list) {
+            dao.delete("UserMapper.delete", pd);
+        }
+    }
 
-	/**
-	 * 批量修改
-	 * @param list
-	 * @throws Exception
-	 */
-	public void edit(List<PageData> list)throws Exception{
-		for (PageData pd:list) {
-			dao.update("UserMapper.edit", pd);
-		}
-	}
+    /**
+     * 修改
+     *
+     * @param pd
+     */
+    public void edit(PageData pd) {
+        dao.update("UserMapper.edit", pd);
+    }
 
-	/**
-	 * 分页查询
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	public PageInfo<PageData> listPage(PageData pd)throws Exception{
-		PageHelper.startPage(pd.getInt("pageNum"),pd.getInt("pageSize"));
-		List<PageData> list = (List<PageData>) dao.findForList("UserMapper.listAll", pd);
-		return new PageInfo(list);
-	}
+    /**
+     * 批量修改
+     *
+     * @param list
+     */
+    public void edit(List<PageData> list) {
+        for (PageData pd : list) {
+            dao.update("UserMapper.edit", pd);
+        }
+    }
 
-	/**
-	 * 查询(全部)
-	 * @param pd
-	 * @return
-	 * @throws Exception
-	 */
-	public List<PageData> listAll(PageData pd)throws Exception{
-		return (List<PageData>)dao.findForList("UserMapper.listAll", pd);
-	}
+    /**
+     * 分页查询
+     *
+     * @param page
+     * @return
+     */
+    public PageInfo<PageData> listPage(PageData pd) {
+        PageHelper.startPage(pd.getInt("pageNum"), pd.getInt("pageSize"));
+        List<PageData> list = (List<PageData>) dao.findForList("UserMapper.listAll", pd);
+        return new PageInfo(list);
+    }
 
-	/**
-	 * 通过id获取数据
-	 * @param pd
-	 * @return
-	 * @throws Exception
-	 */
-	public PageData findById(PageData pd)throws Exception{
-		return (PageData)dao.findForObject("UserMapper.findById", pd);
-	}
+    /**
+     * 查询(全部)
+     *
+     * @param pd
+     * @return
+     */
+    public List<PageData> listAll(PageData pd) {
+        return (List<PageData>) dao.findForList("UserMapper.listAll", pd);
+    }
 
-	/**
-	 * 通过id获取数据
-	 * @param pd
-	 * @return
-	 * @throws Exception
-	 */
-	public PageData findById(String userId)throws Exception{
-		PageData pd = new PageData();
-		pd.put("userId",userId);
-		return (PageData)dao.findForObject("UserMapper.findById", pd);
-	}
+    /**
+     * 通过id获取数据
+     *
+     * @param pd
+     * @return
+     */
+    public PageData findById(PageData pd) {
+        return (PageData) dao.findForObject("UserMapper.findById", pd);
+    }
 
-	/**
-	 * 通过account获取数据
-	 * @param pd
-	 * @return
-	 * @throws Exception
-	 */
-	public PageData findByAccount(PageData pd)throws Exception{
-		return (PageData)dao.findForObject("UserMapper.findByAccount", pd);
-	}
+    /**
+     * 通过id获取数据
+     *
+     * @param pd
+     * @return
+     */
+    public PageData findById(String userId) {
+        PageData pd = new PageData();
+        pd.put("userId", userId);
+        return (PageData) dao.findForObject("UserMapper.findById", pd);
+    }
 
-	/**
-	 * 通过account获取数据
-	 * @param pd
-	 * @return
-	 * @throws Exception
-	 */
-	public PageData findByAccount(String account)throws Exception{
-		PageData pd = new PageData();
-		pd.put("account",account);
-		return (PageData)dao.findForObject("UserMapper.findByAccount", pd);
-	}
+    /**
+     * 通过account获取数据
+     *
+     * @param pd
+     * @return
+     */
+    public PageData findByAccount(PageData pd) {
+        return (PageData) dao.findForObject("UserMapper.findByAccount", pd);
+    }
 
-	/**
-	 * 批量删除
-	 * @param arrayDataIds
-	 * @throws Exception
-	 */
-	public void deleteAll(String[] arrayDataIds)throws Exception{
-		dao.delete("UserMapper.deleteAll", arrayDataIds);
-	}
+    /**
+     * 通过account获取数据
+     *
+     * @param pd
+     * @return
+     */
+    public PageData findByAccount(String account) {
+        PageData pd = new PageData();
+        pd.put("account", account);
+        return (PageData) dao.findForObject("UserMapper.findByAccount", pd);
+    }
+
+    /**
+     * 批量删除
+     *
+     * @param arrayDataIds
+     */
+    public void deleteAll(String[] arrayDataIds) {
+        dao.delete("UserMapper.deleteAll", arrayDataIds);
+    }
 
 }
 

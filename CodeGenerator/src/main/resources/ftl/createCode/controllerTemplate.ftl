@@ -26,23 +26,23 @@ public class ${objectName}Controller extends BaseController {
 
     /**
      * 新增或编辑
+     *
      * @return Json
-     * @throws Exception Exception
      */
 	@ResponseBody
 	@RequestMapping(value = "/saveOrUpdate", produces = "application/json;charset=UTF-8")
-	public String saveOrUpdate() throws Exception{
+	public String saveOrUpdate() {
 		logger.info("新增或编辑${objectName}");
 		PageData pd = this.getPageData();
-		if(pd.get("${primaryKey}")==null||"".equals(pd.get("${primaryKey}"))){
+		if (pd.get("${primaryKey}") == null || "".equals(pd.get("${primaryKey}"))){
 			//添加主键
 			pd.put("${primaryKey}", this.get32UUID());
 			//替换字段
-			pd=this.replaceAttribute(pd);
+			pd = this.replaceAttribute(pd);
 			this.${objectNameFirstLower}Service.save(pd);
-		}else {
+		} else {
 			//替换字段
-			pd=this.replaceAttribute(pd);
+			pd = this.replaceAttribute(pd);
 			this.${objectNameFirstLower}Service.edit(pd);
 		}
 		return this.jsonContent("success", "保存成功");
@@ -50,30 +50,30 @@ public class ${objectName}Controller extends BaseController {
 
     /**
      * 新增
+     *
      * @return Json
-     * @throws Exception Exception
      */
 	@ResponseBody
 	@RequestMapping(value = "/save", produces = "application/json;charset=UTF-8")
-	public String save() throws Exception{
+	public String save() {
 		logger.info("新增${objectName}");
 		PageData pd = this.getPageData();
 		//添加主键
 		pd.put("${primaryKey}", this.get32UUID());
 		//替换字段
-		pd=this.replaceAttribute(pd);
+		pd = this.replaceAttribute(pd);
 		this.${objectNameFirstLower}Service.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
 
     /**
      * 删除
+     *
      * @return Json
-     * @throws Exception Exception
      */
 	@ResponseBody
 	@RequestMapping(value = "/delete", produces = "application/json;charset=UTF-8")
-	public String delete() throws Exception{
+	public String delete() {
 		logger.info("删除${objectName}");
 		PageData pd = this.getPageData();
 		${objectNameFirstLower}Service.delete(pd);
@@ -82,62 +82,62 @@ public class ${objectName}Controller extends BaseController {
 
     /**
      * 修改
+     *
      * @return Json
-     * @throws Exception Exception
      */
 	@ResponseBody
-	@RequestMapping(value="/edit", produces = "application/json;charset=UTF-8")
-	public String edit() throws Exception{
+	@RequestMapping(value = "/edit", produces = "application/json;charset=UTF-8")
+	public String edit() {
 		logger.info("修改${objectName}");
 		PageData pd = this.getPageData();
 		//替换字段
-		pd=this.replaceAttribute(pd);
+		pd = this.replaceAttribute(pd);
 		this.${objectNameFirstLower}Service.edit(pd);
 		return this.jsonContent("success", "保存成功");
 	}
 
     /**
      * 分页查询列表
+     *
      * @return Json
-     * @throws Exception Exception
      */
 	@ResponseBody
 	@RequestMapping(value = "/listPage", produces = "application/json;charset=UTF-8")
-	public Object listPage() throws Exception {
+	public Object listPage() {
 		logger.info("获取${objectName}列表Json");
 		PageData pd = this.getPageData();
 		// 分页查询列表
 		PageInfo<PageData> pageInfo = this.${objectNameFirstLower}Service.listPage(pd);
-		return this.jsonContent("success",pageInfo);
+		return this.jsonContent("success", pageInfo);
 	}
 
     /**
      * 根据ID查询单条数据
+     *
      * @return Json
-     * @throws Exception Exception
      */
 	@RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public Object findById() throws Exception {
+	public Object findById() {
     	logger.info("根据ID获取${objectName}数据");
 		PageData pd = this.getPageData();
 		PageData resultPD = this.${objectNameFirstLower}Service.findById(pd);
-		return this.jsonContent("success",resultPD);
+		return this.jsonContent("success", resultPD);
 	}
 
     /**
      * 替换字段
+     *
      * @param pd 需替换PageData
      * @return 替换后PageData
-     * @throws Exception Exception
      */
-	private PageData replaceAttribute(PageData pd) throws Exception{
+	private PageData replaceAttribute(PageData pd) {
 	<#list fieldList as var>
 		<#if var[1] == "Boolean">
-		if("true".equals(pd.getString("${var[0]}"))){
-			pd.put("${var[0]}",true);
-		}else{
-			pd.put("${var[0]}",false);
+		if ("true".equals(pd.getString("${var[0]}"))) {
+			pd.put("${var[0]}", true);
+		} else {
+			pd.put("${var[0]}", false);
 		}
 		</#if>
 	</#list>

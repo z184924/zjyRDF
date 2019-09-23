@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSON;
 import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,7 +42,7 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
             resData.put("error",HttpStatus.BAD_REQUEST.value());
             resData.put("errorMessage",exception.getMessage());
             resData.put("message","用户名密码错误或无效令牌");
-        }else if(exception instanceof CustomException){
+        }  else if(exception instanceof CustomException){
             response.setStatus(HttpStatus.NOT_IMPLEMENTED.value());
             resData.put("state","error");
             resData.put("error",HttpStatus.NOT_IMPLEMENTED.value());

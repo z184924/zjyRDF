@@ -5,8 +5,6 @@ import cn.zhangjingyao.entity.PageData;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,102 +22,102 @@ public class ${objectName}Service {
 	
 	/**
 	 * 新增
+     *
 	 * @param pd PageData
-	 * @throws Exception Exception
 	 */
-	public void save(PageData pd)throws Exception{
+	public void save(PageData pd) {
 		dao.save("${objectName}Mapper.save", pd);
 	}
 
 	/**
 	 * 批量新增
+     *
 	 * @param list PageData List
-	 * @throws Exception Exception
 	 */
-	public void save(List<PageData> list)throws Exception{
-		for (PageData pd:list) {
+	public void save(List<PageData> list) {
+		for (PageData pd : list) {
 			dao.save("${objectName}Mapper.save", pd);
 		}
 	}
 
     /**
      * 删除
+     *
      * @param pd PageData
-     * @throws Exception Exception
      */
-	public void delete(PageData pd)throws Exception{
+	public void delete(PageData pd) {
 		dao.delete("${objectName}Mapper.delete", pd);
 	}
 
     /**
      * 批量删除
+	 *
      * @param list PageData List
-     * @throws Exception Exception
      */
-	public void delete(List<PageData> list)throws Exception{
-        for (PageData pd:list) {
+	public void delete(List<PageData> list) {
+        for (PageData pd : list) {
 			dao.delete("${objectName}Mapper.delete", pd);
 		}
 	}
 
     /**
      * 修改
+     *
      * @param pd PageData
-     * @throws Exception Exception
      */
-	public void edit(PageData pd)throws Exception{
+	public void edit(PageData pd) {
 		dao.update("${objectName}Mapper.edit", pd);
 	}
 
 	/**
 	 * 批量修改
+     *
      * @param list PageData List
-     * @throws Exception Exception
      */
-	public void edit(List<PageData> list)throws Exception{
-        for (PageData pd:list) {
+	public void edit(List<PageData> list) {
+        for (PageData pd : list) {
 			dao.update("${objectName}Mapper.edit", pd);
 		}
 	}
 
     /**
 	 * 分页查询
+     *
      * @param pd PageData
      * @return PageInfo
-     * @throws Exception Exception
      */
-	public PageInfo<PageData> listPage(PageData pd)throws Exception{
-        PageHelper.startPage(pd.getInt("pageNum"),pd.getInt("pageSize"));
+	public PageInfo<PageData> listPage(PageData pd) {
+        PageHelper.startPage(pd.getInt("pageNum"), pd.getInt("pageSize"));
         List<PageData> list = (List<PageData>) dao.findForList("${objectName}Mapper.listAll", pd);
         return new PageInfo(list);
 	}
 
     /**
      * 查询(全部)
+     *
      * @param pd PageData
      * @return PageData List
-     * @throws Exception Exception
      */
-	public List<PageData> listAll(PageData pd)throws Exception{
-		return (List<PageData>)dao.findForList("${objectName}Mapper.listAll", pd);
+	public List<PageData> listAll(PageData pd) {
+		return (List<PageData>) dao.findForList("${objectName}Mapper.listAll", pd);
 	}
 
     /**
      * 通过id获取数据
+     *
      * @param pd PageData
      * @return PageData
-     * @throws Exception Exception
      */
-	public PageData findById(PageData pd)throws Exception{
-		return (PageData)dao.findForObject("${objectName}Mapper.findById", pd);
+	public PageData findById(PageData pd) {
+		return (PageData) dao.findForObject("${objectName}Mapper.findById", pd);
 	}
 
     /**
      * 批量删除
+     *
      * @param arrayDataIds Id数组
-     * @throws Exception Exception
      */
-	public void deleteAll(String[] arrayDataIds)throws Exception{
+	public void deleteAll(String[] arrayDataIds) {
 		dao.delete("${objectName}Mapper.deleteAll", arrayDataIds);
 	}
 	

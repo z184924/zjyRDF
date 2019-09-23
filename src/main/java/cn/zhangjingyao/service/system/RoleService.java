@@ -24,9 +24,8 @@ public class RoleService {
      * 新增
      *
      * @param pd
-     * @throws Exception
      */
-    public void save(PageData pd) throws Exception {
+    public void save(PageData pd) {
         dao.save("RoleMapper.save", pd);
     }
 
@@ -34,9 +33,8 @@ public class RoleService {
      * 批量新增
      *
      * @param list
-     * @throws Exception
      */
-    public void save(List<PageData> list) throws Exception {
+    public void save(List<PageData> list) {
         for (PageData pd : list) {
             dao.save("RoleMapper.save", pd);
         }
@@ -46,9 +44,8 @@ public class RoleService {
      * 删除
      *
      * @param pd
-     * @throws Exception
      */
-    public void delete(PageData pd) throws Exception {
+    public void delete(PageData pd) {
         dao.delete("RoleMapper.deleteUserRole", pd.getString("roleId"));
         dao.delete("RoleMapper.deleteRoleRights", pd.getString("roleId"));
         dao.delete("RoleMapper.delete", pd);
@@ -58,9 +55,8 @@ public class RoleService {
      * 批量删除
      *
      * @param list
-     * @throws Exception
      */
-    public void delete(List<PageData> list) throws Exception {
+    public void delete(List<PageData> list) {
         for (PageData pd : list) {
             dao.delete("RoleMapper.deleteUserRole", pd.getString("roleId"));
             dao.delete("RoleMapper.deleteRoleRights", pd.getString("roleId"));
@@ -72,9 +68,8 @@ public class RoleService {
      * 修改
      *
      * @param pd
-     * @throws Exception
      */
-    public void edit(PageData pd) throws Exception {
+    public void edit(PageData pd) {
         dao.update("RoleMapper.edit", pd);
     }
 
@@ -82,9 +77,8 @@ public class RoleService {
      * 批量修改
      *
      * @param list
-     * @throws Exception
      */
-    public void edit(List<PageData> list) throws Exception {
+    public void edit(List<PageData> list) {
         for (PageData pd : list) {
             dao.update("RoleMapper.edit", pd);
         }
@@ -95,9 +89,8 @@ public class RoleService {
      *
      * @param page
      * @return
-     * @throws Exception
      */
-    public PageInfo<PageData> listPage(PageData pd) throws Exception {
+    public PageInfo<PageData> listPage(PageData pd) {
         PageHelper.startPage(pd.getInt("pageNum"), pd.getInt("pageSize"));
         List<PageData> list = (List<PageData>) dao.findForList("RoleMapper.listAll", pd);
         return new PageInfo(list);
@@ -108,9 +101,8 @@ public class RoleService {
      *
      * @param pd
      * @return
-     * @throws Exception
      */
-    public List<PageData> listAll(PageData pd) throws Exception {
+    public List<PageData> listAll(PageData pd) {
         return (List<PageData>) dao.findForList("RoleMapper.listAll", pd);
     }
 
@@ -119,9 +111,8 @@ public class RoleService {
      *
      * @param pd
      * @return
-     * @throws Exception
      */
-    public PageData findById(PageData pd) throws Exception {
+    public PageData findById(PageData pd) {
         return (PageData) dao.findForObject("RoleMapper.findById", pd);
     }
 
@@ -129,9 +120,8 @@ public class RoleService {
      * 批量删除
      *
      * @param arrayDataIds
-     * @throws Exception
      */
-    public void deleteAll(String[] arrayDataIds) throws Exception {
+    public void deleteAll(String[] arrayDataIds) {
         dao.delete("RoleMapper.deleteAll", arrayDataIds);
     }
 
@@ -140,18 +130,15 @@ public class RoleService {
      *
      * @param pd
      * @return
-     * @throws Exception
      */
-    public List<PageData> listUserRole(PageData pd) throws Exception {
+    public List<PageData> listUserRole(PageData pd) {
         return (List<PageData>) dao.findForList("RoleMapper.listUserRole", pd);
     }
 
     /**
      * 编辑用户角色关系
-     *
-     * @throws Exception
      */
-    public void editUserRole(String roleId, List<PageData> list) throws Exception {
+    public void editUserRole(String roleId, List<PageData> list) {
         dao.delete("RoleMapper.deleteUserRole", roleId);
         for (PageData pd : list) {
             dao.save("RoleMapper.saveUserRole", pd);
@@ -163,18 +150,15 @@ public class RoleService {
      *
      * @param pd
      * @return
-     * @throws Exception
      */
-    public List<PageData> listRoleRights(PageData pd) throws Exception {
+    public List<PageData> listRoleRights(PageData pd) {
         return (List<PageData>) dao.findForList("RoleMapper.listRoleRights", pd);
     }
 
     /**
      * 编辑角色权限关系
-     *
-     * @throws Exception
      */
-    public void editRoleRights(String roleId, List<PageData> list) throws Exception {
+    public void editRoleRights(String roleId, List<PageData> list) {
         dao.delete("RoleMapper.deleteRoleRights", roleId);
         for (PageData pd : list) {
             dao.save("RoleMapper.saveRoleRights", pd);
@@ -186,9 +170,8 @@ public class RoleService {
      *
      * @param pd
      * @return
-     * @throws Exception
      */
-    public List<PageData> listUserRights(PageData pd) throws Exception {
+    public List<PageData> listUserRights(PageData pd) {
         return (List<PageData>) dao.findForList("RoleMapper.listUserRights", pd);
     }
 
@@ -197,11 +180,10 @@ public class RoleService {
      *
      * @param pd
      * @return
-     * @throws Exception
      */
-    public List<PageData> listUserRights(String userId) throws Exception {
+    public List<PageData> listUserRights(String userId) {
         PageData pd = new PageData();
-        pd.put("userId",userId);
+        pd.put("userId", userId);
         return (List<PageData>) dao.findForList("RoleMapper.listUserRights", pd);
     }
 }

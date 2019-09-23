@@ -23,10 +23,9 @@ public class DaoImpl implements DAO {
 	 * @param str
 	 * @param obj
 	 * @return
-	 * @throws Exception
 	 */
     @Override
-	public Object save(String str, Object obj) throws Exception {
+	public Object save(String str, Object obj){
 		return sqlSessionTemplate.insert(str, obj);
 	}
 	
@@ -35,9 +34,8 @@ public class DaoImpl implements DAO {
 	 * @param str
 	 * @param obj
 	 * @return
-	 * @throws Exception
 	 */
-	public Object batchSave(String str, List objs )throws Exception{
+	public Object batchSave(String str, List objs ){
 		return sqlSessionTemplate.insert(str, objs);
 	}
 	
@@ -46,10 +44,9 @@ public class DaoImpl implements DAO {
 	 * @param str
 	 * @param obj
 	 * @return
-	 * @throws Exception
 	 */
     @Override
-	public Object update(String str, Object obj) throws Exception {
+	public Object update(String str, Object obj){
 		return sqlSessionTemplate.update(str, obj);
 	}
 
@@ -58,9 +55,8 @@ public class DaoImpl implements DAO {
 	 * @param str
 	 * @param obj
 	 * @return
-	 * @throws Exception
 	 */
-	public void batchUpdate(String str, List objs )throws Exception{
+	public void batchUpdate(String str, List objs ){
 		SqlSessionFactory sqlSessionFactory = sqlSessionTemplate.getSqlSessionFactory();
 		//批量执行器
 		SqlSession sqlSession = sqlSessionFactory.openSession(ExecutorType.BATCH,false);
@@ -83,9 +79,8 @@ public class DaoImpl implements DAO {
 	 * @param str
 	 * @param obj
 	 * @return
-	 * @throws Exception
 	 */
-	public Object batchDelete(String str, List objs )throws Exception{
+	public Object batchDelete(String str, List objs ){
 		return sqlSessionTemplate.delete(str, objs);
 	}
 	
@@ -94,10 +89,9 @@ public class DaoImpl implements DAO {
 	 * @param str
 	 * @param obj
 	 * @return
-	 * @throws Exception
 	 */
     @Override
-	public Object delete(String str, Object obj) throws Exception {
+	public Object delete(String str, Object obj){
 		return sqlSessionTemplate.delete(str, obj);
 	}
 	 
@@ -106,10 +100,9 @@ public class DaoImpl implements DAO {
 	 * @param str
 	 * @param obj
 	 * @return
-	 * @throws Exception
 	 */
     @Override
-	public Object findForObject(String str, Object obj) throws Exception {
+	public Object findForObject(String str, Object obj) {
 		return sqlSessionTemplate.selectOne(str, obj);
 	}
 
@@ -118,15 +111,14 @@ public class DaoImpl implements DAO {
 	 * @param str
 	 * @param obj
 	 * @return
-	 * @throws Exception
 	 */
     @Override
-	public Object findForList(String str, Object obj) throws Exception {
+	public Object findForList(String str, Object obj){
 		return sqlSessionTemplate.selectList(str, obj);
 	}
 
     @Override
-	public Object findForMap(String str, Object obj, String key) throws Exception {
+	public Object findForMap(String str, Object obj, String key){
 		return sqlSessionTemplate.selectMap(str, obj, key);
 	}
 
