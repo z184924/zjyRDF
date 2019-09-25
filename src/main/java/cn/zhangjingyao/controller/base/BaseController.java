@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * @author
  */
-public class BaseController {
+public abstract class BaseController {
 
 	@Autowired
 	private CustomTokenServices customTokenServices;

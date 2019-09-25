@@ -1,11 +1,10 @@
 package cn.zhangjingyao.service.system;
 
-import cn.zhangjingyao.dao.DaoImpl;
 import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.entity.system.User;
+import cn.zhangjingyao.service.base.BaseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
@@ -15,10 +14,7 @@ import java.util.List;
  * @author
  */
 @org.springframework.stereotype.Service
-public class UserService {
-
-    @Autowired
-    private DaoImpl dao;
+public class UserService extends BaseService{
 
     /**
      * 通过用户名密码获取数据
