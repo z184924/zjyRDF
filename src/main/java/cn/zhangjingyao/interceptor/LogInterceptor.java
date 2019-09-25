@@ -24,7 +24,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
     CustomTokenServices customTokenServices;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String header = request.getHeader("Authorization");
         if (header != null && header.toLowerCase().startsWith("bearer ")) {
             String accessToken = header.substring(7);

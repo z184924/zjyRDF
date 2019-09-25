@@ -17,21 +17,19 @@ import java.util.concurrent.TimeUnit;
  */
 public class StartFilter extends BaseController implements Filter {
 
-	
-	
-	
-	/**
-	 * 初始化
-	 */
+
+    /**
+     * 初始化
+     */
     @Override
     public void init(FilterConfig fc) throws ServletException {
 //		this.startWebsocketInstantMsg();
 //		this.startWebsocketOnline();
-	}
-	
-	/**
-	 * 启动即时聊天服务
-	 */
+    }
+
+    /**
+     * 启动即时聊天服务
+     */
 //	public void startWebsocketInstantMsg(){
 //		WebSocketImpl.DEBUG = false;
 //		ChatServer s;
@@ -49,10 +47,10 @@ public class StartFilter extends BaseController implements Filter {
 //			e.printStackTrace();
 //		}
 //	}
-	
-	/**
-	 * 启动在线管理服务
-	 */
+
+    /**
+     * 启动在线管理服务
+     */
 //	public void startWebsocketOnline(){
 //		WebSocketImpl.DEBUG = false;
 //		OnlineChatServer s;
@@ -70,44 +68,44 @@ public class StartFilter extends BaseController implements Filter {
 //			e.printStackTrace();
 //		}
 //	}
-	
-	
-	//计时器
-	public void timer() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, 9); // 控制时
-		calendar.set(Calendar.MINUTE, 0); 		// 控制分
-		calendar.set(Calendar.SECOND, 0); 		// 控制秒
 
-		Date time = calendar.getTime(); 		// 得出执行任务的时间
 
-		ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
-		scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
-			@Override
+    //计时器
+    public void timer() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 9); // 控制时
+        calendar.set(Calendar.MINUTE, 0);        // 控制分
+        calendar.set(Calendar.SECOND, 0);        // 控制秒
+
+        Date time = calendar.getTime();        // 得出执行任务的时间
+
+        ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
+        scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+            @Override
             public void run() {
 
-				//PersonService personService = (PersonService)ApplicationContext.getBean("personService");
+                //PersonService personService = (PersonService)ApplicationContext.getBean("personService");
 
 
-				//System.out.println("-------设定要指定任务--------");
-			}
-		}, time.getTime(), 1000*60*60*24, TimeUnit.MILLISECONDS);// 这里设定将延时每天固定执行
-	}
+                //System.out.println("-------设定要指定任务--------");
+            }
+        }, time.getTime(), 1000 * 60 * 60 * 24, TimeUnit.MILLISECONDS);// 这里设定将延时每天固定执行
+    }
 
 
     @Override
     public void destroy() {
-		// TODO Auto-generated method stub
-		
-	}
+        // TODO Auto-generated method stub
+
+    }
 
 
     @Override
     public void doFilter(ServletRequest arg0, ServletResponse arg1,
                          FilterChain arg2) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
+        // TODO Auto-generated method stub
+
+    }
+
+
 }

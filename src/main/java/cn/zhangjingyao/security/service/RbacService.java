@@ -18,15 +18,16 @@ public class RbacService {
 
     @Autowired
     CustomTokenServices customTokenServices;
-    public boolean hasPermission(HttpServletRequest request, OAuth2Authentication authentication){
+
+    public boolean hasPermission(HttpServletRequest request, OAuth2Authentication authentication) {
         OAuth2AccessToken accessToken = customTokenServices.getAccessToken(authentication);
-        String requestURL=request.getServletPath();
+        String requestURL = request.getServletPath();
         RightsCache rightsCache = RightsCache.getInstance();
         Integer rightsId = rightsCache.get(requestURL);
-        BigInteger rightsCode = (BigInteger)accessToken.getAdditionalInformation().get("rightsCode");
-        if(rightsId!=null&&rightsCode!=null){
-            return RightsHelper.testRights(rightsCode,rightsId);
-        }else{
+        BigInteger rightsCode = (BigInteger) accessToken.getAdditionalInformation().get("rightsCode");
+        if (rightsId != null && rightsCode != null) {
+            return RightsHelper.testRights(rightsCode, rightsId);
+        } else {
             return false;
         }
     }

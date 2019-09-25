@@ -20,17 +20,17 @@ public class FormInterceptor extends HandlerInterceptorAdapter {
     private Logger logger = LogManager.getLogger(this.getClass());
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws CustomException {
         String servletPath = request.getServletPath();
         Map<String, String[]> parameterMap = request.getParameterMap();
         String[] formTokens = parameterMap.get("formToken");
-        if(formTokens==null||formTokens.length<=0){
-            logger.info(servletPath+" - 未携带formToken");
+        if (formTokens == null || formTokens.length <= 0) {
+            logger.info(servletPath + " - 未携带formToken");
             throw new CustomException("未携带formToken");
         }
         FormTokenPool formTokenPool = FormTokenPool.getInstance();
-        if(!formTokenPool.checkAndReomveToken(formTokens[0])){
-            logger.info(servletPath+" - formToken:"+formTokens[0]+"无效");
+        if (!formTokenPool.checkAndReomveToken(formTokens[0])) {
+            logger.info(servletPath + " - formToken:" + formTokens[0] + "无效");
             throw new CustomException("请勿重复提交表单");
         }
         return true;

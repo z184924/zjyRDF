@@ -47,7 +47,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private CustomTokenServices customTokenServices;
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer security) {
         security
                 .allowFormAuthenticationForClients()
         ;
@@ -65,14 +65,13 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.tokenStore(new InMemoryTokenStore())
                 .userDetailsService(userDetailsService)
                 .authenticationManager(authenticationManager)
                 .tokenServices(customTokenServices)
         ;
     }
-
 
 
 }

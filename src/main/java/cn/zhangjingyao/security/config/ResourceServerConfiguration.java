@@ -55,7 +55,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     private OAuth2WebSecurityExpressionHandler expressionHandler;
 
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+    public void configure(ResourceServerSecurityConfigurer resources) {
         resources
                 .expressionHandler(expressionHandler)
                 .accessDeniedHandler(customAccessDeniedHandler())

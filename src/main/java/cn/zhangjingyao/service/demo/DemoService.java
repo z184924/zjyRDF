@@ -17,80 +17,80 @@ import java.util.List;
 @org.springframework.stereotype.Service
 public class DemoService {
 
-	@Autowired
-	private DaoImpl dao;
-	
-	/**
-	 * 新增
-     *
-	 * @param pd PageData
-	 */
-	public void save(PageData pd) {
-		dao.save("DemoMapper.save", pd);
-	}
+    @Autowired
+    private DaoImpl dao;
 
-	/**
-	 * 批量新增
+    /**
+     * 新增
      *
-	 * @param list PageData List
-	 */
-	public void save(List<PageData> list) {
-		for (PageData pd : list) {
-			dao.save("DemoMapper.save", pd);
-		}
-	}
+     * @param pd PageData
+     */
+    public void save(PageData pd) {
+        dao.save("DemoMapper.save", pd);
+    }
+
+    /**
+     * 批量新增
+     *
+     * @param list PageData List
+     */
+    public void save(List<PageData> list) {
+        for (PageData pd : list) {
+            dao.save("DemoMapper.save", pd);
+        }
+    }
 
     /**
      * 删除
      *
      * @param pd PageData
      */
-	public void delete(PageData pd) {
-		dao.delete("DemoMapper.delete", pd);
-	}
+    public void delete(PageData pd) {
+        dao.delete("DemoMapper.delete", pd);
+    }
 
     /**
      * 批量删除
-	 *
+     *
      * @param list PageData List
      */
-	public void delete(List<PageData> list) {
+    public void delete(List<PageData> list) {
         for (PageData pd : list) {
-			dao.delete("DemoMapper.delete", pd);
-		}
-	}
+            dao.delete("DemoMapper.delete", pd);
+        }
+    }
 
     /**
      * 修改
      *
      * @param pd PageData
      */
-	public void edit(PageData pd) {
-		dao.update("DemoMapper.edit", pd);
-	}
+    public void edit(PageData pd) {
+        dao.update("DemoMapper.edit", pd);
+    }
 
-	/**
-	 * 批量修改
+    /**
+     * 批量修改
      *
      * @param list PageData List
      */
-	public void edit(List<PageData> list) {
+    public void edit(List<PageData> list) {
         for (PageData pd : list) {
-			dao.update("DemoMapper.edit", pd);
-		}
-	}
+            dao.update("DemoMapper.edit", pd);
+        }
+    }
 
     /**
-	 * 分页查询
+     * 分页查询
      *
      * @param pd PageData
      * @return PageInfo
      */
-	public PageInfo<PageData> listPage(PageData pd) {
+    public PageInfo<PageData> listPage(PageData pd) {
         PageHelper.startPage(pd.getInt("pageNum"), pd.getInt("pageSize"));
         List<PageData> list = (List<PageData>) dao.findForList("DemoMapper.listAll", pd);
         return new PageInfo(list);
-	}
+    }
 
     /**
      * 查询(全部)
@@ -98,9 +98,9 @@ public class DemoService {
      * @param pd PageData
      * @return PageData List
      */
-	public List<PageData> listAll(PageData pd) {
-		return (List<PageData>) dao.findForList("DemoMapper.listAll", pd);
-	}
+    public List<PageData> listAll(PageData pd) {
+        return (List<PageData>) dao.findForList("DemoMapper.listAll", pd);
+    }
 
     /**
      * 通过id获取数据
@@ -108,18 +108,18 @@ public class DemoService {
      * @param pd PageData
      * @return PageData
      */
-	public PageData findById(PageData pd) {
-		return (PageData) dao.findForObject("DemoMapper.findById", pd);
-	}
+    public PageData findById(PageData pd) {
+        return (PageData) dao.findForObject("DemoMapper.findById", pd);
+    }
 
     /**
      * 批量删除
      *
      * @param arrayDataIds Id数组
      */
-	public void deleteAll(String[] arrayDataIds) {
-		dao.delete("DemoMapper.deleteAll", arrayDataIds);
-	}
-	
+    public void deleteAll(String[] arrayDataIds) {
+        dao.delete("DemoMapper.deleteAll", arrayDataIds);
+    }
+
 }
 

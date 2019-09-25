@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * 权限列表启动缓存
+ *
  * @author
  */
 @Component
@@ -20,11 +21,11 @@ public class InitRightsCacheRunner implements ApplicationRunner {
     private RightsService rightsService;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         List<PageData> rightsList = rightsService.listAll(new PageData());
         RightsCache rightsCache = RightsCache.getInstance();
-        for (PageData rights:rightsList) {
-            rightsCache.put(rights.getString("url"),rights.getInt("rightsId"));
+        for (PageData rights : rightsList) {
+            rightsCache.put(rights.getString("url"), rights.getInt("rightsId"));
         }
     }
 

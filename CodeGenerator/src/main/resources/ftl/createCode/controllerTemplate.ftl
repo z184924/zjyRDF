@@ -18,10 +18,10 @@ import cn.zhangjingyao.service.${packageName}.${objectName}Service;
  * @author
  */
 @Controller
-@RequestMapping(value="/${objectNameFirstLower}")
+@RequestMapping(value = "/${objectNameFirstLower}")
 public class ${objectName}Controller extends BaseController {
 
-	@Resource(name="${objectNameFirstLower}Service")
+	@Resource(name = "${objectNameFirstLower}Service")
 	private ${objectName}Service ${objectNameFirstLower}Service;
 
     /**
