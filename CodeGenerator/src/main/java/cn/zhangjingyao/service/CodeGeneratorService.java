@@ -18,8 +18,6 @@ public class CodeGeneratorService {
     public String generatingCode(CodeGeneratorTable codeGeneratorTable) throws Exception {
         //生成代码前,先清空之前生成的代码
         DelAllFile.delFolder(PathUtil.getClassResources()+FILE_PATH);
-        //generatingTest
-        Freemarker.printFile("test.ftl", codeGeneratorTable.getMap(), "test.txt", FILE_PATH, FTL_PATH);
         //生成controller
         Freemarker.printFile("controllerTemplate.ftl", codeGeneratorTable.getMap(), "controller/"+codeGeneratorTable.getPackageName()+"/"+codeGeneratorTable.getClassName()+"Controller.java", FILE_PATH, FTL_PATH);
         //生成service
