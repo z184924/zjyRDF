@@ -1,0 +1,29 @@
+tableName:${tableName}
+packageName:${packageName}
+className:${className}
+objectName:${objectName}
+classNameLowerWithMinus:${classNameLowerWithMinus}
+---------------------
+<#list columnList as column>
+    columnName:${column.columnName}
+    fieldName:${column.fieldName}
+    dataType:${column.dataType}
+    columnComment:${column.columnComment}
+    isNullable:${column.isNullable}
+    isEdit:${column.isEdit}
+    isPK:${column.isPK}
+    -------------------
+</#list>
+********************
+columnName:${primaryKeyColumn.columnName}
+fieldName:${primaryKeyColumn.fieldName}
+dataType:${primaryKeyColumn.dataType}
+columnComment:${primaryKeyColumn.columnComment}
+isNullable:${primaryKeyColumn.isNullable}
+isEdit:${primaryKeyColumn.isEdit}
+isPK:${primaryKeyColumn.isPK}
+<#if primaryKeyColumn.dataType == 'Number'>
+    aaaa
+<#else>
+    bbbb
+</#if>

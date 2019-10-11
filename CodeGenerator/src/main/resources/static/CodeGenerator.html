@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeGenerator</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/handsontable@6.2.2/dist/handsontable.full.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@6.2.2/dist/handsontable.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <label>数据库:</label>
+    <select id="dataBaseNameSelect" v-model="dataBaseName" style="width:200px; height:21px">
+        <option v-for="dataBaseName in dataBaseNameList" :id="dataBaseName" :value="dataBaseName">{{dataBaseName}}
+        </option>
+    </select>
+    <label>表:</label>
+    <span style="width:416px;overflow:hidden;">
+        <select id="tableNameSelect" v-model="tableName" style="width:416px;height:21px">
+            <option v-for="tableName in tableNameList" :id="tableName" :value="tableName">{{tableName}}</option>
+        </select>
+    </span>
+    <input name="tableNameInput" v-model="tableName" style="width:390px;position:absolute;left:294px; margin-top: 2px">
+    <button @click="onClickGetColumn()" style="width: 85px">查询表结构</button>
+    <div style="margin-top: 10px;margin-bottom: 15px">
+        <label>包名:</label>
+        <input type="text" id="packageName" v-model="packageName" style="width:213px">
+        <label>类名:</label>
+        <input type="text" id="className" v-model="className" style="width:395px">
+        <button @click="generatingCode()" style="width:85px">生成代码</button>
+    </div>
+    <div id="columnList"></div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            dataBaseNameList: [],
+            tableNameList: [],
+            handsonTableData: [],
+            dataBaseName: "",
+            tableName: "",
+            packageName: "",
+            className: "",
+        },
+        methods: {
+            onClickGetColumn: function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "/codeGenerator/getTableColumnList",
+                    data: {
+                        dataBaseName: app.dataBaseName,
+                        tableName: app.tableName,
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        app.createHandsonTable(data.data)
+                    }
+                })
+            },
+            createHandsonTable: function (data) {
+                this.handsonTableData = app.transferData(data);
+                $("#columnList").handsontable({
+                    data: app.handsonTableData,
+                    minSpareRows: 1,
+                    colHeaders: ["字段", "数据类型", "字段名称", "是否可为空", "是否可修改", "是否主键"],
+                    colWidths: [200, 200, 200, 100, 100, 100],
+                    stretchH: 'none',
+                    columns: [
+                        {data: 'columnName'},
+                        {
+                            data: 'dataType',
+                            type: 'dropdown',
+                            source: ['String', 'Number', 'Boolean', 'DateTime']
+                        },
+                        {data: 'columnComment'},
+                        {
+                            data: 'isNullable',
+                            type: 'dropdown',
+                            source: ['YES', 'NO']
+                        },
+                        {
+                            data: 'isEdit',
+                            type: 'dropdown',
+                            source: ['YES', 'NO']
+                        },
+                        {
+                            data: 'isPK',
+                            type: 'dropdown',
+                            source: ['YES', 'NO']
+                        }
+                    ]
+                });
+            },
+            transferData: function (data) {
+                var resultdata = [];
+                for (var i = 0; i < data.length; i++) {
+                    var column = {}
+                    column.columnName = data[i].COLUMN_NAME
+                    switch (data[i].DATA_TYPE) {
+                        case 'varchar':
+                            column.dataType = "String";
+                            break;
+                        case 'char':
+                            column.dataType = "String";
+                            break;
+                        case 'text':
+                            column.dataType = "String";
+                            break;
+                        case 'int':
+                            column.dataType = "Number";
+                            break;
+                        case 'integer':
+                            column.dataType = "Number";
+                            break;
+                        case 'double':
+                            column.dataType = "Number";
+                            break;
+                        case 'float':
+                            column.dataType = "Number";
+                            break;
+                        case 'decimal':
+                            column.dataType = "Number";
+                            break;
+                        case 'tinyint':
+                            if (data[i].COLUMN_TYPE.indexOf("tinyint(1)") == -1) {
+                                column.dataType = "Number";
+                            } else {
+                                column.dataType = "Boolean";
+                            }
+                            break;
+                        case 'bit':
+                            column.dataType = "Boolean";
+                            break;
+                        case 'datetime':
+                            column.dataType = "DateTime";
+                            break;
+                        default:
+                            column.dataType = "String";
+                    }
+                    column.columnComment = data[i].COLUMN_COMMENT
+                    column.isNullable = data[i].IS_NULLABLE
+                    switch (data[i].COLUMN_KEY) {
+                        case 'PRI':
+                            column.isEdit = "NO";
+                            column.isPK = "YES";
+                            break;
+                        default:
+                            column.isEdit = "YES";
+                            column.isPK = "NO";
+                    }
+                    resultdata.push(column)
+                }
+                return resultdata;
+            },
+            generatingCode: function () {
+                var columnList = [];
+                for (var i = 0; i < app.handsonTableData.length; i++) {
+                    if (app.handsonTableData[i].columnName != null && app.handsonTableData[i].columnName != '') {
+                        var column = {};
+                        column.columnName = app.handsonTableData[i].columnName;
+                        column.dataType = app.handsonTableData[i].dataType;
+                        column.columnComment = app.handsonTableData[i].columnComment;
+                        column.isNullable = app.handsonTableData[i].isNullable;
+                        column.isEdit = app.handsonTableData[i].isEdit;
+                        column.isPK = app.handsonTableData[i].isPK;
+                        columnList.push(column)
+                    }
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: "/codeGenerator/generatingCode",
+                    data: {
+                        tableName: app.tableName,
+                        packageName: app.packageName,
+                        className: app.className,
+                        columnListData: columnList,
+                        columnListLength: columnList.length,
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        window.location.href="/file/codeGenerator/code.zip";
+                    }
+                })
+            }
+        },
+        watch: {
+            dataBaseName: function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "/codeGenerator/getTableList",
+                    data: {dataBaseName: app.dataBaseName},
+                    dataType: "json",
+                    success: function (data) {
+                        app.tableNameList = data.data
+                        app.tableName = ""
+                    }
+                })
+            }
+        },
+        created: function () {
+            $.ajax({
+                type: 'POST',
+                url: "/codeGenerator/getDatabaseList",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    app.dataBaseNameList = data.data
+                    app.onDataBaseNameChange();
+                }
+            })
+        },
+    })
+</script>
+</html>
