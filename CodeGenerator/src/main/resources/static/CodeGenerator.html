@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_cn">
 <head>
     <meta charset="UTF-8">
     <title>CodeGenerator</title>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/handsontable@6.2.2/dist/handsontable.full.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/handsontable@6.2.2/dist/handsontable.full.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>-->
+    <!--<link href="https://cdn.jsdelivr.net/npm/handsontable@6.2.2/dist/handsontable.full.min.css" rel="stylesheet">-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/handsontable@6.2.2/dist/handsontable.full.min.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>-->
+    <script src="/js/jquery.min.js"></script>
+    <link href="/css/handsontable.full.min.css" rel="stylesheet">
+    <script src="/js/handsontable.full.min.js"></script>
+    <script src="/js/vue.min.js"></script>
 </head>
 <body>
 <div id="app">
@@ -21,14 +25,14 @@
             <option v-for="tableName in tableNameList" :id="tableName" :value="tableName">{{tableName}}</option>
         </select>
     </span>
-    <input name="tableNameInput" v-model="tableName" style="width:390px;position:absolute;left:294px; margin-top: 2px">
-    <button @click="onClickGetColumn()" style="width: 85px">查询表结构</button>
+    <input name="tableNameInput" v-model="tableName" style="width:390px;position:relative;left:-420px; margin-top: 2px">
+    <button @click="onClickGetColumn()" style="width: 100px;position:relative;left:-398px;">查询表结构</button>
     <div style="margin-top: 10px;margin-bottom: 15px">
         <label>包名:</label>
         <input type="text" id="packageName" v-model="packageName" style="width:213px">
         <label>类名:</label>
         <input type="text" id="className" v-model="className" style="width:395px">
-        <button @click="generatingCode()" style="width:85px">生成代码</button>
+        <button @click="generatingCode()" style="width:100px">生成代码</button>
     </div>
     <div id="columnList"></div>
 </div>
@@ -156,6 +160,10 @@
                 return resultdata;
             },
             generatingCode: function () {
+                if (this.packageName == "" || this.className == "") {
+                    alert("包名和类名不能为空!")
+                    return
+                }
                 var columnList = [];
                 for (var i = 0; i < app.handsonTableData.length; i++) {
                     if (app.handsonTableData[i].columnName != null && app.handsonTableData[i].columnName != '') {
@@ -181,7 +189,7 @@
                     },
                     dataType: "json",
                     success: function (data) {
-                        window.location.href="/file/codeGenerator/code.zip";
+                        window.location.href = "/file/codeGenerator/code.zip";
                     }
                 })
             }
