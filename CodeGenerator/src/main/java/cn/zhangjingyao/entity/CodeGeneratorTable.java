@@ -13,6 +13,7 @@ public class CodeGeneratorTable {
     private String className;
     private String objectName;
     private String classNameLowerWithMinus;
+    private int columnListLength;
     private List<Map<String, Object>> columnList;
     private Map<String, Object> primaryKeyColumn;
 
@@ -42,7 +43,7 @@ public class CodeGeneratorTable {
         StringBuffer stringBuffer = new StringBuffer("");
         for (int i = 0; i < objectName.length(); i++) {
             char c = objectName.charAt(i);
-            if(Character.isUpperCase(c)){
+            if (Character.isUpperCase(c)) {
                 stringBuffer.append("-");
             }
             stringBuffer.append(c);
@@ -56,6 +57,14 @@ public class CodeGeneratorTable {
 
     public String getClassNameLowerWithMinus() {
         return classNameLowerWithMinus;
+    }
+
+    public int getColumnListLength() {
+        return columnListLength;
+    }
+
+    public void setColumnListLength(int columnListLength) {
+        this.columnListLength = columnListLength;
     }
 
     public List<Map<String, Object>> getColumnList() {
@@ -81,6 +90,7 @@ public class CodeGeneratorTable {
         map.put("className", className);
         map.put("objectName", objectName);
         map.put("classNameLowerWithMinus", classNameLowerWithMinus);
+        map.put("columnListLength", columnListLength);
         map.put("columnList", columnList);
         map.put("primaryKeyColumn", primaryKeyColumn);
         return map;

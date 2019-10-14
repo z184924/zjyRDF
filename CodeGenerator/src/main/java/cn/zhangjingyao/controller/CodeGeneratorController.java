@@ -59,8 +59,9 @@ public class CodeGeneratorController extends BaseController {
         codeGeneratorTable.setTableName(pageData.getString("tableName"));
         codeGeneratorTable.setPackageName(pageData.getString("packageName"));
         codeGeneratorTable.setClassName(pageData.getString("className"));
-        //设置列名、属性名、列信息
         int columnListLength = pageData.getInt("columnListLength");
+        codeGeneratorTable.setColumnListLength(columnListLength);
+        //设置列名、属性名、列信息
         List<Map<String, Object>> columnList = new ArrayList<>();
         for (int i = 0; i < columnListLength; i++) {
             Map<String, Object> column = new HashMap<>(16);
@@ -84,7 +85,7 @@ public class CodeGeneratorController extends BaseController {
             String isPK = pageData.getString("columnListData[" + i + "][isPK]");
             column.put("isPK", isPK);
             columnList.add(column);
-            if(isPK.equals("YES")){
+            if (isPK.equals("YES")) {
                 codeGeneratorTable.setPrimaryKeyColumn(column);
             }
         }
@@ -97,7 +98,7 @@ public class CodeGeneratorController extends BaseController {
             e.printStackTrace();
             return this.jsonContent("error", "生成失败!");
         }
-        return this.jsonContent("success", "生成成功!文件位置:"+createdFilePath);
+        return this.jsonContent("success", "生成成功!文件位置:" + createdFilePath);
     }
 
 }

@@ -7,18 +7,28 @@
 	<insert id="save" parameterType="PageData">
 		insert into "${tableName}"(
 	<#list columnList as column>
-		<#if column.isPK == "NO">
-			"${column.columnName}",
-		</#if>
+		<#if column.isPK == "YES">
+        <#elseif column?counter == columnListLength && primaryKeyColumn.dataType != 'String'>
+            "${column.columnName}"
+        <#else>
+            "${column.columnName}",
+        </#if>
 	</#list>
+    <#if primaryKeyColumn.dataType == 'String'>
 			"${primaryKeyColumn.columnName}"
+    </#if>
         ) values (
 	<#list columnList as column>
-		<#if column.isPK == "NO">
-			${r"#{"}${column.columnName}${r"}"},
+		<#if column.isPK == "YES">
+        <#elseif column?counter == columnListLength && primaryKeyColumn.dataType != 'String'>
+            ${r"#{"}${column.columnName}${r"}"}
+        <#else>
+            ${r"#{"}${column.columnName}${r"}"},
 		</#if>	
 	</#list>
+    <#if primaryKeyColumn.dataType == 'String'>
 			${r"#{"}${primaryKeyColumn.columnName}${r"}"}
+    </#if>
         )
     </insert>
 
@@ -61,21 +71,7 @@
 			a."${primaryKeyColumn.columnName}"= ${r"#{"}${primaryKeyColumn.columnName}${r"}"}
     </select>
 
-
-    <!-- 查询 -->
-    <select id="datalistPage" parameterType="page" resultType="PageData">
-        select
-		<#list columnList as column>
-			<#if column.isPK == "NO">
-			a."${column.columnName}",
-			</#if>
-		</#list>
-			a."${primaryKeyColumn.columnName}"
-        from
-        "${tableName}" a
-    </select>
-
-    <!-- 查询(全部) -->
+    <!-- 查询列表 -->
     <select id="listAll" parameterType="PageData" resultType="PageData">
         select
 		<#list columnList as column>

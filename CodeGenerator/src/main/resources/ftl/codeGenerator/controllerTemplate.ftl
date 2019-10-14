@@ -123,7 +123,7 @@ public class ${className}Controller extends BaseController {
 	@RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public Object findById() {
-    	logger.info("根据ID获取${className}数据");
+		logger.info("根据ID获取${className}数据");
 		PageData pd = this.getPageData();
 		PageData resultPD = this.${objectName}Service.findById(pd);
 		return this.jsonContent("success", resultPD);

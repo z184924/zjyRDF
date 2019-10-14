@@ -7,25 +7,35 @@
 	<insert id="save" parameterType="PageData">
 		insert into ${tableName}(
 	<#list columnList as column>
-		<#if column.isPK == "NO">
-			${column.columnName},
+		<#if column.isPK == "YES">
+		<#elseif column?counter == columnListLength && primaryKeyColumn.dataType != 'String'>
+            ${column.columnName}
+		<#else>
+            ${column.columnName},
 		</#if>
 	</#list>
+    <#if primaryKeyColumn.dataType == 'String'>
 			${primaryKeyColumn.columnName}
+	</#if>
         ) values (
 	<#list columnList as column>
-		<#if column.isPK == "NO">
+		<#if column.isPK == "YES">
+		<#elseif column?counter == columnListLength && primaryKeyColumn.dataType != 'String'>
+			${r"#{"}${column.columnName}${r"}"}
+		<#else>
 			${r"#{"}${column.columnName}${r"}"},
 		</#if>
 	</#list>
+    <#if primaryKeyColumn.dataType == 'String'>
 			${r"#{"}${primaryKeyColumn.columnName}${r"}"}
+	</#if>
         )
     </insert>
 
 
     <!-- 删除 -->
     <delete id="delete" parameterType="PageData">
-        delete from ${tableName}
+		delete from ${tableName}
         where
 			${primaryKeyColumn.columnName}= ${r"#{"}${primaryKeyColumn.columnName}${r"}"}
     </delete>
@@ -33,7 +43,7 @@
 
     <!-- 修改 -->
     <update id="edit" parameterType="PageData">
-        update  ${tableName}
+		update  ${tableName}
         set
 	<#list columnList as column>
 		<#if column.isEdit == "YES">
@@ -48,7 +58,7 @@
 
     <!-- 通过ID获取数据 -->
     <select id="findById" parameterType="PageData" resultType="PageData">
-        select
+		select
 	<#list columnList as column>
 		<#if column.isPK == "NO">
 			a.${column.columnName},
@@ -61,10 +71,9 @@
 			a.${primaryKeyColumn.columnName}= ${r"#{"}${primaryKeyColumn.columnName}${r"}"}
     </select>
 
-
-    <!-- 查询 -->
-    <select id="datalistPage" parameterType="page" resultType="PageData">
-        select
+    <!-- 查询列表 -->
+    <select id="listAll" parameterType="PageData" resultType="PageData">
+		select
 		<#list columnList as column>
 			<#if column.isPK == "NO">
 			a.${column.columnName},
@@ -72,20 +81,7 @@
 		</#list>
 			a.${primaryKeyColumn.columnName}
         from
-        	${tableName} a
-    </select>
-
-    <!-- 查询(全部) -->
-    <select id="listAll" parameterType="PageData" resultType="PageData">
-        select
-		<#list columnList as column>
-			<#if column.isPK == "NO">
-			a.${column.columnName},
-			</#if>
-		</#list>
-        	a.${primaryKeyColumn.columnName}
-        from
-        	${tableName} a
+			${tableName} a
     </select>
 
     <!-- 批量删除 -->
