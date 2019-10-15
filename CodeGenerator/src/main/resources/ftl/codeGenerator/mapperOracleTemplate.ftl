@@ -81,7 +81,9 @@
 		</#list>
 			a."${primaryKeyColumn.columnName}"
         from
-        "${tableName}" a
+            "${tableName}" a
+        where
+            1=1
     </select>
 
     <!-- 批量删除 -->
