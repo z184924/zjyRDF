@@ -38,7 +38,7 @@ public interface DbDao {
      * @param tableName
      * @return
      */
-    @Select("select column_name,data_type,is_nullable,column_key,column_comment,column_type from information_schema.columns where table_schema = #{dataBaseName} and table_name = #{tableName}  order by ordinal_position")
+    @Select("select column_name,data_type,is_nullable,column_key,column_comment,column_type from information_schema.columns where table_schema = #{dataBaseName} and table_name = #{tableName} order by ordinal_position")
     List<PageData> getTableColumnList(@Param("dataBaseName") String dataBaseName,@Param("tableName") String tableName);
 
 }
