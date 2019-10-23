@@ -28,7 +28,7 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
                                          HttpServletResponse response, Object handler, Exception exception) {
         // TODO Auto-generated method stub
         logger.error("===============异常开始===============");
-        for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace()) {
+        for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
             logger.error(stackTraceElement.toString());
         }
         logger.error("===============异常结束===============");
