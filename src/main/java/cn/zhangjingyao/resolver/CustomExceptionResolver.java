@@ -27,11 +27,14 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
     public ModelAndView resolveException(HttpServletRequest request,
                                          HttpServletResponse response, Object handler, Exception exception) {
         // TODO Auto-generated method stub
-        logger.error("===============异常开始===============");
+        StringBuffer stringBuffer = new StringBuffer(System.lineSeparator());
+        stringBuffer.append("===============异常开始===============");
+        stringBuffer.append(System.lineSeparator());
         for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
-            logger.error(stackTraceElement.toString());
+            stringBuffer.append(stackTraceElement.toString());
         }
-        logger.error("===============异常结束===============");
+        stringBuffer.append("===============异常结束===============");
+        logger.error(stringBuffer.toString());
         HashMap<String, Object> resData = new HashMap<>(16);
         if (exception instanceof InvalidGrantException) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
