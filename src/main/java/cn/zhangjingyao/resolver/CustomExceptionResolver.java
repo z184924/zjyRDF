@@ -2,21 +2,15 @@ package cn.zhangjingyao.resolver;
 
 import cn.zhangjingyao.exception.CustomException;
 import cn.zhangjingyao.util.WriteJsonUtil;
-import com.alibaba.fastjson.JSON;
-import org.omg.CORBA.DynAnyPackage.Invalid;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 类名称：CustomExceptionResolver.java
@@ -27,14 +21,17 @@ import java.util.Map;
  */
 public class CustomExceptionResolver implements HandlerExceptionResolver {
 
+    private org.apache.logging.log4j.Logger logger = LogManager.getLogger(this.getClass());
+
     @Override
     public ModelAndView resolveException(HttpServletRequest request,
                                          HttpServletResponse response, Object handler, Exception exception) {
         // TODO Auto-generated method stub
-
-        System.out.println("===============异常开始===============");
-        exception.printStackTrace();
-        System.out.println("===============异常结束===============");
+        logger.error("===============异常开始===============");
+        for (StackTraceElement stackTraceElement : Thread.currentThread().getStackTrace()) {
+            logger.error(stackTraceElement.toString());
+        }
+        logger.error("===============异常结束===============");
         HashMap<String, Object> resData = new HashMap<>(16);
         if (exception instanceof InvalidGrantException) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
