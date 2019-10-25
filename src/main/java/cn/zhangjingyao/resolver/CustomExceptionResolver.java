@@ -30,6 +30,7 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
         StringBuffer stringBuffer = new StringBuffer(System.lineSeparator());
         stringBuffer.append("===============异常开始===============");
         stringBuffer.append(System.lineSeparator());
+        stringBuffer.append(exception.toString()+System.lineSeparator());
         for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
             stringBuffer.append(stackTraceElement.toString());
         }
