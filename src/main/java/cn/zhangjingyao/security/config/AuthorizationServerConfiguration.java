@@ -2,7 +2,6 @@ package cn.zhangjingyao.security.config;
 
 import cn.zhangjingyao.security.service.CustomTokenServices;
 import cn.zhangjingyao.security.service.UserDetailsServiceImpl;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,8 +33,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Bean
     public TokenStore tokenStore() {
-//        InMemoryTokenStore tokenStore = new InMemoryTokenStore();
-        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+//        TokenStore tokenStore = new InMemoryTokenStore();
+        TokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
         return tokenStore;
     }
 
