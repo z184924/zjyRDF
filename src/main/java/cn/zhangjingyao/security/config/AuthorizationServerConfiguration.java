@@ -38,8 +38,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return tokenStore;
     }
 
-    @Bean
-    public CustomTokenServices customTokenServices(TokenStore tokenStore){
+    @Bean CustomTokenServices customTokenServices(TokenStore tokenStore){
         return new CustomTokenServices(tokenStore);
     }
 

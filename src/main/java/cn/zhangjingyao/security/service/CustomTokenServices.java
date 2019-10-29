@@ -22,12 +22,11 @@ import java.util.Map;
 /**
  * @author
  */
-
 public class CustomTokenServices extends DefaultTokenServices {
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     public CustomTokenServices(TokenStore tokenStore) {
         this.setTokenEnhancer(new CustomTokenEnhancer());

@@ -74,8 +74,8 @@ export default {
       })
     },
     mixLogout() {
-      this.$store.commit("logout");
       this.mixPost("/oauth/logout");
+      this.$store.commit("logout");
       this.$router.replace("/");
     },
     mixPost(api, data = {}, param = {}) {
