@@ -61,6 +61,10 @@ spring:
     　filters: stat
       #通过connectProperties属性来打开mergeSql功能；慢SQL记录
     　connect-properties:  druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+  redis:
+    host: 192.168.1.101
+    port: 6379
+    password: "123456"
   activiti:
     database-schema-update: true
   thymeleaf:

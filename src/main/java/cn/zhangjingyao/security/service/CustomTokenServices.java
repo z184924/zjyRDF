@@ -6,6 +6,7 @@ import cn.zhangjingyao.service.system.RoleService;
 import cn.zhangjingyao.service.system.UserService;
 import cn.zhangjingyao.util.RightsHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.DefaultOAuth2RefreshToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -13,7 +14,9 @@ import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.stereotype.Component;
 
 import java.math.BigInteger;
@@ -25,16 +28,16 @@ import java.util.UUID;
 /**
  * @author
  */
-@Component
+
 public class CustomTokenServices extends DefaultTokenServices {
     @Autowired
     UserService userService;
     @Autowired
     RoleService roleService;
 
-    public CustomTokenServices() {
+    public CustomTokenServices(TokenStore tokenStore) {
         this.setTokenEnhancer(new CustomTokenEnhancer());
-        this.setTokenStore(new InMemoryTokenStore());
+        this.setTokenStore(tokenStore);
         this.setSupportRefreshToken(true);
         //AccessToken有效期自定义设置，默认12小时
         this.setAccessTokenValiditySeconds(30 * 60);

@@ -32,7 +32,7 @@ public class CustomExceptionResolver implements HandlerExceptionResolver {
         stringBuffer.append(System.lineSeparator());
         stringBuffer.append(exception.toString()+System.lineSeparator());
         for (StackTraceElement stackTraceElement : exception.getStackTrace()) {
-            stringBuffer.append(stackTraceElement.toString());
+            stringBuffer.append(stackTraceElement.toString()+System.lineSeparator());
         }
         stringBuffer.append("===============异常结束===============");
         logger.error(stringBuffer.toString());
