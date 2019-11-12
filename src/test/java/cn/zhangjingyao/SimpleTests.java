@@ -29,7 +29,7 @@ public class SimpleTests {
 
     public Boolean removeFormTokenPool(String token) {
         FormTokenPool formTokenPool = FormTokenPool.getInstance();
-        boolean b = formTokenPool.checkAndReomveToken(token);
+        boolean b = formTokenPool.checkAndRemoveToken(token);
         logger.info(b + ":" + token + " - " + JSON.toJSON(formTokenPool));
         return b;
     }

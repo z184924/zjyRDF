@@ -2,11 +2,17 @@ package cn.zhangjingyao.util.toekn;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.Set;
 import java.util.TimerTask;
 import java.util.UUID;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author
@@ -16,8 +22,12 @@ public class FormTokenPool extends ConcurrentHashMap<String,Long> {
 
     private Logger logger= LogManager.getLogger(this.getClass());
     private static final long EXPIRY_TIME=60*60*1000;
+    private static final String REDIS_KEY_TAG="form_token:";
     private static FormTokenPool formTokenPool;
+    private RedisTemplate redisTemplate;
+
     private FormTokenPool() {}
+
     public static synchronized FormTokenPool getInstance() {
         if(formTokenPool==null) {
             formTokenPool=new FormTokenPool();
@@ -26,25 +36,58 @@ public class FormTokenPool extends ConcurrentHashMap<String,Long> {
         return formTokenPool;
     }
 
+    public static synchronized FormTokenPool getInstance(RedisTemplate redisTemplate) {
+        if(formTokenPool==null) {
+            formTokenPool=new FormTokenPool();
+            Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+            redisTemplate.setKeySerializer(new StringRedisSerializer());
+            redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+            redisTemplate.setHashKeySerializer(jackson2JsonRedisSerializer);
+            redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
+            formTokenPool.redisTemplate = redisTemplate;
+        }
+        return formTokenPool;
+    }
+
     public String addToken() {
         String uuid = this.get32UUID();
-        formTokenPool.put(uuid,System.currentTimeMillis());
+        if(redisTemplate != null){
+            redisTemplate.opsForValue().set(REDIS_KEY_TAG+uuid,System.currentTimeMillis());
+            redisTemplate.expire(REDIS_KEY_TAG+uuid, EXPIRY_TIME, TimeUnit.MILLISECONDS);
+        }else {
+            formTokenPool.put(uuid,System.currentTimeMillis());
+        }
         return uuid;
     }
 
     public boolean checkToken(String uuid) {
-        Long createTime = formTokenPool.get(uuid);
-        if(createTime!=null){
-            return true;
+        if(redisTemplate != null){
+            Long createTime = (Long)redisTemplate.opsForValue().get(REDIS_KEY_TAG+uuid);
+            if(createTime!=null){
+                return true;
+            }
+        }else{
+            Long createTime = formTokenPool.get(uuid);
+            if(createTime!=null){
+                return true;
+            }
         }
         return false;
     }
 
-    public boolean checkAndReomveToken(String uuid) {
-        Long createTime = formTokenPool.get(uuid);
-        if(createTime!=null){
-            formTokenPool.remove(uuid);
-            return true;
+    public boolean checkAndRemoveToken(String uuid) {
+        if(redisTemplate != null){
+            Long createTime = (Long)redisTemplate.opsForValue().get(REDIS_KEY_TAG+uuid);
+            if(createTime!=null){
+                redisTemplate.delete(REDIS_KEY_TAG+uuid);
+                return true;
+            }
+        }else{
+            Long createTime = formTokenPool.get(uuid);
+            if(createTime!=null){
+                formTokenPool.remove(uuid);
+                return true;
+            }
         }
         return false;
     }
@@ -83,5 +126,13 @@ public class FormTokenPool extends ConcurrentHashMap<String,Long> {
     private String get32UUID() {
         String uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
         return uuid;
+    }
+
+    public RedisTemplate getRedisTemplate() {
+        return redisTemplate;
+    }
+
+    public void setRedisTemplate(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 }

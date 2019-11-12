@@ -46,7 +46,7 @@ public class CodeGeneratorTable {
             if (Character.isUpperCase(c)) {
                 stringBuffer.append("-");
             }
-            stringBuffer.append(c);
+            stringBuffer.append(Character.toLowerCase(c));
         }
         this.classNameLowerWithMinus = stringBuffer.toString();
     }
