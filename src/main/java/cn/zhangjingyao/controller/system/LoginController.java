@@ -45,7 +45,7 @@ public class LoginController extends BaseController {
     @ResponseBody
     public String formToken() {
         FormTokenPool formTokenPool = FormTokenPool.getInstance();
-        String formToken = formTokenPool.addToken();
+        String formToken = formTokenPool.addToken(this.getCurrentUser().getUserId());
         PageData res = new PageData();
         res.put("formToken", formToken);
         return this.jsonContent("success", res);

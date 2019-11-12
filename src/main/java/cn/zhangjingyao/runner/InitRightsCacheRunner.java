@@ -22,8 +22,6 @@ import java.util.List;
 public class InitRightsCacheRunner implements ApplicationRunner {
     @Autowired
     private RightsService rightsService;
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -32,7 +30,6 @@ public class InitRightsCacheRunner implements ApplicationRunner {
         for (PageData rights : rightsList) {
             rightsCache.put(rights.getString("url"), rights.getInt("rightsId"));
         }
-        FormTokenPool.getInstance(redisTemplate);
     }
 
 }

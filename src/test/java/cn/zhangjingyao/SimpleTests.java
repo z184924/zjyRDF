@@ -22,14 +22,14 @@ public class SimpleTests {
 
     public String addFormTokenPool() {
         FormTokenPool formTokenPool = FormTokenPool.getInstance();
-        String token = formTokenPool.addToken();
+        String token = formTokenPool.addToken("test");
         logger.info("add:" + token + " - " + JSON.toJSON(formTokenPool));
         return token;
     }
 
     public Boolean removeFormTokenPool(String token) {
         FormTokenPool formTokenPool = FormTokenPool.getInstance();
-        boolean b = formTokenPool.checkAndRemoveToken(token);
+        boolean b = formTokenPool.checkAndRemoveToken("test",token);
         logger.info(b + ":" + token + " - " + JSON.toJSON(formTokenPool));
         return b;
     }

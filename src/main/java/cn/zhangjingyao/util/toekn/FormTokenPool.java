@@ -15,6 +15,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 表单Token池
+ * 单例
+ * redisTemplate属性为null时,使用内存存储,否则使用Redis存储
  * @author
  */
 
@@ -49,25 +52,25 @@ public class FormTokenPool extends ConcurrentHashMap<String,Long> {
         return formTokenPool;
     }
 
-    public String addToken() {
+    public String addToken(String userId) {
         String uuid = this.get32UUID();
         if(redisTemplate != null){
-            redisTemplate.opsForValue().set(REDIS_KEY_TAG+uuid,System.currentTimeMillis());
-            redisTemplate.expire(REDIS_KEY_TAG+uuid, EXPIRY_TIME, TimeUnit.MILLISECONDS);
+            redisTemplate.opsForValue().set(REDIS_KEY_TAG+userId+":"+uuid,System.currentTimeMillis());
+            redisTemplate.expire(REDIS_KEY_TAG+userId+":"+uuid, EXPIRY_TIME, TimeUnit.MILLISECONDS);
         }else {
-            formTokenPool.put(uuid,System.currentTimeMillis());
+            formTokenPool.put(userId+":"+uuid,System.currentTimeMillis());
         }
         return uuid;
     }
 
-    public boolean checkToken(String uuid) {
+    public boolean checkToken(String userId,String uuid) {
         if(redisTemplate != null){
-            Long createTime = (Long)redisTemplate.opsForValue().get(REDIS_KEY_TAG+uuid);
+            Long createTime = (Long)redisTemplate.opsForValue().get(REDIS_KEY_TAG+userId+":"+uuid);
             if(createTime!=null){
                 return true;
             }
         }else{
-            Long createTime = formTokenPool.get(uuid);
+            Long createTime = formTokenPool.get(userId+":"+uuid);
             if(createTime!=null){
                 return true;
             }
@@ -75,17 +78,17 @@ public class FormTokenPool extends ConcurrentHashMap<String,Long> {
         return false;
     }
 
-    public boolean checkAndRemoveToken(String uuid) {
+    public boolean checkAndRemoveToken(String userId,String uuid) {
         if(redisTemplate != null){
-            Long createTime = (Long)redisTemplate.opsForValue().get(REDIS_KEY_TAG+uuid);
+            Long createTime = (Long)redisTemplate.opsForValue().get(REDIS_KEY_TAG+userId+":"+uuid);
             if(createTime!=null){
-                redisTemplate.delete(REDIS_KEY_TAG+uuid);
+                redisTemplate.delete(REDIS_KEY_TAG+userId+":"+uuid);
                 return true;
             }
         }else{
-            Long createTime = formTokenPool.get(uuid);
+            Long createTime = formTokenPool.get(userId+":"+uuid);
             if(createTime!=null){
-                formTokenPool.remove(uuid);
+                formTokenPool.remove(userId+":"+uuid);
                 return true;
             }
         }
