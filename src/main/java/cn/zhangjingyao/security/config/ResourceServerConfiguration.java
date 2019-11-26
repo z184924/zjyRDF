@@ -89,7 +89,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
             responseData.put("state","error");
             responseData.put("error",HttpStatus.FORBIDDEN.value());
             responseData.put("errorMessage",message);
-            responseData.put("message","该用户无权限访问");
+            responseData.put("message", "该用户无权限访问:\""+httpServletRequest.getRequestURI()+"\"");
             WriteJsonUtil.writeJson(httpServletResponse, responseData);
         }
     }
