@@ -31,6 +31,8 @@ import java.util.HashMap;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+    private final String []PERMIT_ALL_URI={"/static/**", "/error/**", "/oauth/**","/druid/**","/favicon.ico"};
+    private final String []AUTHENTICATED_URI={"/role/listUserRights","/formToken","/user/editPassword"};
     @Autowired
     HttpServletRequest request;
 
@@ -67,11 +69,11 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/static/**", "/createCode/**", "/error/**", "/oauth/**","/druid/**")
+                .antMatchers(PERMIT_ALL_URI)
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/role/listUserRights","/formToken","/user/editPassword")
+                .antMatchers(AUTHENTICATED_URI)
                 .authenticated()
                 .and()
                 .authorizeRequests()

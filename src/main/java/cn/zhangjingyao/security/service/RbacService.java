@@ -21,9 +21,9 @@ public class RbacService {
 
     public boolean hasPermission(HttpServletRequest request, OAuth2Authentication authentication) {
         OAuth2AccessToken accessToken = customTokenServices.getAccessToken(authentication);
-        String requestURL = request.getServletPath();
+        String requestURI = request.getRequestURI();
         RightsCache rightsCache = RightsCache.getInstance();
-        Integer rightsId = rightsCache.get(requestURL);
+        Integer rightsId = rightsCache.get(requestURI);
         BigInteger rightsCode = (BigInteger) accessToken.getAdditionalInformation().get("rightsCode");
         if (rightsId != null && rightsCode != null) {
             return RightsHelper.testRights(rightsCode, rightsId);
