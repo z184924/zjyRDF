@@ -1,7 +1,6 @@
 package cn.zhangjingyao.config;
 
 import cn.zhangjingyao.interceptor.FormInterceptor;
-import cn.zhangjingyao.interceptor.LogInterceptor;
 import cn.zhangjingyao.resolver.CustomExceptionResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,14 +25,6 @@ public class CustomWebMvcConfiguration implements WebMvcConfigurer {
     //在此处，将拦截器注册为一个 Bean 使拦截器可使用Autowired
 
     /**
-     * @return LogInterceptor
-     */
-    @Bean
-    public LogInterceptor logInterceptor() {
-        return new LogInterceptor();
-    }
-
-    /**
      * @return FormInterceptor
      */
     @Bean
@@ -47,15 +38,12 @@ public class CustomWebMvcConfiguration implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(logInterceptor())
-                .addPathPatterns("/**")
-                .order(Ordered.LOWEST_PRECEDENCE);
         registry.addInterceptor(formInterceptor())
                 .addPathPatterns("/**/save*")
                 .addPathPatterns("/**/edit*")
                 .addPathPatterns("/**/delete*")
                 .addPathPatterns("/**/saveOrUpdate*")
-                .order(Ordered.LOWEST_PRECEDENCE-1);
+                .order(Ordered.LOWEST_PRECEDENCE);
 //        super.addInterceptors(registry);
     }
 

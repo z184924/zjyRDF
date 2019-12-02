@@ -1,6 +1,7 @@
 package cn.zhangjingyao.controller.system;
 
 
+import cn.zhangjingyao.annotation.SystemLog;
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.security.service.CustomTokenServices;
@@ -29,6 +30,7 @@ public class LoginController extends BaseController {
      */
     @RequestMapping(value = "/oauth/logout")
     @ResponseBody
+    @SystemLog("注销")
     public String oauthLogout() {
         OAuth2Authentication authentication = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
         OAuth2AccessToken accessToken = customTokenServices.getAccessToken(authentication);
@@ -43,6 +45,7 @@ public class LoginController extends BaseController {
      */
     @RequestMapping(value = "/formToken")
     @ResponseBody
+    @SystemLog("获取表单Token")
     public String formToken() {
         FormTokenPool formTokenPool = FormTokenPool.getInstance();
         String formToken = formTokenPool.addToken(this.getCurrentUser().getUserId());
