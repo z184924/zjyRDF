@@ -34,13 +34,18 @@ Configuration:
           level: Info
 
   Loggers:
-    Logger: # 为部分包配置特殊的Log级别，方便调试
+    Logger: # 为部分包配置特殊的Log级别,方便调试
       - name: org.springframework.boot.autoconfigure
         additivity: false
         level: info
         AppenderRef:
           - ref: CONSOLE
       - name: org.springframework.security
+        additivity: false
+        level: info
+        AppenderRef:
+          - ref: CONSOLE
+      - name: io.lettuce
         additivity: false
         level: info
         AppenderRef:
