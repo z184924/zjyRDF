@@ -1,5 +1,6 @@
 package cn.zhangjingyao.controller.system;
 
+import cn.zhangjingyao.annotation.SystemLog;
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.entity.system.User;
@@ -29,6 +30,7 @@ public class UserController extends BaseController {
     /**
      * 新增或编辑
      */
+    @SystemLog("新增或编辑User")
     @ResponseBody
     @RequestMapping(value = "/saveOrUpdate", produces = "application/json;charset=UTF-8")
     public String saveOrUpdate() {
@@ -55,6 +57,7 @@ public class UserController extends BaseController {
     /**
      * 新增
      */
+    @SystemLog("新增User")
     @ResponseBody
     @RequestMapping(value = "/save", produces = "application/json;charset=UTF-8")
     public String save() {
@@ -75,6 +78,7 @@ public class UserController extends BaseController {
     /**
      * 删除
      */
+    @SystemLog("删除User")
     @ResponseBody
     @RequestMapping(value = "/delete", produces = "application/json;charset=UTF-8")
     public String delete() {
@@ -87,6 +91,7 @@ public class UserController extends BaseController {
     /**
      * 修改
      */
+    @SystemLog("修改User")
     @ResponseBody
     @RequestMapping(value = "/edit", produces = "application/json;charset=UTF-8")
     public String edit() {
@@ -101,10 +106,10 @@ public class UserController extends BaseController {
     /**
      * 分页查询列表
      */
+    @SystemLog("分页查询User列表")
     @ResponseBody
     @RequestMapping(value = "/listPage", produces = "application/json;charset=UTF-8")
     public Object listPage() {
-        logger.info("获取User列表Json");
         PageData pd = this.getPageData();
         // 分页查询列表
         PageInfo<PageData> pageInfo = this.userService.listPage(pd);
@@ -114,10 +119,10 @@ public class UserController extends BaseController {
     /**
      * 根据ID查询单条数据
      */
+    @SystemLog("根据ID查询User数据")
     @RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public Object findById() {
-        logger.info("根据ID获取User数据");
         PageData pd = this.getPageData();
         PageData resultPD = this.userService.findById(pd);
         return this.jsonContent("success", resultPD);
@@ -126,6 +131,7 @@ public class UserController extends BaseController {
     /**
      * 修改密码
      */
+    @SystemLog("修改密码")
     @ResponseBody
     @RequestMapping(value = "/editPassword", produces = "application/json;charset=UTF-8")
     public String editPassword() {

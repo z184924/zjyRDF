@@ -1,5 +1,6 @@
 package cn.zhangjingyao.controller.system;
 
+import cn.zhangjingyao.annotation.SystemLog;
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.service.system.RightsService;
@@ -37,10 +38,10 @@ public class RoleController extends BaseController {
     /**
      * 新增或编辑
      */
+    @SystemLog("新增或编辑Role")
     @ResponseBody
     @RequestMapping(value = "/saveOrUpdate", produces = "application/json;charset=UTF-8")
     public String saveOrUpdate() {
-        logger.info("新增或编辑Role");
         PageData pd = this.getPageData();
         if (pd.get("roleId") == null || "".equals(pd.get("roleId"))) {
             //添加主键
@@ -59,10 +60,10 @@ public class RoleController extends BaseController {
     /**
      * 新增
      */
+    @SystemLog("新增Role")
     @ResponseBody
     @RequestMapping(value = "/save", produces = "application/json;charset=UTF-8")
     public String save() {
-        logger.info("新增Role");
         PageData pd = this.getPageData();
         //添加主键
         pd.put("roleId", this.get32UUID());
@@ -75,10 +76,10 @@ public class RoleController extends BaseController {
     /**
      * 删除
      */
+    @SystemLog("删除Role")
     @ResponseBody
     @RequestMapping(value = "/delete", produces = "application/json;charset=UTF-8")
     public String delete() {
-        logger.info("删除Role");
         PageData pd = this.getPageData();
         roleService.delete(pd);
         return this.jsonContent("success", "删除成功");
@@ -87,10 +88,10 @@ public class RoleController extends BaseController {
     /**
      * 修改
      */
+    @SystemLog("修改Role")
     @ResponseBody
     @RequestMapping(value = "/edit", produces = "application/json;charset=UTF-8")
     public String edit() {
-        logger.info("修改Role");
         PageData pd = this.getPageData();
         //替换字段
         pd = this.replaceAttribute(pd);
@@ -101,10 +102,10 @@ public class RoleController extends BaseController {
     /**
      * 分页查询列表
      */
+    @SystemLog("分页Role查询列表")
     @ResponseBody
     @RequestMapping(value = "/listPage", produces = "application/json;charset=UTF-8")
     public Object listPage() {
-        logger.info("获取Role列表Json");
         PageData pd = this.getPageData();
         // 分页查询列表
         PageInfo<PageData> pageInfo = this.roleService.listPage(pd);
@@ -114,22 +115,23 @@ public class RoleController extends BaseController {
     /**
      * 根据ID查询单条数据
      */
-    @RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
+    @SystemLog("根据ID查询Role数据")
     @ResponseBody
+    @RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
     public Object findById() {
-        logger.info("根据ID获取Role数据");
+        logger.info("根据ID查询Role数据");
         PageData pd = this.getPageData();
         PageData resultPD = this.roleService.findById(pd);
         return this.jsonContent("success", resultPD);
     }
 
     /**
-     * 列表用户角色关系
+     * 查询用户角色关系列表
      */
+    @SystemLog("查询用户角色关系列表")
     @ResponseBody
     @RequestMapping(value = "/listUserRole", produces = "application/json;charset=UTF-8")
     public Object listUserRole() {
-        logger.info("获取用户角色关系列表Json");
         PageData pd = this.getPageData();
         List<PageData> userRoleList = this.roleService.listUserRole(pd);
         List<PageData> userList = this.userService.listAll(pd);
@@ -142,10 +144,10 @@ public class RoleController extends BaseController {
     /**
      * 编辑用户角色关系
      */
+    @SystemLog("编辑用户角色关系")
     @ResponseBody
     @RequestMapping(value = "/editUserRole", produces = "application/json;charset=UTF-8")
     public String editUserRole() {
-        logger.info("编辑用户角色关系");
         PageData pd = this.getPageData();
         String roleId = pd.getString("roleId");
         String checkedKeysString = pd.getString("checkedKeys");
@@ -166,12 +168,12 @@ public class RoleController extends BaseController {
     }
 
     /**
-     * 列表角色权限关系
+     * 查询角色权限关系列表
      */
+    @SystemLog("查询角色权限关系列表")
     @ResponseBody
     @RequestMapping(value = "/listRoleRights", produces = "application/json;charset=UTF-8")
     public Object listRoleRights() {
-        logger.info("获取角色权限关系列表Json");
         PageData pd = this.getPageData();
         List<PageData> roleRightsList = this.roleService.listRoleRights(pd);
         List<PageData> rightsList = this.rightsService.listAll(pd);
@@ -184,6 +186,7 @@ public class RoleController extends BaseController {
     /**
      * 编辑角色权限关系
      */
+    @SystemLog("编辑角色权限关系")
     @ResponseBody
     @RequestMapping(value = "/editRoleRights", produces = "application/json;charset=UTF-8")
     public String editRoleRights() {
@@ -208,12 +211,12 @@ public class RoleController extends BaseController {
     }
 
     /**
-     * 查询用户权限关系
+     * 查询用户权限关系列表
      */
+    @SystemLog("查询用户权限关系列表")
     @ResponseBody
     @RequestMapping(value = "/listUserRights", produces = "application/json;charset=UTF-8")
     public Object listUserRights() {
-        logger.info("获取用户权限关系列表Json");
         PageData pd = new PageData();
         pd.put("userId", this.getCurrentUser().getUserId());
         List<PageData> userRightsList = this.roleService.listUserRights(pd);

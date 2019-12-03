@@ -1,5 +1,6 @@
 package cn.zhangjingyao.controller.system;
 
+import cn.zhangjingyao.annotation.SystemLog;
 import cn.zhangjingyao.controller.base.BaseController;
 import cn.zhangjingyao.entity.PageData;
 import cn.zhangjingyao.service.system.RightsService;
@@ -26,10 +27,10 @@ public class RightsController extends BaseController {
     /**
      * 新增或编辑
      */
+    @SystemLog("新增或编辑Rights")
     @ResponseBody
     @RequestMapping(value = "/saveOrUpdate", produces = "application/json;charset=UTF-8")
     public String saveOrUpdate() {
-        logger.info("新增或编辑Rights");
         PageData pd = this.getPageData();
         if (pd.get("rightsId") == null || "".equals(pd.get("rightsId")) || 0 == pd.getInt("rightsId")) {
             //替换字段
@@ -46,10 +47,10 @@ public class RightsController extends BaseController {
     /**
      * 新增
      */
+    @SystemLog("新增Rights")
     @ResponseBody
     @RequestMapping(value = "/save", produces = "application/json;charset=UTF-8")
     public String save() {
-        logger.info("新增Rights");
         PageData pd = this.getPageData();
         //替换字段
         pd = this.replaceAttribute(pd);
@@ -60,10 +61,10 @@ public class RightsController extends BaseController {
     /**
      * 删除
      */
+    @SystemLog("删除Rights")
     @ResponseBody
     @RequestMapping(value = "/delete", produces = "application/json;charset=UTF-8")
     public String delete() {
-        logger.info("删除Rights");
         PageData pd = this.getPageData();
         rightsService.delete(pd);
         return this.jsonContent("success", "删除成功");
@@ -72,10 +73,10 @@ public class RightsController extends BaseController {
     /**
      * 修改
      */
+    @SystemLog("修改Rights")
     @ResponseBody
     @RequestMapping(value = "/edit", produces = "application/json;charset=UTF-8")
     public String edit() {
-        logger.info("修改Rights");
         PageData pd = this.getPageData();
         //替换字段
         pd = this.replaceAttribute(pd);
@@ -86,10 +87,10 @@ public class RightsController extends BaseController {
     /**
      * 分页查询列表
      */
+    @SystemLog("分页查询Rights列表")
     @ResponseBody
     @RequestMapping(value = "/listPage", produces = "application/json;charset=UTF-8")
     public Object listPage() {
-        logger.info("获取Rights列表Json");
         PageData pd = this.getPageData();
         // 分页查询列表
         PageInfo<PageData> pageInfo = this.rightsService.listPage(pd);
@@ -99,10 +100,10 @@ public class RightsController extends BaseController {
     /**
      * 根据ID查询单条数据
      */
-    @RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
+    @SystemLog("根据ID查询Rights数据")
     @ResponseBody
+    @RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
     public Object findById() {
-        logger.info("根据ID获取Rights数据");
         PageData pd = this.getPageData();
         PageData resultPD = this.rightsService.findById(pd);
         return this.jsonContent("success", resultPD);

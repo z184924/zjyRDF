@@ -11,13 +11,13 @@ import java.util.List;
  * 类名称:${className}Service
  * 创建时间:${.now?string("yyyy-MM-dd")}
  *
- * @author
+ * @author CodeGenerator
  */
 @org.springframework.stereotype.Service
 public class ${className}Service extends BaseService {
 	
 	/**
-	 * 新增
+	 * 新增${className}
      *
 	 * @param pd PageData
 	 */
@@ -26,7 +26,7 @@ public class ${className}Service extends BaseService {
 	}
 
 	/**
-	 * 批量新增
+	 * 批量新增${className}
      *
 	 * @param list PageData List
 	 */
@@ -37,7 +37,7 @@ public class ${className}Service extends BaseService {
 	}
 
     /**
-     * 删除
+     * 删除${className}
      *
      * @param pd PageData
      */
@@ -46,7 +46,7 @@ public class ${className}Service extends BaseService {
 	}
 
     /**
-     * 批量删除
+     * 批量删除${className}
 	 *
      * @param list PageData List
      */
@@ -57,7 +57,7 @@ public class ${className}Service extends BaseService {
 	}
 
     /**
-     * 修改
+     * 修改${className}
      *
      * @param pd PageData
      */
@@ -66,7 +66,7 @@ public class ${className}Service extends BaseService {
 	}
 
 	/**
-	 * 批量修改
+	 * 批量修改${className}
      *
      * @param list PageData List
      */
@@ -77,7 +77,7 @@ public class ${className}Service extends BaseService {
 	}
 
     /**
-	 * 分页查询
+	 * 分页查询${className}
      *
      * @param pd PageData
      * @return PageInfo
@@ -89,7 +89,7 @@ public class ${className}Service extends BaseService {
 	}
 
     /**
-     * 查询(全部)
+     * 查询${className}(全部)
      *
      * @param pd PageData
      * @return PageData List
@@ -99,7 +99,7 @@ public class ${className}Service extends BaseService {
 	}
 
     /**
-     * 通过id获取数据
+     * 通过id获取${className}数据
      *
      * @param pd PageData
      * @return PageData
@@ -109,7 +109,7 @@ public class ${className}Service extends BaseService {
 	}
 
     /**
-     * 批量删除
+     * 批量删除${className}
      *
      * @param arrayDataIds Id数组
      */

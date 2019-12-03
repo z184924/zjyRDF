@@ -28,9 +28,9 @@ public class LoginController extends BaseController {
      *
      * @return state:注销状态
      */
-    @RequestMapping(value = "/oauth/logout")
-    @ResponseBody
     @SystemLog("注销")
+    @ResponseBody
+    @RequestMapping(value = "/oauth/logout")
     public String oauthLogout() {
         OAuth2Authentication authentication = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
         OAuth2AccessToken accessToken = customTokenServices.getAccessToken(authentication);
@@ -43,9 +43,9 @@ public class LoginController extends BaseController {
      *
      * @return formToken:表单Token
      */
-    @RequestMapping(value = "/formToken")
-    @ResponseBody
     @SystemLog("获取表单Token")
+    @ResponseBody
+    @RequestMapping(value = "/formToken")
     public String formToken() {
         FormTokenPool formTokenPool = FormTokenPool.getInstance();
         String formToken = formTokenPool.addToken(this.getCurrentUser().getUserId());
