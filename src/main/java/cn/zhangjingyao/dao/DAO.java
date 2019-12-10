@@ -63,11 +63,26 @@ public interface DAO {
     public Object findForMap(String sql, Object obj, String key);
 
     /**
-     * 整合新增
+     * 批量新增
      *
      * @param paramString 参数名
      * @param paramList   参数列表
      */
     public abstract void batchInsert(String paramString, List paramList);
 
+    /**
+     * 批量删除
+     *
+     * @param paramString 参数名
+     * @param paramList   参数列表
+     */
+    public abstract Object batchDelete(String paramString, List paramList);
+
+    /**
+     * 批量更新
+     *
+     * @param paramString 参数名
+     * @param paramList   参数列表
+     */
+    public void batchUpdate(String paramString, List paramList);
 }
