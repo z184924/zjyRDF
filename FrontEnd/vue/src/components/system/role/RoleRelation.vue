@@ -8,6 +8,8 @@
         default-expand-all
         :node-key="noedKey"
         :props="treeProps"
+        :expand-on-click-node="false"
+        :render-content="treeRenderContent"
         @check-change="handleCheckChange"
         check-strictly
       ></el-tree>
@@ -65,6 +67,35 @@ export default {
         this.checkedKeys.push(data[this.noedKey])
       } else {
         this.checkedKeys.splice(this.checkedKeys.findIndex(item => item == data[this.noedKey]), 1)
+      }
+    },
+    changeAll(data, state) {
+      this.$refs.tree.setChecked(data[this.noedKey], state, false);
+      data.children.forEach(o => {
+        this.$refs.tree.setChecked(o[this.noedKey], state, false);
+        this.changeAll(o,state);
+      });
+    },
+    treeRenderContent(h, { node, data, store }) {
+      switch (this.parameter.formTag) {
+        case 'User':
+          return (
+            <div>
+              {node.label}
+            </div>
+          );
+          break;
+        case 'Rights':
+          return (
+            <div>
+              <el-link size="mini" type="success" on-click={() => this.changeAll(data, true)}>全选</el-link>
+              <el-link style="margin-left:0.6em" size="mini" type="danger" on-click={() => this.changeAll(data, false)}>全取消</el-link>
+              <span style="padding-left:2em">{node.label}</span>
+              <span style="padding-left:2em;color:#aaa">{data.rightsCode}</span>
+              <span style="padding-left:2em;color:#aaa">{data.url}</span>
+            </div>
+          );
+          break;
       }
     },
   },
