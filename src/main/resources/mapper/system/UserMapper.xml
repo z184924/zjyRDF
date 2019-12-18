@@ -5,7 +5,7 @@
 	<sql id="userColumns">userId,account,password,userName,locked,disable,specialRole</sql>
 	<!-- 将vo实体类转换为映射文件 ，因为在mybatis-config的配置文件中已经用了别名，因此这里可以这样写：type="User"-->
 	
-	<resultMap type="cn.zhangjingyao.entity.system.User" id="userResultMap">
+	<resultMap type="cn.zhangjingyao.zjyrdf.entity.system.User" id="userResultMap">
 		<id column="userId" property="userId"/>
 		<result column="account" property="account"/>
 		<result column="password" property="password"/>

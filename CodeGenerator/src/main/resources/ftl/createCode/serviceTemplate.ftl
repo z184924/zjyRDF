@@ -1,7 +1,7 @@
-package cn.zhangjingyao.service.${packageName};
+package cn.zhangjingyao.zjyrdf.service.${packageName};
 
-import cn.zhangjingyao.entity.PageData;
-import cn.zhangjingyao.service.base.BaseService;
+import cn.zhangjingyao.zjyrdf.entity.PageData;
+import cn.zhangjingyao.zjyrdf.service.base.BaseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 

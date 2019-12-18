@@ -1,5 +1,6 @@
-package cn.zhangjingyao.zjyrdf.controller.${packageName};
+package cn.zhangjingyao.zjyrdf.controller.demo;
 
+import cn.zhangjingyao.zjyrdf.annotation.SystemLog;
 import cn.zhangjingyao.zjyrdf.controller.base.BaseController;
 import cn.zhangjingyao.zjyrdf.entity.PageData;
 import com.github.pagehelper.PageInfo;
@@ -9,119 +10,119 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
-import cn.zhangjingyao.zjyrdf.service.${packageName}.${objectName}Service;
+import cn.zhangjingyao.zjyrdf.service.demo.DemoService;
 
 /**
- * 类名称:${objectName}Controller
- * 创建时间:${nowDate?string("yyyy-MM-dd")}
+ * 类名称:DemoController
+ * 创建时间:2019-12-03
  *
- * @author
+ * @author CodeGenerator
  */
 @Controller
-@RequestMapping(value = "/${objectNameFirstLower}")
-public class ${objectName}Controller extends BaseController {
+@RequestMapping(value = "/demo")
+public class DemoController extends BaseController {
 
-	@Resource(name = "${objectNameFirstLower}Service")
-	private ${objectName}Service ${objectNameFirstLower}Service;
+	@Resource(name = "demoService")
+	private DemoService demoService;
 
     /**
-     * 新增或编辑
+     * 新增或编辑Demo
      *
      * @return Json
      */
+	@SystemLog("新增或编辑Demo")
 	@ResponseBody
 	@RequestMapping(value = "/saveOrUpdate", produces = "application/json;charset=UTF-8")
 	public String saveOrUpdate() {
-		logger.info("新增或编辑${objectName}");
 		PageData pd = this.getPageData();
-		if (pd.get("${primaryKey}") == null || "".equals(pd.get("${primaryKey}"))){
+		if (pd.get("demoId") == null || "".equals(pd.get("demoId")) || 0 == pd.getInt("demoId")){
 			//添加主键
-			pd.put("${primaryKey}", this.get32UUID());
+			pd.put("demoId", this.get32UUID());
 			//替换字段
 			pd = this.replaceAttribute(pd);
-			this.${objectNameFirstLower}Service.save(pd);
+			this.demoService.save(pd);
 		} else {
 			//替换字段
 			pd = this.replaceAttribute(pd);
-			this.${objectNameFirstLower}Service.edit(pd);
+			this.demoService.edit(pd);
 		}
 		return this.jsonContent("success", "保存成功");
 	}
 
     /**
-     * 新增
+     * 新增Demo
      *
      * @return Json
      */
+	@SystemLog("新增Demo")
 	@ResponseBody
 	@RequestMapping(value = "/save", produces = "application/json;charset=UTF-8")
 	public String save() {
-		logger.info("新增${objectName}");
 		PageData pd = this.getPageData();
 		//添加主键
-		pd.put("${primaryKey}", this.get32UUID());
+		pd.put("demoId", this.get32UUID());
 		//替换字段
 		pd = this.replaceAttribute(pd);
-		this.${objectNameFirstLower}Service.save(pd);
+		this.demoService.save(pd);
 		return this.jsonContent("success", "保存成功");
 	}
 
     /**
-     * 删除
+     * 删除Demo
      *
      * @return Json
      */
+	@SystemLog("删除Demo")
 	@ResponseBody
 	@RequestMapping(value = "/delete", produces = "application/json;charset=UTF-8")
 	public String delete() {
-		logger.info("删除${objectName}");
 		PageData pd = this.getPageData();
-		${objectNameFirstLower}Service.delete(pd);
+		demoService.delete(pd);
 		return this.jsonContent("success", "删除成功");
 	}
 
     /**
-     * 修改
+     * 修改Demo
      *
      * @return Json
      */
+	@SystemLog("修改Demo")
 	@ResponseBody
 	@RequestMapping(value = "/edit", produces = "application/json;charset=UTF-8")
 	public String edit() {
-		logger.info("修改${objectName}");
 		PageData pd = this.getPageData();
 		//替换字段
 		pd = this.replaceAttribute(pd);
-		this.${objectNameFirstLower}Service.edit(pd);
+		this.demoService.edit(pd);
 		return this.jsonContent("success", "保存成功");
 	}
 
     /**
-     * 分页查询列表
+     * 分页查询Demo列表
      *
      * @return Json
      */
+	@SystemLog("分页查询Demo列表")
 	@ResponseBody
 	@RequestMapping(value = "/listPage", produces = "application/json;charset=UTF-8")
 	public Object listPage() {
-		logger.info("获取${objectName}列表Json");
 		PageData pd = this.getPageData();
 		// 分页查询列表
-		PageInfo<PageData> pageInfo = this.${objectNameFirstLower}Service.listPage(pd);
+		PageInfo<PageData> pageInfo = this.demoService.listPage(pd);
 		return this.jsonContent("success", pageInfo);
 	}
 
     /**
-     * 根据ID查询单条数据
+     * 根据ID查询Demo数据
      *
      * @return Json
      */
-	@RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
+	@SystemLog("根据ID查询Demo数据")
 	@ResponseBody
+	@RequestMapping(value = "/findById", produces = "application/json;charset=UTF-8")
 	public Object findById() {
-    	logger.info("根据ID获取${objectName}数据");
 		PageData pd = this.getPageData();
-		PageData resultPD = this.${objectNameFirstLower}Service.findById(pd);
+		PageData resultPD = this.demoService.findById(pd);
 		return this.jsonContent("success", resultPD);
 	}
 
@@ -132,15 +133,16 @@ public class ${objectName}Controller extends BaseController {
      * @return 替换后PageData
      */
 	private PageData replaceAttribute(PageData pd) {
-	<#list fieldList as var>
-		<#if var[1] == "Boolean">
-		if ("true".equals(pd.getString("${var[0]}"))) {
-			pd.put("${var[0]}", true);
+		if ("true".equals(pd.getString("demoBoolean1"))) {
+			pd.put("demoBoolean1", true);
 		} else {
-			pd.put("${var[0]}", false);
+			pd.put("demoBoolean1", false);
 		}
-		</#if>
-	</#list>
+		if ("true".equals(pd.getString("demoBoolean2"))) {
+			pd.put("demoBoolean2", true);
+		} else {
+			pd.put("demoBoolean2", false);
+		}
 		return pd;
 	}
 }

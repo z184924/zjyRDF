@@ -1,8 +1,8 @@
-package cn.zhangjingyao.controller.${packageName};
+package cn.zhangjingyao.zjyrdf.controller.${packageName};
 
-import cn.zhangjingyao.annotation.SystemLog;
-import cn.zhangjingyao.controller.base.BaseController;
-import cn.zhangjingyao.entity.PageData;
+import cn.zhangjingyao.zjyrdf.annotation.SystemLog;
+import cn.zhangjingyao.zjyrdf.controller.base.BaseController;
+import cn.zhangjingyao.zjyrdf.entity.PageData;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
-import cn.zhangjingyao.service.${packageName}.${className}Service;
+import cn.zhangjingyao.zjyrdf.service.${packageName}.${className}Service;
 
 /**
  * 类名称:${className}Controller
