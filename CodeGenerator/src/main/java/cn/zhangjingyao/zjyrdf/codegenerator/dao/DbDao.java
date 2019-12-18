@@ -1,6 +1,7 @@
-package cn.zhangjingyao.zjyrdf.dao;
+package cn.zhangjingyao.zjyrdf.codegenerator.dao;
 
-import cn.zhangjingyao.zjyrdf.entity.PageData;
+
+import cn.zhangjingyao.zjyrdf.codegenerator.entity.PageData;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -39,6 +40,6 @@ public interface DbDao {
      * @return
      */
     @Select("select column_name,data_type,is_nullable,column_key,column_comment,column_type from information_schema.columns where table_schema = #{dataBaseName} and table_name = #{tableName} order by ordinal_position")
-    List<PageData> getTableColumnList(@Param("dataBaseName") String dataBaseName,@Param("tableName") String tableName);
+    List<PageData> getTableColumnList(@Param("dataBaseName") String dataBaseName, @Param("tableName") String tableName);
 
 }

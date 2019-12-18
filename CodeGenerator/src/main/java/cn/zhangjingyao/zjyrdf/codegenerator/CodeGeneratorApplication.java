@@ -1,4 +1,4 @@
-package cn.zhangjingyao.zjyrdf;
+package cn.zhangjingyao.zjyrdf.codegenerator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

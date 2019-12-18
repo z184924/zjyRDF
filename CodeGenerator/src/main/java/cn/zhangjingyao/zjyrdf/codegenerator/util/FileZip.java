@@ -1,4 +1,4 @@
-package cn.zhangjingyao.zjyrdf.util;
+package cn.zhangjingyao.zjyrdf.codegenerator.util;
 
 import java.io.*;
 import java.util.ArrayList;

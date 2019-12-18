@@ -1,10 +1,11 @@
-package cn.zhangjingyao.zjyrdf.service;
+package cn.zhangjingyao.zjyrdf.codegenerator.service;
 
-import cn.zhangjingyao.zjyrdf.entity.CodeGeneratorTable;
-import cn.zhangjingyao.zjyrdf.util.DelAllFile;
-import cn.zhangjingyao.zjyrdf.util.FileZip;
-import cn.zhangjingyao.zjyrdf.util.Freemarker;
-import cn.zhangjingyao.zjyrdf.util.PathUtil;
+
+import cn.zhangjingyao.zjyrdf.codegenerator.entity.CodeGeneratorTable;
+import cn.zhangjingyao.zjyrdf.codegenerator.util.DelAllFile;
+import cn.zhangjingyao.zjyrdf.codegenerator.util.FileZip;
+import cn.zhangjingyao.zjyrdf.codegenerator.util.Freemarker;
+import cn.zhangjingyao.zjyrdf.codegenerator.util.PathUtil;
 import org.springframework.stereotype.Service;
 
 /**

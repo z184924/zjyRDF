@@ -1,4 +1,4 @@
-package cn.zhangjingyao.zjyrdf.util;
+package cn.zhangjingyao.zjyrdf.codegenerator.util;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

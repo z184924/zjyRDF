@@ -1,4 +1,4 @@
-package cn.zhangjingyao.zjyrdf.entity;
+package cn.zhangjingyao.zjyrdf.codegenerator.entity;
 
 import java.util.HashMap;
 import java.util.List;

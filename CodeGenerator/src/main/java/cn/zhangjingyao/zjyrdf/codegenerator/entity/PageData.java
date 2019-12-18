@@ -1,4 +1,4 @@
-package cn.zhangjingyao.zjyrdf.entity;
+package cn.zhangjingyao.zjyrdf.codegenerator.entity;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;

@@ -1,7 +1,7 @@
-package cn.zhangjingyao.zjyrdf.controller.base;
+package cn.zhangjingyao.zjyrdf.codegenerator.controller.base;
 
 
-import cn.zhangjingyao.zjyrdf.entity.PageData;
+import cn.zhangjingyao.zjyrdf.codegenerator.entity.PageData;
 import com.alibaba.fastjson.JSON;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

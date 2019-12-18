@@ -1,9 +1,9 @@
-package cn.zhangjingyao.zjyrdf.controller;
+package cn.zhangjingyao.zjyrdf.codegenerator.controller;
 
-import cn.zhangjingyao.zjyrdf.controller.base.BaseController;
-import cn.zhangjingyao.zjyrdf.entity.PageData;
-import cn.zhangjingyao.util.*;
-import cn.zhangjingyao.zjyrdf.util.*;
+
+import cn.zhangjingyao.zjyrdf.codegenerator.controller.base.BaseController;
+import cn.zhangjingyao.zjyrdf.codegenerator.entity.PageData;
+import cn.zhangjingyao.zjyrdf.codegenerator.util.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

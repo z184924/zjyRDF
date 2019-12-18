@@ -1,6 +1,6 @@
-package cn.zhangjingyao.zjyrdf.service;
+package cn.zhangjingyao.zjyrdf.codegenerator.service;
 
-import cn.zhangjingyao.zjyrdf.dao.DbDao;
+import cn.zhangjingyao.zjyrdf.codegenerator.dao.DbDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

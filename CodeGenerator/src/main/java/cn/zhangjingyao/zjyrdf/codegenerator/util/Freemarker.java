@@ -1,4 +1,4 @@
-package cn.zhangjingyao.zjyrdf.util;
+package cn.zhangjingyao.zjyrdf.codegenerator.util;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

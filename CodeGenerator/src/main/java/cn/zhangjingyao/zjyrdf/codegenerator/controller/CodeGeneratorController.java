@@ -1,10 +1,11 @@
-package cn.zhangjingyao.zjyrdf.controller;
+package cn.zhangjingyao.zjyrdf.codegenerator.controller;
 
-import cn.zhangjingyao.zjyrdf.controller.base.BaseController;
-import cn.zhangjingyao.zjyrdf.entity.CodeGeneratorTable;
-import cn.zhangjingyao.zjyrdf.entity.PageData;
-import cn.zhangjingyao.zjyrdf.service.CodeGeneratorService;
-import cn.zhangjingyao.zjyrdf.service.DbService;
+
+import cn.zhangjingyao.zjyrdf.codegenerator.controller.base.BaseController;
+import cn.zhangjingyao.zjyrdf.codegenerator.entity.CodeGeneratorTable;
+import cn.zhangjingyao.zjyrdf.codegenerator.entity.PageData;
+import cn.zhangjingyao.zjyrdf.codegenerator.service.CodeGeneratorService;
+import cn.zhangjingyao.zjyrdf.codegenerator.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
