@@ -18,4 +18,4 @@ zjy 快速开发框架
     ● 持久层框架:MyBatis
     ● 数据库连接池:Alibaba Druid
     ● 日志管理:Log4j2
-    ● 前端框架:Vue + Element + Jquery
+    ● 前端框架:Vue + Element
