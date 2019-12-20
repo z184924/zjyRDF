@@ -1,6 +1,10 @@
 package cn.zhangjingyao.zjyrdf.entity;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 /**
@@ -63,6 +67,39 @@ public class PageData extends HashMap implements Map {
 
     public int getInt(Object key) {
         return Integer.parseInt(get(key).toString());
+    }
+
+    /**
+     * 将实体转为PageData
+     *
+     * @param object
+     * @return
+     */
+    public void putEntity(Object object, Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            Method method = clazz.getMethod("get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1));
+            put(field.getName(), method.invoke(object));
+        }
+        ;
+    }
+
+    /**
+     * 将实体转为PageData
+     *
+     * @param clazz
+     * @return
+     */
+    public Object toEntity(Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
+        Field[] fields = clazz.getDeclaredFields();
+        Constructor constructor = clazz.getConstructor();
+        Object object = constructor.newInstance();
+        for (Field field : fields) {
+            Method method = clazz.getMethod("set" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1), field.getClass());
+            method.invoke(object, get(field.getName()));
+        }
+        ;
+        return object;
     }
 
     @SuppressWarnings("unchecked")

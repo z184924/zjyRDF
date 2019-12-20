@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LogIndexMapper">
+
+
+    <!-- 新增 -->
+    <insert id="save" parameterType="PageData">
+		insert into log_index(
+            logTableName,
+            beginTime,
+            endTime,
+            systemTag
+        ) values (
+			#{logTableName},
+			#{beginTime},
+			#{endTime},
+			#{systemTag}
+        )
+    </insert>
+
+
+    <!-- 删除 -->
+    <delete id="delete" parameterType="PageData">
+		delete from log_index
+        where
+			logIndexId= #{logIndexId}
+    </delete>
+
+
+    <!-- 修改 -->
+    <update id="edit" parameterType="PageData">
+		update  log_index
+        set
+			logTableName = #{logTableName},
+			beginTime = #{beginTime},
+			endTime = #{endTime},
+			systemTag = #{systemTag},
+			logIndexId= logIndexId
+        where
+			logIndexId= #{logIndexId}
+    </update>
+
+
+    <!-- 通过ID获取数据 -->
+    <select id="findById" parameterType="PageData" resultType="PageData">
+		select
+			a.logTableName,
+			a.beginTime,
+			a.endTime,
+			a.systemTag,
+			a.logIndexId
+        from
+        	log_index a
+        where
+			a.logIndexId= #{logIndexId}
+    </select>
+
+    <!-- 查询列表 -->
+    <select id="listAll" parameterType="PageData" resultType="PageData">
+        select
+        a.logTableName,
+        a.beginTime,
+        a.endTime,
+        a.systemTag,
+        a.logIndexId
+        from
+        log_index a
+        where
+        1=1
+        <if test="beginTime != null and beginTime != '' ">
+            AND a.endTime&gt;#{beginTime}
+        </if>
+        <if test="endTime != null and endTime != '' ">
+            AND a.beginTime&lt;=#{endTime}
+        </if>
+    </select>
+
+    <!-- 查询最新表 -->
+    <select id="findMaxTable" parameterType="PageData" resultType="PageData">
+		select
+			a.logTableName,
+			a.beginTime,
+			a.endTime,
+			a.systemTag,
+			a.logIndexId
+        from
+        	log_index a
+        where
+			a.logIndexId=
+		(
+		select
+			max(a.logIndexId)
+		from
+			log_index a
+		where
+			1=1
+			and a.systemTag = #{systemTag}
+        )
+    </select>
+
+    <!-- 批量删除 -->
+    <delete id="deleteAll" parameterType="String">
+        delete from log_index
+        where
+        a.logIndexId
+        in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <insert id="createTable" parameterType="String">
+		CREATE TABLE `${_parameter}`  (
+		  `logId` int(11) NOT NULL AUTO_INCREMENT COMMENT '日志ID',
+		  `systemTag` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '系统标签',
+		  `requestTime` datetime(3) NULL DEFAULT NULL COMMENT '请求时间',
+		  `responseTime` datetime(3) NULL DEFAULT NULL COMMENT '响应时间',
+		  `ip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'ip',
+		  `userId` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户id',
+		  `userName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户名',
+		  `account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '账号',
+		  `annotation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '行为注释',
+		  `requestPath` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求路径',
+		  `requestParameter` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '请求参数',
+		  `responseBody` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '响应内容',
+		  PRIMARY KEY (`logId`) USING BTREE
+		) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+	</insert>
+
+</mapper>

@@ -75,7 +75,7 @@
           <span>{{scope.row.account}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="密码">
+      <el-table-column label="密码" v-if="false">
         <template slot-scope="scope">
           <span>{{scope.row.password}}</span>
         </template>

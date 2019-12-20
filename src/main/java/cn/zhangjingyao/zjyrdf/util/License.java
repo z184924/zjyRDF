@@ -32,14 +32,14 @@ public final class License {
 
 	private License() {
 		prop = new Properties();
-		try {
-			LOGGER.info("parameter config init");
-			InputStream inputStream=this.getClass().getResourceAsStream(PARAMETER_FILE);
-			prop.load(inputStream);
-		} catch (IOException e) {
-			LOGGER.error(e.getMessage());
-			e.printStackTrace();
-		}
+//		try {
+//			LOGGER.info("parameter config init");
+//			InputStream inputStream=this.getClass().getResourceAsStream(PARAMETER_FILE);
+//			prop.load(inputStream);
+//		} catch (IOException e) {
+//			LOGGER.error(e.getMessage());
+//			e.printStackTrace();
+//		}
 	}
 
 	private static String createLicense(String date) throws Exception {
@@ -70,7 +70,7 @@ public final class License {
 
 	public static void main(String[] args){
 		try{
-			System.out.println(createLicense("2018-07-04"));
+			System.out.println(createLicense("2020-07-04"));
 		}catch (Exception e){
 			e.printStackTrace();
 		}

@@ -136,6 +136,7 @@ import UserList from "@/components/system/user/UserList"
 import RoleList from "@/components/system/role/RoleList"
 import RightsList from "@/components/system/rights/RightsList"
 import DemoList from "@/components/demo/demo/DemoList"
+import SystemLogList from "@/components/log/systemlog/SystemLogList"
 export default {
   components: {
     EditPassword,
@@ -146,6 +147,7 @@ export default {
     RoleList,
     RightsList,
     DemoList,
+    SystemLogList,
   },
   computed: {
     mixCurrentUser() {
