@@ -1,24 +1,29 @@
 package cn.zhangjingyao.zjyrdf.util.toekn;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author
  */
+@Component
+@EnableScheduling
 public class TokenPool extends ConcurrentHashMap<String,Token> {
-	
+
+	private Logger logger= LogManager.getLogger(this.getClass());
 	private static final long serialVersionUID = 1L;
 	private static TokenPool tokenPool;
+
 	private TokenPool() {}
 	public static TokenPool getInstance() {
 		if(tokenPool==null) {
 			tokenPool=new TokenPool();
-			cleanPoolTask();
 		}
 		return tokenPool;
 	}
@@ -37,29 +42,15 @@ public class TokenPool extends ConcurrentHashMap<String,Token> {
 		tokenPool.addToken(token);
 		return true;
 	}
-	
-	private static boolean  cleanPoolTask() {
-		ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
-		TimerTask task = new TimerTask() {
-			@Override
-			public void run() {
-				cleanPool();
-			}
-		};
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		try {
-			Date startTime=simpleDateFormat.parse("2017-12-01 00:00:00");
-			scheduledExecutorService.scheduleAtFixedRate(task,startTime.getTime(), 24*60*60*1000, TimeUnit.MILLISECONDS);
-		}catch (Exception e) {
-			System.out.println("TokenPool定时清理任务设置出现异常");
-			return false;
-		}
-		return true;
-	}
-	
-	public static boolean cleanPool() {
+
+	/**
+	 * 定时清理过期Token
+	 * @return
+	 */
+	@Scheduled(cron = "0 0 3 * * *")
+	public boolean cleanPool() {
 		if(tokenPool!=null) {
-			System.out.println("TokenPool Clean Start");
+			logger.info("TokenPool Clean Start");
 			Set<String> keySet = tokenPool.keySet();
 			for (String tokenStr : keySet) {
 				Token token = tokenPool.get(tokenStr);

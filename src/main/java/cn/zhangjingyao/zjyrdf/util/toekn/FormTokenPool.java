@@ -5,13 +5,13 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
-import java.util.TimerTask;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,7 +20,8 @@ import java.util.concurrent.TimeUnit;
  * redisTemplate属性为null时,使用内存存储,否则使用Redis存储
  * @author
  */
-
+@Component
+@EnableScheduling
 public class FormTokenPool extends ConcurrentHashMap<String,Long> {
 
     private Logger logger= LogManager.getLogger(this.getClass());
@@ -34,7 +35,6 @@ public class FormTokenPool extends ConcurrentHashMap<String,Long> {
     public static synchronized FormTokenPool getInstance() {
         if(formTokenPool==null) {
             formTokenPool=new FormTokenPool();
-            formTokenPool.cleanPoolTask();
         }
         return formTokenPool;
     }
@@ -95,23 +95,11 @@ public class FormTokenPool extends ConcurrentHashMap<String,Long> {
         return false;
     }
 
-    private boolean  cleanPoolTask() {
-        ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                cleanPool();
-            }
-        };
-        try {
-            scheduledExecutorService.scheduleAtFixedRate(task,System.currentTimeMillis(), 24*60*60*1000, TimeUnit.MILLISECONDS);
-        }catch (Exception e) {
-            logger.error("FormTokenPool定时清理任务设置出现异常");
-            return false;
-        }
-        return true;
-    }
-
+    /**
+     * 定时清理过期Token
+     * @return
+     */
+    @Scheduled(cron = "0 0 3 * * *")
     public synchronized boolean cleanPool() {
         if(formTokenPool!=null) {
             logger.info("FormTokenPool Clean Start");
