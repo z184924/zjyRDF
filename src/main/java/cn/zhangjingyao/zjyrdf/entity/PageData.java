@@ -72,8 +72,9 @@ public class PageData extends HashMap implements Map {
     /**
      * 将实体转为PageData
      *
-     * @param object
-     * @return
+     * @param clazz 实体类型
+     * @param object 实体
+     * @return 填入数据后的PageData
      */
     public void putEntity(Object object, Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Field[] fields = clazz.getDeclaredFields();
@@ -81,14 +82,13 @@ public class PageData extends HashMap implements Map {
             Method method = clazz.getMethod("get" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1));
             put(field.getName(), method.invoke(object));
         }
-        ;
     }
 
     /**
-     * 将实体转为PageData
+     * 将PageData转为实体
      *
-     * @param clazz
-     * @return
+     * @param clazz 实体类型
+     * @return 填入数据后的实体
      */
     public Object toEntity(Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException {
         Field[] fields = clazz.getDeclaredFields();
@@ -98,7 +98,6 @@ public class PageData extends HashMap implements Map {
             Method method = clazz.getMethod("set" + field.getName().substring(0, 1).toUpperCase() + field.getName().substring(1), field.getClass());
             method.invoke(object, get(field.getName()));
         }
-        ;
         return object;
     }
 
