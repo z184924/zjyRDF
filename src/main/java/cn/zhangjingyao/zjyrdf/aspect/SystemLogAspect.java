@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -55,7 +56,8 @@ public class SystemLogAspect {
         OAuth2Authentication authentication = (OAuth2Authentication) SecurityContextHolder.getContext().getAuthentication();
         OAuth2AccessToken accessToken = customTokenServices.getAccessToken(authentication);
         User user = (User) accessToken.getAdditionalInformation().get("user");
-        cn.zhangjingyao.zjyrdf.annotation.SystemLog annotation = joinPoint.getTarget().getClass().getMethod(joinPoint.getSignature().getName()).getAnnotation(cn.zhangjingyao.zjyrdf.annotation.SystemLog.class);
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        cn.zhangjingyao.zjyrdf.annotation.SystemLog annotation = signature.getMethod().getAnnotation(cn.zhangjingyao.zjyrdf.annotation.SystemLog.class);
         logger.info(annotation.value());
         logger.info(user.getAccount() + ":" + request.getServletPath() + " - " + JSON.toJSON(request.getParameterMap()));
         Object responseBody = joinPoint.proceed();
