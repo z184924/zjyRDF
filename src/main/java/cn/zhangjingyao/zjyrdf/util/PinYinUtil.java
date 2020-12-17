@@ -10,7 +10,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 /**
  * @author
  */
-public class GetPinyin {
+public class PinYinUtil {
 
 	/**
 	 * 获取全拼
@@ -84,8 +84,7 @@ public class GetPinyin {
 	}
 
 	public static void main(String[] args) {
-
-		String cnStr = "中国";
+		String cnStr = "测试 转换";
 		System.out.println(getPinYin(cnStr));
 		System.out.println(getPinYinHeadChar(cnStr));
 	}
