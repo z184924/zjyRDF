@@ -13,12 +13,12 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 public class GetPinyin {
 
 	/**
-	 * 得到 全拼
+	 * 获取全拼
 	 * 
 	 * @param src
 	 * @return
 	 */
-	public static String getPingYin(String src) {
+	public static String getPinYin(String src) {
 		char[] t1 = null;
 		t1 = src.toCharArray();
 		String[] t2 = new String[t1.length];
@@ -47,7 +47,7 @@ public class GetPinyin {
 	}
 
 	/**
-	 * 得到中文首字母
+	 * 获取拼音首字母
 	 * 
 	 * @param str
 	 * @return
@@ -86,7 +86,7 @@ public class GetPinyin {
 	public static void main(String[] args) {
 
 		String cnStr = "中国";
-		System.out.println(getPingYin(cnStr));
+		System.out.println(getPinYin(cnStr));
 		System.out.println(getPinYinHeadChar(cnStr));
 	}
 
