@@ -226,7 +226,7 @@ public class HttpClientUtil {
         if (headers == null) {
             headers = new HashMap<>(1);
         }
-        headers.put(CONTENT_TYPE, ContentType.MULTIPART_FORM_DATA.withCharset(Consts.UTF_8).toString());
+        headers.put(CONTENT_TYPE, ContentType.APPLICATION_FORM_URLENCODED.withCharset(Consts.UTF_8).toString());
         return HttpClientUtil.doPost(url, urlEncodedFormEntity, headers);
     }
 
@@ -247,7 +247,7 @@ public class HttpClientUtil {
         if (headers == null) {
             headers = new HashMap<>(1);
         }
-        headers.put(CONTENT_TYPE, ContentType.APPLICATION_FORM_URLENCODED.withCharset(Consts.UTF_8).toString());
+        headers.put(CONTENT_TYPE, ContentType.MULTIPART_FORM_DATA.withCharset(Consts.UTF_8).toString());
         return HttpClientUtil.doPost(url, httpEntity, headers);
     }
 
