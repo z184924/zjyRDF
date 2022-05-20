@@ -231,7 +231,7 @@ public class HttpClientUtil {
     }
 
     /**
-     * post请求(用于UrlEncodedForm表单)
+     * post请求(用于MultipartForm表单)
      *
      * @param url     url
      * @param params  params
@@ -243,11 +243,12 @@ public class HttpClientUtil {
         MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
         params.forEach(multipartEntityBuilder::addTextBody);
         fileParams.forEach(multipartEntityBuilder::addBinaryBody);
+        multipartEntityBuilder.setCharset(Consts.UTF_8);
         HttpEntity httpEntity = multipartEntityBuilder.build();
         if (headers == null) {
             headers = new HashMap<>(1);
         }
-        headers.put(CONTENT_TYPE, ContentType.MULTIPART_FORM_DATA.withCharset(Consts.UTF_8).toString());
+        headers.put(CONTENT_TYPE, httpEntity.getContentType().getValue());
         return HttpClientUtil.doPost(url, httpEntity, headers);
     }
 
